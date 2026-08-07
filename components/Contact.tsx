@@ -1,10 +1,5 @@
-import {
-  Phone,
-  Mail,
-  Facebook,
-  Instagram,
-  Linkedin,
-} from "lucide-react";
+import { Phone, Mail } from "lucide-react";
+import { FaFacebookF, FaInstagram, FaLinkedinIn, FaWhatsapp } from "react-icons/fa";
 
 export default function Contact() {
   return (
@@ -12,7 +7,7 @@ export default function Contact() {
       id="contact"
       className="bg-[#111111] text-white py-24 px-6"
     >
-      <div className="max-w-4xl mx-auto text-center">
+      <div className="max-w-6xl mx-auto text-center">
 
         <p className="uppercase tracking-[5px] text-orange-500 text-sm">
           Contact
@@ -22,13 +17,12 @@ export default function Contact() {
           Let's Work Together
         </h2>
 
-        <p className="text-gray-400 mt-6 max-w-2xl mx-auto">
-          Whether you're looking for professional photography,
-          expedition documentation, commercial projects,
-          or fine art prints, I'd love to hear from you.
+        <p className="text-gray-400 max-w-2xl mx-auto mt-6 leading-8">
+          Have a photography project, expedition, collaboration or simply want
+          to connect? I'd love to hear from you.
         </p>
 
-        <div className="mt-12 space-y-6">
+        <div className="mt-14 space-y-5">
 
           <div className="flex justify-center items-center gap-3">
             <Phone className="text-orange-500" size={22} />
@@ -49,33 +43,46 @@ export default function Contact() {
 
         </div>
 
-        <div className="flex justify-center gap-8 mt-12">
+        <div className="flex justify-center gap-8 mt-14">
+
+          <a
+            href="https://wa.me/917064672597"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-green-500 transition"
+            aria-label="WhatsApp"
+          >
+            <FaWhatsapp size={32} />
+          </a>
 
           <a
             href="https://www.facebook.com/share/194sJe9cVZ/"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-orange-500 transition"
+            className="hover:text-blue-500 transition"
+            aria-label="Facebook"
           >
-            <Facebook size={30} />
+            <FaFacebookF size={30} />
           </a>
 
           <a
-            href="https://www.instagram.com/debiprasad_21?igsh=MW15eHowN29tZWNybQ=="
+            href="https://www.instagram.com/debiprasad_21"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-orange-500 transition"
+            className="hover:text-pink-500 transition"
+            aria-label="Instagram"
           >
-            <Instagram size={30} />
+            <FaInstagram size={32} />
           </a>
 
           <a
             href="https://www.linkedin.com/in/debiprasadgeology"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-orange-500 transition"
+            className="hover:text-blue-400 transition"
+            aria-label="LinkedIn"
           >
-            <Linkedin size={30} />
+            <FaLinkedinIn size={30} />
           </a>
 
         </div>
