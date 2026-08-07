@@ -39,14 +39,9 @@ const services = [
 
 export default function Services() {
   return (
-    <section
-      id="services"
-      className="bg-black text-white py-24 px-6"
-    >
+    <section id="services" className="bg-black text-white py-24 px-6">
       <div className="max-w-7xl mx-auto">
-
         <div className="text-center">
-
           <p className="uppercase tracking-[5px] text-orange-500 text-sm">
             Services
           </p>
@@ -59,17 +54,17 @@ export default function Services() {
             Photography services crafted for individuals, brands,
             publications, researchers, and explorers.
           </p>
-
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
-
           {services.map((service) => (
             <div
               key={service.title}
               className="bg-zinc-900 rounded-2xl p-8 border border-zinc-800 hover:border-orange-500 hover:-translate-y-2 transition duration-300"
             >
-              <div className="text-5xl">{service.icon}</div>
+              <div className="text-5xl">
+                {service.icon}
+              </div>
 
               <h3 className="text-2xl font-semibold mt-6">
                 {service.title}
@@ -80,9 +75,7 @@ export default function Services() {
               </p>
             </div>
           ))}
-
         </div>
-
       </div>
     </section>
   );
