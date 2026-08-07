@@ -3,15 +3,15 @@ export default function Hero() {
     <section className="min-h-screen bg-black text-white flex items-center justify-center">
       <div className="text-center px-6">
         <p className="text-orange-500 uppercase tracking-[0.3em] mb-4">
-          Welcome to Sublime Studios created by
+          WELCOME TO SUBLIME STUDIOS
         </p>
 
         <h1 className="text-5xl md:text-7xl font-bold">
-          Debiprasad Das
+         Capturing Earth's Extraordinary Stories
         </h1>
 
         <p className="mt-6 text-xl text-gray-300">
-          Geologist • Photographer • Explorer
+          A Creative initiative by a Geologist • Photographer • Explorer
         </p>
 
         <p className="mt-6 max-w-2xl mx-auto text-gray-400 leading-8">
