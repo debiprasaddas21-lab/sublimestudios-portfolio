@@ -3,7 +3,7 @@ export default function Hero() {
     <section className="min-h-screen bg-black text-white flex items-center justify-center">
       <div className="text-center px-6">
         <p className="text-orange-500 uppercase tracking-[0.3em] mb-4">
-          Welcome
+          Welcome to Sublime Studios created by
         </p>
 
         <h1 className="text-5xl md:text-7xl font-bold">
