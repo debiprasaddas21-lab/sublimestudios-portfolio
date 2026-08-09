@@ -56,7 +56,7 @@ export default function Hero() {
       <div className="relative z-10 mx-auto max-w-6xl px-6 py-20 text-center">
 
         {/* Eyebrow */}
-        <p className="mb-5 text-xs md:text-sm tracking-[0.4em] text-orange-500 font-medium">
+       <p className="mb-5 text-xs md:text-sm tracking-[0.4em] text-amber-400 font-medium">
           WELCOME TO SUBLIME STUDIOS
         </p>
 
