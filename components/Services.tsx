@@ -13,7 +13,7 @@ const services = [
     title: "Wildlife Photography",
     description:
       "Documenting wildlife with patience, ethics, and storytelling.",
-    link: "#",
+    link: "/services/wildlife",
   },
   {
     icon: "🔬",
