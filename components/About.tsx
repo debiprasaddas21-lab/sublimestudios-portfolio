@@ -23,31 +23,50 @@ export default function About() {
   return (
     <section
       id="about"
-      className="min-h-screen bg-[#111111] px-6 py-16 md:px-10 lg:px-16"
+      className="min-h-screen bg-[#101010] px-6 py-16 md:px-12 lg:px-20"
     >
-      <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2 lg:gap-16">
+      <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2">
 
-        {/* Dynamic Photograph Slideshow */}
-        <div className="relative h-[520px] overflow-hidden rounded-3xl bg-[#252525] md:h-[620px]">
+        {/* =====================================================
+            LEFT — DYNAMIC PHOTOGRAPH SLIDESHOW
+        ====================================================== */}
+
+        <div className="relative h-[520px] overflow-hidden rounded-3xl bg-[#181818] md:h-[620px]">
 
           {aboutImages.map((image, index) => (
-            <img
+            <div
               key={image}
-              src={image}
-              alt="Sublime Studios photography"
-              className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-[1800ms] ease-in-out ${
+              className={`absolute inset-0 transition-opacity duration-[1800ms] ease-in-out ${
                 index === currentImage
                   ? "opacity-100"
                   : "opacity-0"
               }`}
-            />
+            >
+
+              {/* Blurred background */}
+              <img
+                src={image}
+                alt=""
+                className="absolute inset-0 h-full w-full scale-110 object-cover blur-2xl opacity-30"
+              />
+
+              {/* Full photograph */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <img
+                  src={image}
+                  alt="Sublime Studios photography"
+                  className="h-full w-full object-contain"
+                />
+              </div>
+
+            </div>
           ))}
 
           {/* Subtle cinematic overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/10" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-black/10" />
 
           {/* Slideshow indicators */}
-          <div className="absolute bottom-6 left-6 z-10 flex gap-2">
+          <div className="absolute bottom-6 left-6 z-10 flex items-center gap-2">
             {aboutImages.map((_, index) => (
               <span
                 key={index}
@@ -59,13 +78,18 @@ export default function About() {
               />
             ))}
           </div>
+
         </div>
 
-        {/* About Content */}
+
+        {/* =====================================================
+            RIGHT — ABOUT CONTENT
+        ====================================================== */}
+
         <div className="max-w-2xl">
 
           {/* Eyebrow */}
-          <p className="mb-5 text-xs font-medium tracking-[0.4em] text-amber-500">
+          <p className="mb-6 text-xs font-medium tracking-[0.4em] text-amber-400">
             ABOUT ME
           </p>
 
@@ -77,7 +101,7 @@ export default function About() {
           </h2>
 
           {/* Description */}
-          <p className="mt-8 text-base leading-8 text-gray-400 md:text-lg">
+          <p className="mt-8 text-lg leading-9 text-gray-300">
             I'm a photographer and geologist passionate about documenting
             landscapes, wildlife, and the intricate beauty of minerals.
             Through Sublime Studios, I combine scientific observation with
@@ -89,28 +113,28 @@ export default function About() {
 
             <div className="flex items-center gap-3">
               <span className="text-xl text-orange-500">✓</span>
-              <span className="text-sm text-gray-200 md:text-base">
+              <span className="text-white">
                 Wildlife Photography
               </span>
             </div>
 
             <div className="flex items-center gap-3">
               <span className="text-xl text-orange-500">✓</span>
-              <span className="text-sm text-gray-200 md:text-base">
+              <span className="text-white">
                 Macro Photography
               </span>
             </div>
 
             <div className="flex items-center gap-3">
               <span className="text-xl text-orange-500">✓</span>
-              <span className="text-sm text-gray-200 md:text-base">
+              <span className="text-white">
                 Landscape Photography
               </span>
             </div>
 
             <div className="flex items-center gap-3">
               <span className="text-xl text-orange-500">✓</span>
-              <span className="text-sm text-gray-200 md:text-base">
+              <span className="text-white">
                 Geological Photography
               </span>
             </div>
@@ -119,16 +143,18 @@ export default function About() {
 
           {/* Download Portfolio */}
           <div className="mt-10">
+
             <a
-              href="/portfolio.pdf"
-              download
-              className="inline-flex items-center rounded-full bg-orange-600 px-7 py-3 text-sm font-semibold text-white transition duration-300 hover:bg-orange-700"
+              href="#"
+              className="inline-flex items-center rounded-full bg-orange-600 px-7 py-3.5 text-sm font-semibold text-white transition duration-300 hover:bg-orange-700"
             >
               Download Portfolio
             </a>
+
           </div>
 
         </div>
+
       </div>
     </section>
   );
