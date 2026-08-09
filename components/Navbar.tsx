@@ -1,14 +1,18 @@
 export default function Navbar() {
   return (
-    <header className="fixed top-0 left-0 w-full bg-black/80 backdrop-blur-md border-b border-gray-800 z-50">
-      <div className="max-w-7xl mx-auto flex justify-between items-center px-8 py-5">
+    <header>
+      <div className="flex items-center justify-between">
 
         {/* Logo */}
         <a
           href="#home"
-          className="text-2xl font-bold text-white tracking-widest"
+          className="flex items-center"
         >
-          SUBLIME STUDIOS
+          <img
+            src="/logo.png"
+            alt="Sublime Studios"
+            className="h-14 w-auto object-contain"
+          />
         </a>
 
         {/* Navigation */}
