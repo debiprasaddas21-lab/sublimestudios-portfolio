@@ -1,192 +1,179 @@
-"use client";
+import Image from "next/image";
 
-import { useEffect, useState } from "react";
-import Navbar from "@/components/Navbar";
-
-const photos = Array.from({ length: 15 }, (_, index) => {
-  const number = String(index + 1).padStart(2, "0");
-
-  return {
-    src: `/services/landscape/landscape-${number}.jpg`,
-    title: `Landscape ${number}`,
-  };
-});
+const photographs = [
+  {
+    image: "/services/landscape/landscape-01.jpg",
+    location: "YOUR LOCATION HERE",
+    description: "YOUR DESCRIPTION HERE",
+  },
+  {
+    image: "/services/landscape/landscape-02.jpg",
+    location: "YOUR LOCATION HERE",
+    description: "YOUR DESCRIPTION HERE",
+  },
+  {
+    image: "/services/landscape/landscape-03.jpg",
+    location: "YOUR LOCATION HERE",
+    description: "YOUR DESCRIPTION HERE",
+  },
+  {
+    image: "/services/landscape/landscape-04.jpg",
+    location: "YOUR LOCATION HERE",
+    description: "YOUR DESCRIPTION HERE",
+  },
+  {
+    image: "/services/landscape/landscape-05.jpg",
+    location: "YOUR LOCATION HERE",
+    description: "YOUR DESCRIPTION HERE",
+  },
+  {
+    image: "/services/landscape/landscape-06.jpg",
+    location: "YOUR LOCATION HERE",
+    description: "YOUR DESCRIPTION HERE",
+  },
+  {
+    image: "/services/landscape/landscape-07.jpg",
+    location: "YOUR LOCATION HERE",
+    description: "YOUR DESCRIPTION HERE",
+  },
+  {
+    image: "/services/landscape/landscape-08.jpg",
+    location: "YOUR LOCATION HERE",
+    description: "YOUR DESCRIPTION HERE",
+  },
+  {
+    image: "/services/landscape/landscape-09.jpg",
+    location: "YOUR LOCATION HERE",
+    description: "YOUR DESCRIPTION HERE",
+  },
+  {
+    image: "/services/landscape/landscape-10.jpg",
+    location: "YOUR LOCATION HERE",
+    description: "YOUR DESCRIPTION HERE",
+  },
+  {
+    image: "/services/landscape/landscape-11.jpg",
+    location: "YOUR LOCATION HERE",
+    description: "YOUR DESCRIPTION HERE",
+  },
+  {
+    image: "/services/landscape/landscape-12.jpg",
+    location: "YOUR LOCATION HERE",
+    description: "YOUR DESCRIPTION HERE",
+  },
+  {
+    image: "/services/landscape/landscape-13.jpg",
+    location: "YOUR LOCATION HERE",
+    description: "YOUR DESCRIPTION HERE",
+  },
+  {
+    image: "/services/landscape/landscape-14.jpg",
+    location: "YOUR LOCATION HERE",
+    description: "YOUR DESCRIPTION HERE",
+  },
+  {
+    image: "/services/landscape/landscape-15.jpg",
+    location: "YOUR LOCATION HERE",
+    description: "YOUR DESCRIPTION HERE",
+  },
+];
 
 export default function LandscapePage() {
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-
-  const closeViewer = () => {
-    setSelectedIndex(null);
-  };
-
-  const showPrevious = () => {
-    if (selectedIndex === null) return;
-
-    setSelectedIndex(
-      selectedIndex === 0 ? photos.length - 1 : selectedIndex - 1
-    );
-  };
-
-  const showNext = () => {
-    if (selectedIndex === null) return;
-
-    setSelectedIndex(
-      selectedIndex === photos.length - 1 ? 0 : selectedIndex + 1
-    );
-  };
-
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (selectedIndex === null) return;
-
-      if (event.key === "Escape") {
-        closeViewer();
-      }
-
-      if (event.key === "ArrowLeft") {
-        showPrevious();
-      }
-
-      if (event.key === "ArrowRight") {
-        showNext();
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [selectedIndex]);
-
   return (
     <main className="min-h-screen bg-black text-white">
-      <Navbar />
 
-      {/* PAGE HEADER */}
-      <section className="px-6 pt-32 pb-16">
-        <div className="mx-auto max-w-7xl">
-          <p className="text-sm tracking-[0.45em] text-orange-500 uppercase">
-            Sublime Studios
-          </p>
+      {/* HERO / INTRO */}
+      <section className="px-6 md:px-12 lg:px-20 pt-24 pb-16">
 
-          <div className="mt-5 flex flex-col justify-between gap-8 md:flex-row md:items-end">
-            <div>
-              <h1 className="text-5xl font-bold tracking-tight md:text-7xl">
-                Landscape
-              </h1>
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-10">
 
-              <p className="mt-5 max-w-2xl text-lg leading-8 text-gray-400">
-                Landscapes shaped by light, atmosphere, geography and
-                perspective. A collection of places captured as they were
-                experienced.
-              </p>
-            </div>
+          <div className="max-w-4xl">
 
-            <div className="text-sm tracking-[0.25em] text-gray-500 uppercase">
-              15 Photographs
-            </div>
+            <p className="text-orange-500 tracking-[0.45em] text-sm font-medium">
+              SUBLIME STUDIOS
+            </p>
+
+            <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mt-6">
+              Landscape
+            </h1>
+
+            <p className="text-gray-400 text-lg md:text-xl leading-9 max-w-4xl mt-8">
+              Landscapes shaped by light, atmosphere, geography and perspective.
+              A collection of places captured as they were experienced.
+            </p>
+
           </div>
+
+          {/* CATCHY PHRASE */}
+          <div className="lg:text-right pb-2">
+
+            <p className="text-gray-500 tracking-[0.35em] uppercase text-sm">
+              A Growing Collection
+            </p>
+
+            <p className="text-gray-300 mt-2 text-lg">
+              Places, light &amp; perspectives
+            </p>
+
+          </div>
+
         </div>
       </section>
 
-      {/* COLLAGE */}
-      <section className="px-4 pb-24 md:px-8">
-        <div className="mx-auto max-w-7xl">
-          <div className="columns-1 gap-5 sm:columns-2 lg:columns-3">
-            {photos.map((photo, index) => (
-              <button
-                key={photo.src}
-                type="button"
-                onClick={() => setSelectedIndex(index)}
-                className="group mb-5 block w-full overflow-hidden rounded-2xl bg-zinc-900 text-left"
-              >
-                <img
-                  src={photo.src}
-                  alt={photo.title}
-                  className="block h-auto w-full transition duration-700 ease-out group-hover:scale-[1.025]"
-                  loading={index < 3 ? "eager" : "lazy"}
+
+      {/* PHOTO COLLECTION */}
+      <section className="px-6 md:px-12 lg:px-20 pb-24">
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+          {photographs.map((photo, index) => (
+
+            <article
+              key={photo.image}
+              className="group"
+            >
+
+              {/* IMAGE */}
+              <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-zinc-900">
+
+                <Image
+                  src={photo.image}
+                  alt={photo.description}
+                  fill
+                  priority={index < 3}
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
 
-                {/* HOVER OVERLAY */}
-                <div className="pointer-events-none absolute" />
+                {/* SUBTLE HOVER OVERLAY */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                <div className="relative -mt-16 bg-gradient-to-t from-black/80 via-black/30 to-transparent px-5 pb-5 pt-12 opacity-0 transition duration-300 group-hover:opacity-100">
-                  <span className="text-xs tracking-[0.3em] text-orange-500">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
+              </div>
 
-                  <p className="mt-1 text-sm font-medium text-white">
-                    {photo.title}
-                  </p>
-                </div>
-              </button>
-            ))}
-          </div>
+
+              {/* PHOTO INFORMATION */}
+              <div className="mt-4">
+
+                {/* LOCATION — EDIT THIS IN THE CODE */}
+                <h2 className="text-lg font-medium text-white">
+                  {photo.location}
+                </h2>
+
+                {/* DESCRIPTION — EDIT THIS IN THE CODE */}
+                <p className="text-gray-500 text-sm mt-1 leading-6">
+                  {photo.description}
+                </p>
+
+              </div>
+
+            </article>
+
+          ))}
+
         </div>
+
       </section>
 
-      {/* FULLSCREEN PHOTO VIEWER */}
-      {selectedIndex !== null && (
-        <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4 md:p-10"
-          onClick={closeViewer}
-        >
-          {/* CLOSE BUTTON */}
-          <button
-            type="button"
-            onClick={closeViewer}
-            className="absolute right-5 top-5 z-20 flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/10 text-2xl text-white backdrop-blur-md transition hover:bg-white/20"
-            aria-label="Close"
-          >
-            ×
-          </button>
-
-          {/* PREVIOUS */}
-          <button
-            type="button"
-            onClick={(event) => {
-              event.stopPropagation();
-              showPrevious();
-            }}
-            className="absolute left-4 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-2xl text-white backdrop-blur-md transition hover:bg-white/20 md:left-8"
-            aria-label="Previous photograph"
-          >
-            ‹
-          </button>
-
-          {/* NEXT */}
-          <button
-            type="button"
-            onClick={(event) => {
-              event.stopPropagation();
-              showNext();
-            }}
-            className="absolute right-4 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-2xl text-white backdrop-blur-md transition hover:bg-white/20 md:right-8"
-            aria-label="Next photograph"
-          >
-            ›
-          </button>
-
-          {/* IMAGE */}
-          <div
-            className="relative flex max-h-[90vh] max-w-[90vw] items-center justify-center"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <img
-              src={photos[selectedIndex].src}
-              alt={photos[selectedIndex].title}
-              className="max-h-[88vh] max-w-[88vw] object-contain"
-            />
-
-            {/* IMAGE COUNTER */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full border border-white/20 bg-black/60 px-4 py-2 text-xs tracking-[0.25em] text-white backdrop-blur-md">
-              {String(selectedIndex + 1).padStart(2, "0")} /{" "}
-              {String(photos.length).padStart(2, "0")}
-            </div>
-          </div>
-        </div>
-      )}
     </main>
   );
 }
