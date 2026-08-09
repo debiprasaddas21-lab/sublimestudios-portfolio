@@ -42,12 +42,12 @@ export default function Navbar() {
     <>
       {/* Cinematic Transition Overlay */}
       <div
-        className={`fixed inset-0 z-[100] pointer-events-none backdrop-blur-md bg-black/20 transition-all duration-500 ${
-          isTransitioning
-            ? "opacity-100"
-            : "opacity-0"
-        }`}
-      />
+  className={`fixed inset-0 z-[100] pointer-events-none backdrop-blur-[2px] bg-black/10 transition-all duration-300 ${
+    isTransitioning
+      ? "opacity-100"
+      : "opacity-0"
+  }`}
+/>
 
       {/* Navbar */}
       <header className="fixed top-0 left-0 z-50 w-full border-b border-white/10 bg-black/80 backdrop-blur-sm">
