@@ -3,18 +3,18 @@ import Image from "next/image";
 const photographs = [
   {
     image: "/services/landscape/landscape-01.jpg",
-    location: "YOUR LOCATION HERE",
-    description: "YOUR DESCRIPTION HERE",
+    location: "Near Rani Duduma Waterfall, Odisha, India",
+    description: "A beautiful stram ",
   },
   {
     image: "/services/landscape/landscape-02.jpg",
-    location: "YOUR LOCATION HERE",
-    description: "YOUR DESCRIPTION HERE",
+    location: "The Misty Mountains of Eastern Ghats, Odisha, India",
+    description: "A breathtaking view of the misty mountains during sunrise",
   },
   {
     image: "/services/landscape/landscape-03.jpg",
-    location: "YOUR LOCATION HERE",
-    description: "YOUR DESCRIPTION HERE",
+    location: "The beauty of Rice Fields in Koraput, Odisha, India",
+    description: "The lush green rice fields of Koraput, Odisha, India, captured during the golden hour",
   },
   {
     image: "/services/landscape/landscape-04.jpg",
