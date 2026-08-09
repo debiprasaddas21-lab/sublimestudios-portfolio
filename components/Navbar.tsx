@@ -27,15 +27,15 @@ export default function Navbar() {
     setIsTransitioning(true);
 
     setTimeout(() => {
-      target.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
+  target.scrollIntoView({
+    behavior: "smooth",
+    block: "start",
+  });
 
-      setTimeout(() => {
-        setIsTransitioning(false);
-      }, 500);
-    }, 180);
+  setTimeout(() => {
+    setIsTransitioning(false);
+  }, 350);
+}, 100);
   };
 
   return (
