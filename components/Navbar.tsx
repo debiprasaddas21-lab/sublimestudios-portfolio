@@ -1,23 +1,54 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 export default function Navbar() {
+  const [goldenLogo, setGoldenLogo] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setGoldenLogo((prev) => !prev);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <header>
-      <div className="flex items-center justify-between">
+    <header className="fixed top-0 left-0 z-50 w-full border-b border-white/10 bg-black/80 backdrop-blur-sm">
+      
+      <div className="flex items-center justify-between px-4 py-2">
 
         {/* Logo */}
-<a
-  href="#home"
-  className="flex items-center gap-3"
->
-  <img
-    src="/logo.png"
-    alt="Sublime Studios"
-    className="h-12 w-auto object-contain"
-  />
+        <a
+          href="#home"
+          className="relative flex items-center gap-3"
+        >
 
-  <span className="text-lg font-semibold tracking-[0.25em] text-white">
-    SUBLIME STUDIOS
-  </span>
-</a>
+          {/* White Logo */}
+          <img
+            src="/logo.png"
+            alt="Sublime Studios Logo"
+            className={`h-10 w-10 object-contain transition-opacity duration-700 ${
+              goldenLogo ? "opacity-0" : "opacity-100"
+            }`}
+          />
+
+          {/* Golden Logo */}
+          <img
+            src="/logo_golden.png"
+            alt=""
+            aria-hidden="true"
+            className={`absolute left-0 h-10 w-10 object-contain transition-opacity duration-700 ${
+              goldenLogo ? "opacity-100" : "opacity-0"
+            }`}
+          />
+
+          {/* Studio Name */}
+          <span className="text-lg font-semibold tracking-[0.3em] text-white">
+            SUBLIME STUDIOS
+          </span>
+
+        </a>
 
         {/* Navigation */}
         <nav className="flex gap-10">
@@ -60,6 +91,7 @@ export default function Navbar() {
         </nav>
 
       </div>
+
     </header>
   );
 }
