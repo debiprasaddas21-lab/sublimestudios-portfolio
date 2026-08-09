@@ -45,51 +45,51 @@ export default function Hero() {
           />
         ))}
 
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/65" />
+        {/* Lighter overlay */}
+        <div className="absolute inset-0 bg-black/30" />
 
-        {/* Soft cinematic overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/55 to-black/80" />
+        {/* Subtle cinematic gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/45" />
       </div>
 
       {/* Hero Content */}
-      <div className="relative z-10 mx-auto max-w-7xl px-6 py-24 text-center">
+      <div className="relative z-10 mx-auto max-w-6xl px-6 py-20 text-center">
 
         {/* Eyebrow */}
-        <p className="mb-6 text-sm md:text-base tracking-[0.4em] text-orange-500 font-medium">
+        <p className="mb-5 text-xs md:text-sm tracking-[0.4em] text-orange-500 font-medium">
           WELCOME TO SUBLIME STUDIOS
         </p>
 
         {/* Main Heading */}
-        <h1 className="text-5xl md:text-7xl font-bold text-white">
+        <h1 className="text-4xl md:text-6xl font-bold text-white">
           Capturing Earth's Extraordinary Stories
         </h1>
 
         {/* Subtitle */}
-        <p className="mt-6 text-xl text-gray-200">
+        <p className="mt-5 text-lg md:text-xl text-gray-100">
           A Creative initiative by a Geologist • Photographer • Explorer
         </p>
 
         {/* Description */}
-        <p className="mt-6 max-w-2xl mx-auto text-gray-300 leading-8">
+        <p className="mt-5 max-w-xl mx-auto text-sm md:text-base text-gray-200 leading-7">
           Capturing Earth's stories through scientific exploration and
           photography from microscopic mineral textures to breathtaking
           landscapes.
         </p>
 
         {/* Buttons */}
-        <div className="mt-10 flex justify-center gap-4">
+        <div className="mt-8 flex justify-center gap-3">
 
           <a
             href="#gallery"
-            className="bg-orange-600 hover:bg-orange-700 px-6 py-3 rounded-lg font-semibold text-white transition"
+            className="bg-orange-600 hover:bg-orange-700 px-5 py-2.5 rounded-md text-sm font-semibold text-white transition"
           >
             Explore Portfolio
           </a>
 
           <a
             href="#contact"
-            className="border border-white px-6 py-3 rounded-lg text-white hover:bg-white hover:text-black transition"
+            className="border border-white px-5 py-2.5 rounded-md text-sm text-white hover:bg-white hover:text-black transition"
           >
             Contact Me
           </a>
