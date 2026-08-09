@@ -4,16 +4,20 @@ export default function Navbar() {
       <div className="flex items-center justify-between">
 
         {/* Logo */}
-        <a
-          href="#home"
-          className="flex items-center"
-        >
-          <img
-            src="/logo.png"
-            alt="Sublime Studios"
-            className="h-14 w-auto object-contain"
-          />
-        </a>
+<a
+  href="#home"
+  className="flex items-center gap-3"
+>
+  <img
+    src="/logo.png"
+    alt="Sublime Studios"
+    className="h-12 w-auto object-contain"
+  />
+
+  <span className="text-lg font-semibold tracking-[0.25em] text-white">
+    SUBLIME STUDIOS
+  </span>
+</a>
 
         {/* Navigation */}
         <nav className="flex gap-10">
