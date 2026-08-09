@@ -47,80 +47,109 @@ const services = [
 
 export default function Services() {
   return (
-    <section id="services" className="bg-black text-white py-24">
-      <div className="max-w-7xl mx-auto px-6">
+    <section
+      id="services"
+      className="bg-black px-5 py-16 text-white sm:px-6 sm:py-20 md:px-10 lg:px-16 lg:py-24"
+    >
+      <div className="mx-auto max-w-7xl">
 
-        {/* Section Heading */}
-        <div className="text-center">
-          <p className="text-orange-500 tracking-[0.4em] text-sm font-medium">
+        {/* =====================================================
+            SECTION HEADING
+        ====================================================== */}
+
+        <div className="mx-auto max-w-3xl text-center">
+
+          <p className="text-[10px] font-medium tracking-[0.35em] text-orange-500 sm:text-xs md:text-sm md:tracking-[0.4em]">
             SERVICES
           </p>
 
-          <h2 className="text-5xl font-bold mt-4">
+          <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl md:mt-4 md:text-5xl">
             What I Offer
           </h2>
 
-          <p className="text-gray-400 max-w-2xl mx-auto mt-6">
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-gray-400 sm:mt-6 sm:text-base sm:leading-7">
             Photography services crafted for individuals, brands,
             publications, researchers, and explorers.
           </p>
+
         </div>
 
-        {/* Services Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
+
+        {/* =====================================================
+            SERVICES GRID
+        ====================================================== */}
+
+        <div className="mt-10 grid grid-cols-1 gap-5 sm:mt-12 sm:grid-cols-2 sm:gap-6 lg:mt-16 lg:grid-cols-3 lg:gap-8">
 
           {services.map((service) => (
 
             <Link
               key={service.title}
               href={service.link}
-              className="group block"
+              className="group block h-full"
             >
 
               <div
                 className="
+                  flex
                   h-full
-                  bg-zinc-900
+                  flex-col
                   rounded-2xl
-                  p-8
                   border
                   border-zinc-800
-                  cursor-pointer
-                  hover:border-orange-500
-                  hover:-translate-y-2
+                  bg-zinc-900
+                  p-6
                   transition
                   duration-300
+                  hover:-translate-y-1
+                  hover:border-orange-500
+                  sm:p-7
+                  lg:p-8
                 "
               >
 
                 {/* Icon */}
-                <div className="text-5xl transition duration-300 group-hover:scale-110 origin-left">
+                <div
+                  className="
+                    origin-left
+                    text-4xl
+                    transition
+                    duration-300
+                    group-hover:scale-110
+                    sm:text-5xl
+                  "
+                >
                   {service.icon}
                 </div>
 
+
                 {/* Title */}
-                <h3 className="text-2xl font-semibold mt-6">
+                <h3 className="mt-5 text-xl font-semibold leading-snug sm:mt-6 sm:text-2xl">
                   {service.title}
                 </h3>
 
+
                 {/* Description */}
-                <p className="text-gray-400 mt-4 leading-7">
+                <p className="mt-3 text-sm leading-6 text-gray-400 sm:mt-4 sm:text-base sm:leading-7">
                   {service.description}
                 </p>
 
-                {/* Explore indicator */}
+
+                {/* Explore Indicator */}
                 <div
                   className="
-                    mt-6
-                    text-orange-500
+                    mt-auto
+                    pt-5
                     text-sm
                     font-medium
-                    opacity-0
-                    translate-y-2
-                    group-hover:opacity-100
-                    group-hover:translate-y-0
+                    text-orange-500
                     transition
                     duration-300
+                    sm:pt-6
+                    sm:opacity-0
+                    sm:translate-y-2
+                    sm:group-hover:translate-y-0
+                    sm:group-hover:opacity-100
                   "
                 >
                   Explore Collection →
@@ -133,6 +162,7 @@ export default function Services() {
           ))}
 
         </div>
+
       </div>
     </section>
   );
