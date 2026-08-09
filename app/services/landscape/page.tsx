@@ -4,7 +4,7 @@ const photographs = [
   {
     image: "/services/landscape/landscape-01.jpg",
     location: "Near Rani Duduma Waterfall, Odisha, India",
-    description: "A beautiful stram ",
+    description: "A beautiful stream ",
   },
   {
     image: "/services/landscape/landscape-02.jpg",
