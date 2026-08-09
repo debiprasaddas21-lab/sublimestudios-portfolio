@@ -28,55 +28,41 @@ export default function About() {
       <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2">
 
         {/* =====================================================
-            LEFT — DYNAMIC PHOTOGRAPH SLIDESHOW
+            LEFT — DYNAMIC PHOTOGRAPH
         ====================================================== */}
 
-        <div className="relative h-[520px] overflow-hidden rounded-3xl bg-[#181818] md:h-[620px]">
+        <div className="relative flex items-center justify-center">
 
-          {aboutImages.map((image, index) => (
-            <div
-              key={image}
-              className={`absolute inset-0 transition-opacity duration-[1800ms] ease-in-out ${
-                index === currentImage
-                  ? "opacity-100"
-                  : "opacity-0"
-              }`}
-            >
+          {/* Slideshow */}
+          <div className="relative w-full max-w-[620px] overflow-hidden rounded-3xl">
 
-              {/* Blurred background */}
+            {aboutImages.map((image, index) => (
               <img
+                key={image}
                 src={image}
-                alt=""
-                className="absolute inset-0 h-full w-full scale-110 object-cover blur-2xl opacity-30"
-              />
-
-              {/* Full photograph */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <img
-                  src={image}
-                  alt="Sublime Studios photography"
-                  className="h-full w-full object-contain"
-                />
-              </div>
-
-            </div>
-          ))}
-
-          {/* Subtle cinematic overlay */}
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-black/10" />
-
-          {/* Slideshow indicators */}
-          <div className="absolute bottom-6 left-6 z-10 flex items-center gap-2">
-            {aboutImages.map((_, index) => (
-              <span
-                key={index}
-                className={`h-1 rounded-full transition-all duration-500 ${
+                alt="Sublime Studios photography"
+                className={`block w-full max-h-[680px] rounded-3xl object-contain transition-opacity duration-[1800ms] ease-in-out ${
                   index === currentImage
-                    ? "w-8 bg-amber-400"
-                    : "w-3 bg-white/40"
+                    ? "opacity-100"
+                    : "pointer-events-none absolute inset-0 opacity-0"
                 }`}
               />
             ))}
+
+            {/* Slideshow indicators */}
+            <div className="absolute bottom-5 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2">
+              {aboutImages.map((_, index) => (
+                <span
+                  key={index}
+                  className={`h-1 rounded-full transition-all duration-500 ${
+                    index === currentImage
+                      ? "w-8 bg-amber-400"
+                      : "w-3 bg-white/50"
+                  }`}
+                />
+              ))}
+            </div>
+
           </div>
 
         </div>
@@ -143,14 +129,12 @@ export default function About() {
 
           {/* Download Portfolio */}
           <div className="mt-10">
-
             <a
               href="#"
               className="inline-flex items-center rounded-full bg-orange-600 px-7 py-3.5 text-sm font-semibold text-white transition duration-300 hover:bg-orange-700"
             >
               Download Portfolio
             </a>
-
           </div>
 
         </div>
