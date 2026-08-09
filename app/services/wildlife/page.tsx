@@ -3,56 +3,21 @@
 import { useEffect, useState } from "react";
 
 const photographs = [
-  {
-    image: "/services/wildlife/wildlife-01.jpg",
-    location: "YOUR LOCATION HERE",
-    description: "YOUR DESCRIPTION HERE",
-  },
-  {
-    image: "/services/wildlife/wildlife-02.jpg",
-    location: "YOUR LOCATION HERE",
-    description: "YOUR DESCRIPTION HERE",
-  },
-  {
-    image: "/services/wildlife/wildlife-03.jpg",
-    location: "YOUR LOCATION HERE",
-    description: "YOUR DESCRIPTION HERE",
-  },
-  {
-    image: "/services/wildlife/wildlife-04.jpg",
-    location: "YOUR LOCATION HERE",
-    description: "YOUR DESCRIPTION HERE",
-  },
-  {
-    image: "/services/wildlife/wildlife-05.jpg",
-    location: "YOUR LOCATION HERE",
-    description: "YOUR DESCRIPTION HERE",
-  },
-  {
-    image: "/services/wildlife/wildlife-06.jpg",
-    location: "YOUR LOCATION HERE",
-    description: "YOUR DESCRIPTION HERE",
-  },
-  {
-    image: "/services/wildlife/wildlife-07.jpg",
-    location: "YOUR LOCATION HERE",
-    description: "YOUR DESCRIPTION HERE",
-  },
-  {
-    image: "/services/wildlife/wildlife-08.jpg",
-    location: "YOUR LOCATION HERE",
-    description: "YOUR DESCRIPTION HERE",
-  },
-  {
-    image: "/services/wildlife/wildlife-09.jpg",
-    location: "YOUR LOCATION HERE",
-    description: "YOUR DESCRIPTION HERE",
-  },
-  {
-    image: "/services/wildlife/wildlife-10.jpg",
-    location: "YOUR LOCATION HERE",
-    description: "YOUR DESCRIPTION HERE",
-  },
+  "/services/wildlife/wildlife-01.jpg",
+  "/services/wildlife/wildlife-02.jpg",
+  "/services/wildlife/wildlife-03.jpg",
+  "/services/wildlife/wildlife-04.jpg",
+  "/services/wildlife/wildlife-05.jpg",
+  "/services/wildlife/wildlife-06.jpg",
+  "/services/wildlife/wildlife-07.jpg",
+  "/services/wildlife/wildlife-08.jpg",
+  "/services/wildlife/wildlife-09.jpg",
+  "/services/wildlife/wildlife-10.jpg",
+  "/services/wildlife/wildlife-11.jpg",
+  "/services/wildlife/wildlife-12.jpg",
+  "/services/wildlife/wildlife-13.jpg",
+  "/services/wildlife/wildlife-14.jpg",
+  "/services/wildlife/wildlife-15.jpg",
 ];
 
 export default function WildlifePage() {
@@ -117,12 +82,14 @@ export default function WildlifePage() {
 
         <div className="mx-auto max-w-7xl">
 
+          {/* Eyebrow */}
           <p className="text-[10px] font-medium uppercase tracking-[0.4em] text-orange-500 sm:text-xs md:text-sm">
             SUBLIME STUDIOS
           </p>
 
           <div className="mt-5 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
 
+            {/* Heading & Description */}
             <div className="max-w-4xl">
 
               <h1 className="text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl">
@@ -137,6 +104,7 @@ export default function WildlifePage() {
 
             </div>
 
+            {/* Collection Phrase */}
             <div className="pb-1 lg:text-right">
 
               <p className="text-[10px] uppercase tracking-[0.35em] text-gray-500 sm:text-xs">
@@ -157,7 +125,8 @@ export default function WildlifePage() {
 
 
       {/* =====================================================
-          PHOTO COLLECTION
+          PHOTOGRAPHY COLLAGE
+          Original aspect ratios preserved
       ====================================================== */}
 
       <section className="px-5 pb-20 sm:px-6 md:px-10 lg:px-16 lg:pb-24">
@@ -168,47 +137,32 @@ export default function WildlifePage() {
 
             {photographs.map((photo, index) => (
 
-              <article
-                key={photo.image}
+              <div
+                key={photo}
                 className="group mb-5 break-inside-avoid"
               >
 
-                {/* Photograph */}
                 <button
                   type="button"
                   onClick={() => setSelectedIndex(index)}
-                  className="relative block w-full overflow-hidden rounded-2xl bg-zinc-900 text-left"
+                  className="relative block w-full overflow-hidden rounded-2xl bg-zinc-900"
+                  aria-label={`Open wildlife photograph ${index + 1}`}
                 >
 
+                  {/* ORIGINAL IMAGE RATIO — NO CROP */}
                   <img
-                    src={photo.image}
-                    alt={photo.description}
+                    src={photo}
+                    alt={`Wildlife photograph ${index + 1}`}
                     className="block h-auto w-full transition duration-700 ease-out group-hover:scale-[1.025]"
                     loading={index < 3 ? "eager" : "lazy"}
                   />
 
-                  {/* Hover overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 transition duration-500 group-hover:opacity-100" />
+                  {/* Subtle hover effect */}
+                  <div className="absolute inset-0 bg-black/10 opacity-0 transition duration-500 group-hover:opacity-100" />
 
                 </button>
 
-
-                {/* Photograph Information */}
-                <div className="mt-4 px-1">
-
-                  {/* LOCATION — EDIT THIS */}
-                  <h2 className="text-base font-medium text-white sm:text-lg">
-                    {photo.location}
-                  </h2>
-
-                  {/* DESCRIPTION — EDIT THIS */}
-                  <p className="mt-1 text-xs leading-6 text-gray-500 sm:text-sm">
-                    {photo.description}
-                  </p>
-
-                </div>
-
-              </article>
+              </div>
 
             ))}
 
@@ -220,7 +174,7 @@ export default function WildlifePage() {
 
 
       {/* =====================================================
-          FULLSCREEN VIEWER
+          FULLSCREEN PHOTO VIEWER
       ====================================================== */}
 
       {selectedIndex !== null && (
@@ -235,7 +189,7 @@ export default function WildlifePage() {
             type="button"
             onClick={closeViewer}
             className="absolute right-4 top-4 z-20 flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-2xl text-white backdrop-blur-md transition hover:bg-white/20 sm:right-6 sm:top-6"
-            aria-label="Close"
+            aria-label="Close photograph"
           >
             ×
           </button>
@@ -269,18 +223,17 @@ export default function WildlifePage() {
           </button>
 
 
-          {/* Image */}
+          {/* FULL ORIGINAL IMAGE */}
           <div
             className="relative flex max-h-[90vh] max-w-[90vw] items-center justify-center"
             onClick={(event) => event.stopPropagation()}
           >
 
             <img
-              src={photographs[selectedIndex].image}
-              alt={photographs[selectedIndex].description}
+              src={photographs[selectedIndex]}
+              alt={`Wildlife photograph ${selectedIndex + 1}`}
               className="max-h-[88vh] max-w-[88vw] object-contain"
             />
-
 
             {/* Counter */}
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full border border-white/20 bg-black/60 px-4 py-2 text-[10px] tracking-[0.25em] text-white backdrop-blur-md sm:text-xs">
