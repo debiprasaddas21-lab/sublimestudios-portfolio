@@ -96,7 +96,7 @@ export default function MacroPage() {
 
               <p className="mt-5 max-w-3xl text-sm leading-7 text-gray-400 sm:text-base sm:leading-8 md:text-lg">
                 A closer look at the extraordinary details hidden within
-                the natural world — textures, patterns, forms and moments
+                the natural world textures, patterns, forms and moments
                 that often escape the naked eye.
               </p>
 
