@@ -15,7 +15,7 @@ const photographs = [
   "/services/macro/macro-10.jpeg",
   "/services/macro/macro-11.jpeg",
   "/services/macro/macro-12.jpeg",
-  "/services/macro/macro-13.webp",
+  "/services/macro/macro-13.jpeg",
   "/services/macro/macro-14.jpeg",
   "/services/macro/macro-15.jpeg",
 ];
@@ -74,9 +74,7 @@ export default function MacroPage() {
   return (
     <main className="min-h-screen bg-black text-white">
 
-      {/* =====================================================
-          PAGE INTRO
-      ====================================================== */}
+      {/* Page Introduction */}
 
       <section className="px-5 pt-24 pb-14 sm:px-6 sm:pt-28 sm:pb-16 md:px-10 lg:px-16">
 
@@ -96,7 +94,7 @@ export default function MacroPage() {
 
               <p className="mt-5 max-w-3xl text-sm leading-7 text-gray-400 sm:text-base sm:leading-8 md:text-lg">
                 A closer look at the extraordinary details hidden within
-                the natural world textures, patterns, forms and moments
+                the natural world. Textures, patterns, forms and moments
                 that often escape the naked eye.
               </p>
 
@@ -121,10 +119,7 @@ export default function MacroPage() {
       </section>
 
 
-      {/* =====================================================
-          PHOTOGRAPHY COLLAGE
-          ORIGINAL ASPECT RATIOS — NO CROP
-      ====================================================== */}
+      {/* Photography Collage */}
 
       <section className="px-5 pb-20 sm:px-6 md:px-10 lg:px-16 lg:pb-24">
 
@@ -146,7 +141,6 @@ export default function MacroPage() {
                   aria-label={`Open macro photograph ${index + 1}`}
                 >
 
-                  {/* ORIGINAL IMAGE — NO CROP */}
                   <img
                     src={photo}
                     alt={`Macro photograph ${index + 1}`}
@@ -154,7 +148,6 @@ export default function MacroPage() {
                     loading={index < 3 ? "eager" : "lazy"}
                   />
 
-                  {/* Subtle hover effect */}
                   <div className="absolute inset-0 bg-black/10 opacity-0 transition duration-500 group-hover:opacity-100" />
 
                 </button>
@@ -170,9 +163,7 @@ export default function MacroPage() {
       </section>
 
 
-      {/* =====================================================
-          FULLSCREEN PHOTO VIEWER
-      ====================================================== */}
+      {/* Fullscreen Photo Viewer */}
 
       {selectedIndex !== null && (
 
@@ -181,7 +172,8 @@ export default function MacroPage() {
           onClick={closeViewer}
         >
 
-          {/* Close */}
+          {/* Close Button */}
+
           <button
             type="button"
             onClick={closeViewer}
@@ -192,7 +184,8 @@ export default function MacroPage() {
           </button>
 
 
-          {/* Previous */}
+          {/* Previous Button */}
+
           <button
             type="button"
             onClick={(event) => {
@@ -206,7 +199,8 @@ export default function MacroPage() {
           </button>
 
 
-          {/* Next */}
+          {/* Next Button */}
+
           <button
             type="button"
             onClick={(event) => {
@@ -220,7 +214,8 @@ export default function MacroPage() {
           </button>
 
 
-          {/* FULL ORIGINAL IMAGE */}
+          {/* Original Photograph */}
+
           <div
             className="relative flex max-h-[90vh] max-w-[90vw] items-center justify-center"
             onClick={(event) => event.stopPropagation()}
@@ -232,7 +227,8 @@ export default function MacroPage() {
               className="max-h-[88vh] max-w-[88vw] object-contain"
             />
 
-            {/* Counter */}
+            {/* Photograph Counter */}
+
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full border border-white/20 bg-black/60 px-4 py-2 text-[10px] tracking-[0.25em] text-white backdrop-blur-md sm:text-xs">
               {String(selectedIndex + 1).padStart(2, "0")} /{" "}
               {String(photographs.length).padStart(2, "0")}
