@@ -15,7 +15,7 @@ const photographs = [
   "/services/macro/macro-10.jpeg",
   "/services/macro/macro-11.jpeg",
   "/services/macro/macro-12.jpeg",
-  "/services/macro/macro-13.jpeg",
+  "/services/macro/macro-13.webp",
   "/services/macro/macro-14.jpeg",
   "/services/macro/macro-15.jpeg",
 ];
@@ -74,13 +74,13 @@ export default function MacroPage() {
   return (
     <main className="min-h-screen bg-black text-white">
 
-      {/* Page Introduction */}
+      {/* INTRO */}
 
-      <section className="px-5 pt-24 pb-14 sm:px-6 sm:pt-28 sm:pb-16 md:px-10 lg:px-16">
+      <section className="px-5 pt-24 pb-14 sm:px-6 sm:pt-28 md:px-10 lg:px-16">
 
         <div className="mx-auto max-w-7xl">
 
-          <p className="text-[10px] font-medium uppercase tracking-[0.4em] text-orange-500 sm:text-xs md:text-sm">
+          <p className="text-xs font-medium uppercase tracking-[0.4em] text-orange-500">
             SUBLIME STUDIOS
           </p>
 
@@ -100,9 +100,9 @@ export default function MacroPage() {
 
             </div>
 
-            <div className="pb-1 lg:text-right">
+            <div className="lg:text-right">
 
-              <p className="text-[10px] uppercase tracking-[0.35em] text-gray-500 sm:text-xs">
+              <p className="text-xs uppercase tracking-[0.35em] text-gray-500">
                 A Growing Collection
               </p>
 
@@ -119,9 +119,9 @@ export default function MacroPage() {
       </section>
 
 
-      {/* Photography Collage */}
+      {/* PHOTOGRAPHY COLLAGE */}
 
-      <section className="px-5 pb-20 sm:px-6 md:px-10 lg:px-16 lg:pb-24">
+      <section className="px-5 pb-20 sm:px-6 md:px-10 lg:px-16">
 
         <div className="mx-auto max-w-7xl">
 
@@ -144,7 +144,7 @@ export default function MacroPage() {
                   <img
                     src={photo}
                     alt={`Macro photograph ${index + 1}`}
-                    className="block h-auto w-full transition duration-700 ease-out group-hover:scale-[1.025]"
+                    className="block h-auto w-full transition duration-700 ease-out group-hover:scale-[1.02]"
                     loading={index < 3 ? "eager" : "lazy"}
                   />
 
@@ -163,28 +163,28 @@ export default function MacroPage() {
       </section>
 
 
-      {/* Fullscreen Photo Viewer */}
+      {/* FULLSCREEN VIEWER */}
 
       {selectedIndex !== null && (
 
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4 sm:p-8 md:p-10"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4 sm:p-8"
           onClick={closeViewer}
         >
 
-          {/* Close Button */}
+          {/* CLOSE */}
 
           <button
             type="button"
             onClick={closeViewer}
-            className="absolute right-4 top-4 z-20 flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-2xl text-white backdrop-blur-md transition hover:bg-white/20 sm:right-6 sm:top-6"
+            className="absolute right-5 top-5 z-20 flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-2xl text-white backdrop-blur-md transition hover:bg-white/20"
             aria-label="Close photograph"
           >
             ×
           </button>
 
 
-          {/* Previous Button */}
+          {/* PREVIOUS */}
 
           <button
             type="button"
@@ -192,14 +192,14 @@ export default function MacroPage() {
               event.stopPropagation();
               showPrevious();
             }}
-            className="absolute left-3 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-2xl text-white backdrop-blur-md transition hover:bg-white/20 sm:left-6 sm:h-12 sm:w-12"
+            className="absolute left-3 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-2xl text-white backdrop-blur-md transition hover:bg-white/20 sm:left-6"
             aria-label="Previous photograph"
           >
             ‹
           </button>
 
 
-          {/* Next Button */}
+          {/* NEXT */}
 
           <button
             type="button"
@@ -207,17 +207,17 @@ export default function MacroPage() {
               event.stopPropagation();
               showNext();
             }}
-            className="absolute right-3 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-2xl text-white backdrop-blur-md transition hover:bg-white/20 sm:right-6 sm:h-12 sm:w-12"
+            className="absolute right-3 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-2xl text-white backdrop-blur-md transition hover:bg-white/20 sm:right-6"
             aria-label="Next photograph"
           >
             ›
           </button>
 
 
-          {/* Original Photograph */}
+          {/* IMAGE */}
 
           <div
-            className="relative flex max-h-[90vh] max-w-[90vw] items-center justify-center"
+            className="flex max-h-[90vh] max-w-[90vw] items-center justify-center"
             onClick={(event) => event.stopPropagation()}
           >
 
@@ -227,13 +227,13 @@ export default function MacroPage() {
               className="max-h-[88vh] max-w-[88vw] object-contain"
             />
 
-            {/* Photograph Counter */}
+          </div>
 
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full border border-white/20 bg-black/60 px-4 py-2 text-[10px] tracking-[0.25em] text-white backdrop-blur-md sm:text-xs">
-              {String(selectedIndex + 1).padStart(2, "0")} /{" "}
-              {String(photographs.length).padStart(2, "0")}
-            </div>
 
+          {/* COUNTER */}
+
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 rounded-full border border-white/20 bg-black/60 px-4 py-2 text-xs tracking-[0.25em] text-white backdrop-blur-md">
+            {String(selectedIndex + 1).padStart(2, "0")} / 15
           </div>
 
         </div>
