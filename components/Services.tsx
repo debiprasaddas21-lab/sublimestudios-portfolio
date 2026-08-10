@@ -20,7 +20,7 @@ const services = [
     title: "Macro Photography",
     description:
       "Revealing the hidden beauty of minerals, insects, and microscopic textures.",
-    link: "#",
+    link: "/services/macro",
   },
   {
     icon: "🧭",
