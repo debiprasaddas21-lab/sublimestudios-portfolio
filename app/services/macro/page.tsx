@@ -3,21 +3,21 @@
 import { useEffect, useState } from "react";
 
 const photographs = [
-  "/services/macro/macro-01.jpg",
-  "/services/macro/macro-02.jpg",
-  "/services/macro/macro-03.jpg",
-  "/services/macro/macro-04.jpg",
-  "/services/macro/macro-05.jpg",
-  "/services/macro/macro-06.jpg",
-  "/services/macro/macro-07.jpg",
-  "/services/macro/macro-08.jpg",
-  "/services/macro/macro-09.jpg",
-  "/services/macro/macro-10.jpg",
-  "/services/macro/macro-11.jpg",
-  "/services/macro/macro-12.jpg",
-  "/services/macro/macro-13.jpg",
-  "/services/macro/macro-14.jpg",
-  "/services/macro/macro-15.jpg",
+  "/services/macro/macro-01.jpeg",
+  "/services/macro/macro-02.jpeg",
+  "/services/macro/macro-03.jpeg",
+  "/services/macro/macro-04.jpeg",
+  "/services/macro/macro-05.jpeg",
+  "/services/macro/macro-06.jpeg",
+  "/services/macro/macro-07.jpeg",
+  "/services/macro/macro-08.jpeg",
+  "/services/macro/macro-09.jpeg",
+  "/services/macro/macro-10.jpeg",
+  "/services/macro/macro-11.jpeg",
+  "/services/macro/macro-12.jpeg",
+  "/services/macro/macro-13.webp",
+  "/services/macro/macro-14.jpeg",
+  "/services/macro/macro-15.jpeg",
 ];
 
 export default function MacroPage() {
