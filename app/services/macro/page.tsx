@@ -3,21 +3,21 @@
 import { useEffect, useState } from "react";
 
 const photographs = [
-  "/macro/macro-01.jpg",
-  "/macro/macro-02.jpg",
-  "/macro/macro-03.jpg",
-  "/macro/macro-04.jpg",
-  "/macro/macro-05.jpg",
-  "/macro/macro-06.jpg",
-  "/macro/macro-07.jpg",
-  "/macro/macro-08.jpg",
-  "/macro/macro-09.jpg",
-  "/macro/macro-10.jpg",
-  "/macro/macro-11.jpg",
-  "/macro/macro-12.jpg",
-  "/macro/macro-13.jpg",
-  "/macro/macro-14.jpg",
-  "/macro/macro-15.jpg",
+  "/services/macro/macro-01.jpg",
+  "/services/macro/macro-02.jpg",
+  "/services/macro/macro-03.jpg",
+  "/services/macro/macro-04.jpg",
+  "/services/macro/macro-05.jpg",
+  "/services/macro/macro-06.jpg",
+  "/services/macro/macro-07.jpg",
+  "/services/macro/macro-08.jpg",
+  "/services/macro/macro-09.jpg",
+  "/services/macro/macro-10.jpg",
+  "/services/macro/macro-11.jpg",
+  "/services/macro/macro-12.jpg",
+  "/services/macro/macro-13.jpg",
+  "/services/macro/macro-14.jpg",
+  "/services/macro/macro-15.jpg",
 ];
 
 export default function MacroPage() {
@@ -82,14 +82,12 @@ export default function MacroPage() {
 
         <div className="mx-auto max-w-7xl">
 
-          {/* Eyebrow */}
           <p className="text-[10px] font-medium uppercase tracking-[0.4em] text-orange-500 sm:text-xs md:text-sm">
             SUBLIME STUDIOS
           </p>
 
           <div className="mt-5 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
 
-            {/* Heading */}
             <div className="max-w-4xl">
 
               <h1 className="text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl">
@@ -104,7 +102,6 @@ export default function MacroPage() {
 
             </div>
 
-            {/* Collection Phrase */}
             <div className="pb-1 lg:text-right">
 
               <p className="text-[10px] uppercase tracking-[0.35em] text-gray-500 sm:text-xs">
@@ -126,7 +123,7 @@ export default function MacroPage() {
 
       {/* =====================================================
           PHOTOGRAPHY COLLAGE
-          Original aspect ratios preserved
+          ORIGINAL ASPECT RATIOS — NO CROP
       ====================================================== */}
 
       <section className="px-5 pb-20 sm:px-6 md:px-10 lg:px-16 lg:pb-24">
@@ -149,7 +146,7 @@ export default function MacroPage() {
                   aria-label={`Open macro photograph ${index + 1}`}
                 >
 
-                  {/* ORIGINAL IMAGE RATIO — NO CROP */}
+                  {/* ORIGINAL IMAGE — NO CROP */}
                   <img
                     src={photo}
                     alt={`Macro photograph ${index + 1}`}
@@ -223,7 +220,7 @@ export default function MacroPage() {
           </button>
 
 
-          {/* Full Original Image */}
+          {/* FULL ORIGINAL IMAGE */}
           <div
             className="relative flex max-h-[90vh] max-w-[90vw] items-center justify-center"
             onClick={(event) => event.stopPropagation()}
