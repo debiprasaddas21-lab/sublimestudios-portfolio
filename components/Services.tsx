@@ -23,11 +23,11 @@ const services = [
     link: "/services/macro",
   },
   {
-    icon: "🧭",
-    title: "Expedition Documentation",
-    description:
-      "Visual storytelling from geological surveys, expeditions, and remote locations.",
-    link: "#",
+  icon: "🪔",
+  title: "Culture & Festivals",
+  description:
+    "Capturing traditions, celebrations, rituals, and the spiritual moments that bring communities together.",
+  link: "#",
   },
   {
     icon: "📸",
