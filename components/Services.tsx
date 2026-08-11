@@ -44,7 +44,7 @@ const services = [
     description:
       "Professional imagery for brands, tourism, and promotional campaigns.",
     image: "/services/commercial/commercial-01.jpg",
-    link: "#",
+    link: "/services/commercial",
   },
   {
     category: "ART & HERITAGE",
