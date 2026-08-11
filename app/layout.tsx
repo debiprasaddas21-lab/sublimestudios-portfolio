@@ -16,9 +16,6 @@ export const metadata: Metadata = {
   title: "Sublime Studios",
   description:
     "Sublime Studios | Photography by a Geologist, Photographer and Explorer",
-  icons: {
-    icon: "public/logo_golden.png",
-  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
