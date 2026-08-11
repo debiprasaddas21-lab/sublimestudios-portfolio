@@ -27,7 +27,7 @@ const services = [
   title: "Culture & Festivals",
   description:
     "Capturing traditions, celebrations, rituals, and the spiritual moments that bring communities together.",
-  link: "#",
+  link: "/services/culture",
   },
   {
     icon: "📸",
