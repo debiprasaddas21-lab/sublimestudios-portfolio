@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import ImageLoader from "@/components/ImageLoader";
 
 const services = [
   {
@@ -134,9 +135,7 @@ export default function Services() {
             <div className="mt-6 flex items-center gap-2">
 
               <span className="loading-dot" />
-
               <span className="loading-dot delay-1" />
-
               <span className="loading-dot delay-2" />
 
             </div>
@@ -200,16 +199,13 @@ export default function Services() {
               "
             >
 
-              {/* Background Image */}
+              {/* Background Image With Loading Animation */}
 
-              <img
+              <ImageLoader
                 src={service.image}
                 alt={service.title}
-                className="
-                  absolute
-                  inset-0
-                  h-full
-                  w-full
+                className="absolute inset-0 h-full w-full"
+                imageClassName="
                   object-cover
                   transition-transform
                   duration-700
@@ -223,8 +219,10 @@ export default function Services() {
 
               <div
                 className="
+                  pointer-events-none
                   absolute
                   inset-0
+                  z-[2]
                   bg-gradient-to-b
                   from-black/65
                   via-black/20
@@ -343,6 +341,7 @@ export default function Services() {
                   pointer-events-none
                   absolute
                   inset-0
+                  z-20
                   rounded-2xl
                   border
                   border-transparent
