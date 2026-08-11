@@ -29,8 +29,10 @@ html {
   scroll-behavior: smooth;
 }
 
+
 /* =========================================================
-   SUBLIME STUDIOS LOADING SCREEN
+   SUBLIME STUDIOS
+   INTERNAL LOADING ANIMATIONS
 ========================================================= */
 
 @keyframes logoWhite {
@@ -66,7 +68,9 @@ html {
 }
 
 
-/* Loading dots */
+/* =========================================================
+   LOADING DOTS
+========================================================= */
 
 @keyframes loadingDot {
   0%,
@@ -99,6 +103,7 @@ html {
   animation-delay: 0.3s;
 }
 
+
 /* =========================================================
    SUBLIME STUDIOS
    CINEMATIC CAMERA APERTURE LOADER
@@ -123,16 +128,42 @@ html {
   overflow: hidden;
 }
 
+
+/* =========================================================
+   APERTURE BLADES
+========================================================= */
+
 .aperture-blades {
   transform-origin: 500px 500px;
 }
 
 .aperture-blade {
-  fill: #000000;
+  fill: url(#bladeMetal);
+  stroke: #8a8e95;
+  stroke-width: 2;
   transform-box: fill-box;
   transform-origin: 500px 500px;
   transform: rotate(var(--blade-angle));
   will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  contain: layout paint;
+}
+
+
+/* =========================================================
+   BLADE HIGHLIGHT
+========================================================= */
+
+.aperture-blade-highlight {
+  fill: url(#bladeHighlight);
+  stroke: rgba(255, 255, 255, 0.15);
+  stroke-width: 1;
+  transform-box: fill-box;
+  transform-origin: 500px 500px;
+  transform: rotate(var(--blade-angle));
+  will-change: transform;
+  pointer-events: none;
 }
 
 
@@ -140,36 +171,24 @@ html {
    INITIAL APERTURE MOVEMENT
 ========================================================= */
 
-.aperture-blade:nth-child(1) {
+.aperture-blade:nth-child(1),
+.aperture-blade-highlight:nth-child(2) {
   animation: apertureIdle1 2.8s ease-in-out infinite;
 }
 
-.aperture-blade:nth-child(2) {
+.aperture-blade:nth-child(3),
+.aperture-blade-highlight:nth-child(4) {
   animation: apertureIdle2 2.8s ease-in-out infinite;
 }
 
-.aperture-blade:nth-child(3) {
+.aperture-blade:nth-child(5),
+.aperture-blade-highlight:nth-child(6) {
   animation: apertureIdle3 2.8s ease-in-out infinite;
 }
 
-.aperture-blade:nth-child(4) {
+.aperture-blade:nth-child(7),
+.aperture-blade-highlight:nth-child(8) {
   animation: apertureIdle4 2.8s ease-in-out infinite;
-}
-
-.aperture-blade:nth-child(5) {
-  animation: apertureIdle5 2.8s ease-in-out infinite;
-}
-
-.aperture-blade:nth-child(6) {
-  animation: apertureIdle6 2.8s ease-in-out infinite;
-}
-
-.aperture-blade:nth-child(7) {
-  animation: apertureIdle7 2.8s ease-in-out infinite;
-}
-
-.aperture-blade:nth-child(8) {
-  animation: apertureIdle8 2.8s ease-in-out infinite;
 }
 
 
@@ -180,120 +199,84 @@ html {
 @keyframes apertureIdle1 {
   0%,
   100% {
-    transform: rotate(0deg) translate(0, 0);
+    transform:
+      rotate(var(--blade-angle))
+      translate(0, 0);
   }
 
   45% {
-    transform: rotate(0deg) translate(0, -7px);
+    transform:
+      rotate(var(--blade-angle))
+      translate(0, -7px);
   }
 
   60% {
-    transform: rotate(0deg) translate(0, 1px);
+    transform:
+      rotate(var(--blade-angle))
+      translate(0, 1px);
   }
 }
 
 @keyframes apertureIdle2 {
   0%,
   100% {
-    transform: rotate(45deg) translate(0, 0);
+    transform:
+      rotate(var(--blade-angle))
+      translate(0, 0);
   }
 
   45% {
-    transform: rotate(45deg) translate(0, -7px);
+    transform:
+      rotate(var(--blade-angle))
+      translate(0, -7px);
   }
 
   60% {
-    transform: rotate(45deg) translate(0, 1px);
+    transform:
+      rotate(var(--blade-angle))
+      translate(0, 1px);
   }
 }
 
 @keyframes apertureIdle3 {
   0%,
   100% {
-    transform: rotate(90deg) translate(0, 0);
+    transform:
+      rotate(var(--blade-angle))
+      translate(0, 0);
   }
 
   45% {
-    transform: rotate(90deg) translate(0, -7px);
+    transform:
+      rotate(var(--blade-angle))
+      translate(0, -7px);
   }
 
   60% {
-    transform: rotate(90deg) translate(0, 1px);
+    transform:
+      rotate(var(--blade-angle))
+      translate(0, 1px);
   }
 }
 
 @keyframes apertureIdle4 {
   0%,
   100% {
-    transform: rotate(135deg) translate(0, 0);
+    transform:
+      rotate(var(--blade-angle))
+      translate(0, 0);
   }
 
   45% {
-    transform: rotate(135deg) translate(0, -7px);
+    transform:
+      rotate(var(--blade-angle))
+      translate(0, -7px);
   }
 
   60% {
-    transform: rotate(135deg) translate(0, 1px);
-  }
-}
-
-@keyframes apertureIdle5 {
-  0%,
-  100% {
-    transform: rotate(180deg) translate(0, 0);
-  }
-
-  45% {
-    transform: rotate(180deg) translate(0, -7px);
-  }
-
-  60% {
-    transform: rotate(180deg) translate(0, 1px);
-  }
-}
-
-@keyframes apertureIdle6 {
-  0%,
-  100% {
-    transform: rotate(225deg) translate(0, 0);
-  }
-
-  45% {
-    transform: rotate(225deg) translate(0, -7px);
-  }
-
-  60% {
-    transform: rotate(225deg) translate(0, 1px);
-  }
-}
-
-@keyframes apertureIdle7 {
-  0%,
-  100% {
-    transform: rotate(270deg) translate(0, 0);
-  }
-
-  45% {
-    transform: rotate(270deg) translate(0, -7px);
-  }
-
-  60% {
-    transform: rotate(270deg) translate(0, 1px);
-  }
-}
-
-@keyframes apertureIdle8 {
-  0%,
-  100% {
-    transform: rotate(315deg) translate(0, 0);
-  }
-
-  45% {
-    transform: rotate(315deg) translate(0, -7px);
-  }
-
-  60% {
-    transform: rotate(315deg) translate(0, 1px);
+    transform:
+      rotate(var(--blade-angle))
+      translate(0, 1px);
   }
 }
 
@@ -302,7 +285,8 @@ html {
    FINAL APERTURE OPENING
 ========================================================= */
 
-.aperture-loader-opening .aperture-blade {
+.aperture-loader-opening .aperture-blade,
+.aperture-loader-opening .aperture-blade-highlight {
   animation: apertureOpen 1.25s cubic-bezier(0.22, 0.8, 0.2, 1) forwards;
 }
 
@@ -386,7 +370,9 @@ html {
 }
 
 
-/* Hide branding during final reveal */
+/* =========================================================
+   HIDE BRANDING DURING FINAL REVEAL
+========================================================= */
 
 .aperture-loader-opening .aperture-brand {
   opacity: 0;
@@ -428,13 +414,10 @@ html {
 .aperture-loader,
 .aperture-svg,
 .aperture-blades,
-.aperture-blade {
+.aperture-blade,
+.aperture-blade-highlight {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-}
-
-.aperture-blade {
-  contain: layout paint;
 }
 
 
@@ -443,11 +426,13 @@ html {
 ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
-  .aperture-blade {
+  .aperture-blade,
+  .aperture-blade-highlight {
     animation: none !important;
   }
 
-  .aperture-loader-opening .aperture-blade {
+  .aperture-loader-opening .aperture-blade,
+  .aperture-loader-opening .aperture-blade-highlight {
     animation: apertureOpenReduced 0.5s ease-out forwards;
   }
 

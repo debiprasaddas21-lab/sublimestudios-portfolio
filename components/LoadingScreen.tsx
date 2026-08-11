@@ -44,61 +44,150 @@ export default function LoadingScreen() {
       }`}
       aria-hidden="true"
     >
-      {/* Camera Aperture */}
+
+      {/* =====================================================
+          CAMERA APERTURE
+      ====================================================== */}
 
       <svg
         className="aperture-svg"
         viewBox="0 0 1000 1000"
         preserveAspectRatio="none"
       >
+
+        {/* Metallic Blade Gradient */}
+
+        <defs>
+
+          <linearGradient
+            id="bladeMetal"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="100%"
+          >
+            <stop offset="0%" stopColor="#202226" />
+            <stop offset="30%" stopColor="#686c73" />
+            <stop offset="50%" stopColor="#9a9da3" />
+            <stop offset="70%" stopColor="#4a4d53" />
+            <stop offset="100%" stopColor="#181a1d" />
+          </linearGradient>
+
+          {/* Soft Blade Highlight */}
+
+          <linearGradient
+            id="bladeHighlight"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="0%"
+          >
+            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.05" />
+            <stop offset="50%" stopColor="#ffffff" stopOpacity="0.35" />
+            <stop offset="100%" stopColor="#ffffff" stopOpacity="0.03" />
+          </linearGradient>
+
+        </defs>
+
+
+        {/* Aperture Blades */}
+
         <g className="aperture-blades">
+
           {blades.map((blade) => {
             const angle = blade * 45;
 
             return (
-              <path
+              <g
                 key={blade}
-                className="aperture-blade"
                 style={
                   {
                     "--blade-angle": `${angle}deg`,
                   } as CSSProperties
                 }
-                d="
-                  M 500 500
-                  C 570 390 720 250 1180 40
-                  C 980 250 850 440 500 500
-                  Z
-                "
-              />
+              >
+
+                {/* Main Blade */}
+
+                <path
+                  className="aperture-blade"
+                  d="
+                    M 500 500
+                    C 560 420 680 300 1120 80
+                    C 930 300 820 455 500 500
+                    Z
+                  "
+                />
+
+                {/* Blade Highlight */}
+
+                <path
+                  className="aperture-blade-highlight"
+                  d="
+                    M 505 495
+                    C 570 415 690 300 1080 105
+                    C 850 330 760 430 505 495
+                    Z
+                  "
+                />
+
+              </g>
             );
           })}
+
         </g>
+
       </svg>
 
-      {/* Sublime Studios Branding */}
+
+      {/* =====================================================
+          SUBLIME STUDIOS BRANDING
+      ====================================================== */}
 
       <div className="aperture-brand">
+
         <div className="relative h-16 w-16">
+
+          {/* White Logo */}
 
           <img
             src="/logo.png"
             alt=""
-            className="absolute inset-0 h-full w-full object-contain"
+            className="
+              absolute
+              inset-0
+              h-full
+              w-full
+              object-contain
+            "
           />
+
+          {/* Golden Logo */}
 
           <img
             src="/logo_golden.png"
             alt=""
-            className="absolute inset-0 h-full w-full object-contain aperture-golden-logo"
+            className="
+              absolute
+              inset-0
+              h-full
+              w-full
+              object-contain
+              aperture-golden-logo
+            "
           />
 
         </div>
 
+
+        {/* Studio Name */}
+
         <p className="mt-4 text-xs font-semibold tracking-[0.45em] text-white">
           SUBLIME STUDIOS
         </p>
+
       </div>
+
     </div>
   );
 }
