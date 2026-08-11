@@ -49,104 +49,147 @@ export default function LoadingScreen() {
           CAMERA APERTURE
       ====================================================== */}
 
-      <svg
-        className="aperture-svg"
-        viewBox="0 0 1000 1000"
-        preserveAspectRatio="none"
-      >
+      <div className="aperture-stage">
 
-        {/* Metallic Blade Gradient */}
+        <svg
+          className="aperture-svg"
+          viewBox="0 0 1000 1000"
+          preserveAspectRatio="xMidYMid meet"
+        >
 
-        <defs>
+          <defs>
 
-          <linearGradient
-            id="bladeMetal"
-            x1="0%"
-            y1="0%"
-            x2="100%"
-            y2="100%"
-          >
-            <stop offset="0%" stopColor="#202226" />
-            <stop offset="30%" stopColor="#686c73" />
-            <stop offset="50%" stopColor="#9a9da3" />
-            <stop offset="70%" stopColor="#4a4d53" />
-            <stop offset="100%" stopColor="#181a1d" />
-          </linearGradient>
+            {/* Main graphite metal */}
 
-          {/* Soft Blade Highlight */}
+            <linearGradient
+              id="bladeMetal"
+              x1="0%"
+              y1="0%"
+              x2="100%"
+              y2="100%"
+            >
+              <stop offset="0%" stopColor="#17191c" />
+              <stop offset="25%" stopColor="#35383e" />
+              <stop offset="48%" stopColor="#686d74" />
+              <stop offset="62%" stopColor="#44484f" />
+              <stop offset="82%" stopColor="#24272b" />
+              <stop offset="100%" stopColor="#111214" />
+            </linearGradient>
 
-          <linearGradient
-            id="bladeHighlight"
-            x1="0%"
-            y1="0%"
-            x2="100%"
-            y2="0%"
-          >
-            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.05" />
-            <stop offset="50%" stopColor="#ffffff" stopOpacity="0.35" />
-            <stop offset="100%" stopColor="#ffffff" stopOpacity="0.03" />
-          </linearGradient>
+            {/* Subtle metallic reflection */}
 
-        </defs>
+            <linearGradient
+              id="bladeHighlight"
+              x1="0%"
+              y1="0%"
+              x2="100%"
+              y2="0%"
+            >
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="0" />
+              <stop offset="45%" stopColor="#ffffff" stopOpacity="0.28" />
+              <stop offset="55%" stopColor="#ffffff" stopOpacity="0.08" />
+              <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+            </linearGradient>
+
+            {/* Soft shadow */}
+
+            <filter
+              id="bladeShadow"
+              x="-30%"
+              y="-30%"
+              width="160%"
+              height="160%"
+            >
+              <feDropShadow
+                dx="0"
+                dy="5"
+                stdDeviation="7"
+                floodColor="#000000"
+                floodOpacity="0.65"
+              />
+            </filter>
+
+          </defs>
 
 
-        {/* Aperture Blades */}
+          {/* =================================================
+              8 CAMERA SHUTTER BLADES
+          ================================================== */}
 
-        <g className="aperture-blades">
+          <g className="aperture-blades">
 
-          {blades.map((blade) => {
-            const angle = blade * 45;
+            {blades.map((blade) => {
 
-            return (
-              <g
-                key={blade}
-                style={
-                  {
-                    "--blade-angle": `${angle}deg`,
-                  } as CSSProperties
-                }
-              >
+              const angle = blade * 45;
 
-                {/* Main Blade */}
+              return (
+                <g
+                  key={blade}
+                  className="aperture-blade-group"
+                  style={
+                    {
+                      "--blade-angle": `${angle}deg`,
+                    } as CSSProperties
+                  }
+                >
 
-                <path
-                  className="aperture-blade"
-                  d="
-                    M 500 500
-                    C 560 420 680 300 1120 80
-                    C 930 300 820 455 500 500
-                    Z
-                  "
-                />
+                  {/* Main Blade */}
 
-                {/* Blade Highlight */}
+                  <path
+                    className="aperture-blade"
+                    filter="url(#bladeShadow)"
+                    d="
+                      M 500 500
 
-                <path
-                  className="aperture-blade-highlight"
-                  d="
-                    M 505 495
-                    C 570 415 690 300 1080 105
-                    C 850 330 760 430 505 495
-                    Z
-                  "
-                />
+                      C 525 455 565 400 625 345
 
-              </g>
-            );
-          })}
+                      C 720 255 840 155 1040 35
 
-        </g>
+                      C 920 220 825 380 735 500
 
-      </svg>
+                      C 650 515 570 515 500 500
+
+                      Z
+                    "
+                  />
+
+                  {/* Metallic reflection */}
+
+                  <path
+                    className="aperture-blade-highlight"
+                    d="
+                      M 520 495
+
+                      C 570 410 650 330 750 250
+
+                      C 825 190 900 125 1005 60
+
+                      C 890 190 800 330 715 470
+
+                      C 640 500 575 505 520 495
+
+                      Z
+                    "
+                  />
+
+                </g>
+              );
+            })}
+
+          </g>
+
+        </svg>
+
+      </div>
 
 
       {/* =====================================================
-          SUBLIME STUDIOS BRANDING
+          CENTRAL BRANDING
       ====================================================== */}
 
       <div className="aperture-brand">
 
-        <div className="relative h-16 w-16">
+        <div className="relative h-20 w-20">
 
           {/* White Logo */}
 
@@ -159,6 +202,7 @@ export default function LoadingScreen() {
               h-full
               w-full
               object-contain
+              aperture-white-logo
             "
           />
 
@@ -178,9 +222,6 @@ export default function LoadingScreen() {
           />
 
         </div>
-
-
-        {/* Studio Name */}
 
         <p className="mt-4 text-xs font-semibold tracking-[0.45em] text-white">
           SUBLIME STUDIOS

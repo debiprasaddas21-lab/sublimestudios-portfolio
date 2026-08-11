@@ -32,80 +32,6 @@ html {
 
 /* =========================================================
    SUBLIME STUDIOS
-   INTERNAL LOADING ANIMATIONS
-========================================================= */
-
-@keyframes logoWhite {
-  0%,
-  45% {
-    opacity: 1;
-  }
-
-  55%,
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes logoGolden {
-  0%,
-  45% {
-    opacity: 0;
-  }
-
-  55%,
-  100% {
-    opacity: 1;
-  }
-}
-
-.animate-logo-white {
-  animation: logoWhite 4s ease-in-out infinite;
-}
-
-.animate-logo-golden {
-  animation: logoGolden 4s ease-in-out infinite;
-}
-
-
-/* =========================================================
-   LOADING DOTS
-========================================================= */
-
-@keyframes loadingDot {
-  0%,
-  60%,
-  100% {
-    opacity: 0.25;
-    transform: translateY(0);
-  }
-
-  30% {
-    opacity: 1;
-    transform: translateY(-4px);
-  }
-}
-
-.loading-dot {
-  display: block;
-  width: 6px;
-  height: 6px;
-  border-radius: 9999px;
-  background: #f59e0b;
-  animation: loadingDot 1.2s ease-in-out infinite;
-}
-
-.loading-dot.delay-1 {
-  animation-delay: 0.15s;
-}
-
-.loading-dot.delay-2 {
-  animation-delay: 0.3s;
-}
-
-
-/* =========================================================
-   SUBLIME STUDIOS
    CINEMATIC CAMERA APERTURE LOADER
 ========================================================= */
 
@@ -120,12 +46,41 @@ html {
   isolation: isolate;
 }
 
-.aperture-svg {
+
+/* =========================================================
+   PERFECT SQUARE APERTURE STAGE
+
+   Using vmax keeps the camera mechanism proportional
+   on both mobile and desktop.
+========================================================= */
+
+.aperture-stage {
   position: absolute;
-  inset: 0;
+  left: 50%;
+  top: 50%;
+
+  width: 160vmax;
+  height: 160vmax;
+
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* =========================================================
+   SVG
+========================================================= */
+
+.aperture-svg {
   width: 100%;
   height: 100%;
-  overflow: hidden;
+
+  display: block;
+
+  overflow: visible;
 }
 
 
@@ -133,70 +88,90 @@ html {
    APERTURE BLADES
 ========================================================= */
 
-.aperture-blades {
+.aperture-blade-group {
+  transform-box: fill-box;
   transform-origin: 500px 500px;
+
+  transform:
+    rotate(var(--blade-angle));
+
+  will-change: transform;
 }
+
+
+/* Main metallic blade */
 
 .aperture-blade {
   fill: url(#bladeMetal);
-  stroke: #8a8e95;
+
+  stroke: #737880;
   stroke-width: 2;
+
   transform-box: fill-box;
   transform-origin: 500px 500px;
-  transform: rotate(var(--blade-angle));
+
   will-change: transform;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  contain: layout paint;
 }
 
 
-/* =========================================================
-   BLADE HIGHLIGHT
-========================================================= */
+/* Metallic highlight */
 
 .aperture-blade-highlight {
   fill: url(#bladeHighlight);
-  stroke: rgba(255, 255, 255, 0.15);
+
+  stroke: rgba(255, 255, 255, 0.14);
   stroke-width: 1;
-  transform-box: fill-box;
-  transform-origin: 500px 500px;
-  transform: rotate(var(--blade-angle));
-  will-change: transform;
+
   pointer-events: none;
 }
 
 
 /* =========================================================
-   INITIAL APERTURE MOVEMENT
+   LOADING / STUCK MOVEMENT
 ========================================================= */
 
-.aperture-blade:nth-child(1),
-.aperture-blade-highlight:nth-child(2) {
-  animation: apertureIdle1 2.8s ease-in-out infinite;
-}
-
-.aperture-blade:nth-child(3),
-.aperture-blade-highlight:nth-child(4) {
-  animation: apertureIdle2 2.8s ease-in-out infinite;
-}
-
-.aperture-blade:nth-child(5),
-.aperture-blade-highlight:nth-child(6) {
-  animation: apertureIdle3 2.8s ease-in-out infinite;
-}
-
-.aperture-blade:nth-child(7),
-.aperture-blade-highlight:nth-child(8) {
-  animation: apertureIdle4 2.8s ease-in-out infinite;
+.aperture-blade-group {
+  animation:
+    apertureStuck
+    2.8s
+    cubic-bezier(0.45, 0, 0.55, 1)
+    infinite;
 }
 
 
-/* =========================================================
-   SLIGHT APERTURE "STUCK" MOVEMENT
-========================================================= */
+/* Each blade gets a slightly different timing */
 
-@keyframes apertureIdle1 {
+.aperture-blade-group:nth-child(2) {
+  animation-delay: -0.08s;
+}
+
+.aperture-blade-group:nth-child(3) {
+  animation-delay: -0.16s;
+}
+
+.aperture-blade-group:nth-child(4) {
+  animation-delay: -0.24s;
+}
+
+.aperture-blade-group:nth-child(5) {
+  animation-delay: -0.32s;
+}
+
+.aperture-blade-group:nth-child(6) {
+  animation-delay: -0.40s;
+}
+
+.aperture-blade-group:nth-child(7) {
+  animation-delay: -0.48s;
+}
+
+.aperture-blade-group:nth-child(8) {
+  animation-delay: -0.56s;
+}
+
+
+@keyframes apertureStuck {
+
   0%,
   100% {
     transform:
@@ -204,73 +179,16 @@ html {
       translate(0, 0);
   }
 
-  45% {
+  42% {
     transform:
       rotate(var(--blade-angle))
-      translate(0, -7px);
+      translate(0, -8px);
   }
 
-  60% {
+  52% {
     transform:
       rotate(var(--blade-angle))
-      translate(0, 1px);
-  }
-}
-
-@keyframes apertureIdle2 {
-  0%,
-  100% {
-    transform:
-      rotate(var(--blade-angle))
-      translate(0, 0);
-  }
-
-  45% {
-    transform:
-      rotate(var(--blade-angle))
-      translate(0, -7px);
-  }
-
-  60% {
-    transform:
-      rotate(var(--blade-angle))
-      translate(0, 1px);
-  }
-}
-
-@keyframes apertureIdle3 {
-  0%,
-  100% {
-    transform:
-      rotate(var(--blade-angle))
-      translate(0, 0);
-  }
-
-  45% {
-    transform:
-      rotate(var(--blade-angle))
-      translate(0, -7px);
-  }
-
-  60% {
-    transform:
-      rotate(var(--blade-angle))
-      translate(0, 1px);
-  }
-}
-
-@keyframes apertureIdle4 {
-  0%,
-  100% {
-    transform:
-      rotate(var(--blade-angle))
-      translate(0, 0);
-  }
-
-  45% {
-    transform:
-      rotate(var(--blade-angle))
-      translate(0, -7px);
+      translate(0, -3px);
   }
 
   60% {
@@ -285,12 +203,17 @@ html {
    FINAL APERTURE OPENING
 ========================================================= */
 
-.aperture-loader-opening .aperture-blade,
-.aperture-loader-opening .aperture-blade-highlight {
-  animation: apertureOpen 1.25s cubic-bezier(0.22, 0.8, 0.2, 1) forwards;
+.aperture-loader-opening .aperture-blade-group {
+  animation:
+    apertureOpen
+    1.25s
+    cubic-bezier(0.16, 1, 0.3, 1)
+    forwards;
 }
 
+
 @keyframes apertureOpen {
+
   0% {
     transform:
       rotate(var(--blade-angle))
@@ -298,68 +221,112 @@ html {
       scale(1);
   }
 
-  20% {
+  18% {
     transform:
       rotate(var(--blade-angle))
       translate(0, -15px)
       scale(0.98);
   }
 
-  45% {
+  42% {
     transform:
       rotate(var(--blade-angle))
-      translate(0, -90px)
-      scale(0.86);
+      translate(0, -85px)
+      scale(0.92);
   }
 
-  75% {
+  68% {
     transform:
       rotate(var(--blade-angle))
       translate(0, -260px)
-      scale(0.58);
+      scale(0.78);
   }
 
   100% {
     transform:
       rotate(var(--blade-angle))
-      translate(0, -650px)
-      scale(0.2);
+      translate(0, -720px)
+      scale(0.55);
   }
 }
 
 
 /* =========================================================
-   BRAND MARK
+   BRANDING
 ========================================================= */
 
 .aperture-brand {
   position: absolute;
+
   left: 50%;
   top: 50%;
-  z-index: 5;
+
+  z-index: 10;
+
   display: flex;
   flex-direction: column;
   align-items: center;
-  transform: translate(-50%, -50%);
+
+  transform:
+    translate(-50%, -50%);
+
   pointer-events: none;
+
   transition:
-    opacity 0.35s ease,
+    opacity 0.45s ease,
     transform 0.7s cubic-bezier(0.22, 0.8, 0.2, 1);
 }
 
-.aperture-golden-logo {
-  opacity: 0;
-  animation: apertureLogoTransition 2.4s ease-in-out infinite;
+
+/* =========================================================
+   WHITE / GOLD LOGO TRANSITION
+========================================================= */
+
+.aperture-white-logo {
+  opacity: 1;
+
+  animation:
+    apertureWhiteLogo
+    3.2s
+    ease-in-out
+    infinite;
 }
 
-@keyframes apertureLogoTransition {
+
+.aperture-golden-logo {
+  opacity: 0;
+
+  animation:
+    apertureGoldenLogo
+    3.2s
+    ease-in-out
+    infinite;
+}
+
+
+@keyframes apertureWhiteLogo {
+
   0%,
-  35% {
+  38% {
+    opacity: 1;
+  }
+
+  48%,
+  100% {
+    opacity: 0;
+  }
+}
+
+
+@keyframes apertureGoldenLogo {
+
+  0%,
+  38% {
     opacity: 0;
   }
 
-  50%,
-  70% {
+  48%,
+  72% {
     opacity: 1;
   }
 
@@ -371,32 +338,40 @@ html {
 
 
 /* =========================================================
-   HIDE BRANDING DURING FINAL REVEAL
+   BRANDING DISAPPEARS DURING FINAL REVEAL
 ========================================================= */
 
 .aperture-loader-opening .aperture-brand {
   opacity: 0;
+
   transform:
     translate(-50%, -50%)
-    scale(1.15);
+    scale(1.12);
 }
 
 
 /* =========================================================
-   FINAL OVERLAY FADE
+   FINAL LOADER FADE
 ========================================================= */
 
 .aperture-loader-opening {
-  animation: apertureLoaderExit 1.55s ease-in-out forwards;
+  animation:
+    apertureLoaderExit
+    1.45s
+    ease-in-out
+    forwards;
+
   animation-delay: 0.15s;
 }
 
+
 @keyframes apertureLoaderExit {
+
   0% {
     opacity: 1;
   }
 
-  78% {
+  72% {
     opacity: 1;
   }
 
@@ -408,14 +383,15 @@ html {
 
 
 /* =========================================================
-   HIGH REFRESH RATE OPTIMIZATION
+   PERFORMANCE
 ========================================================= */
 
 .aperture-loader,
+.aperture-stage,
 .aperture-svg,
 .aperture-blades,
-.aperture-blade,
-.aperture-blade-highlight {
+.aperture-blade-group,
+.aperture-blade {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
@@ -426,17 +402,21 @@ html {
 ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
-  .aperture-blade,
-  .aperture-blade-highlight {
+
+  .aperture-blade-group {
     animation: none !important;
   }
 
-  .aperture-loader-opening .aperture-blade,
-  .aperture-loader-opening .aperture-blade-highlight {
-    animation: apertureOpenReduced 0.5s ease-out forwards;
+  .aperture-loader-opening .aperture-blade-group {
+    animation:
+      apertureOpenReduced
+      0.5s
+      ease-out
+      forwards;
   }
 
   @keyframes apertureOpenReduced {
+
     from {
       transform:
         rotate(var(--blade-angle))
@@ -447,8 +427,8 @@ html {
     to {
       transform:
         rotate(var(--blade-angle))
-        translate(0, -650px)
-        scale(0.2);
+        translate(0, -720px)
+        scale(0.55);
     }
   }
 }
