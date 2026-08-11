@@ -7,7 +7,6 @@ export default function LoadingScreen() {
   const [minimumTimePassed, setMinimumTimePassed] = useState(false);
 
   useEffect(() => {
-    // Keep the cinematic intro visible for at least a short moment
     const minimumTimer = setTimeout(() => {
       setMinimumTimePassed(true);
     }, 1000);
@@ -16,7 +15,6 @@ export default function LoadingScreen() {
       setIsLoading(false);
     };
 
-    // If the page has already loaded
     if (document.readyState === "complete") {
       handleLoad();
     } else {
@@ -75,7 +73,6 @@ export default function LoadingScreen() {
 
         </div>
 
-
         {/* Studio Name */}
         <p
           className="
@@ -89,14 +86,11 @@ export default function LoadingScreen() {
           SUBLIME STUDIOS
         </p>
 
-
         {/* Three Loading Dots */}
         <div className="mt-6 flex items-center gap-2">
-
           <span className="loading-dot" />
           <span className="loading-dot delay-1" />
           <span className="loading-dot delay-2" />
-
         </div>
 
       </div>

@@ -1,4 +1,8 @@
+"use client";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const services = [
   {
@@ -52,14 +56,105 @@ const services = [
 ];
 
 export default function Services() {
+  const router = useRouter();
+  const [isNavigating, setIsNavigating] = useState(false);
+
+  const handleNavigation = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    link: string
+  ) => {
+    if (link === "#") {
+      return;
+    }
+
+    event.preventDefault();
+
+    setIsNavigating(true);
+
+    setTimeout(() => {
+      router.push(link);
+    }, 450);
+  };
+
   return (
     <section
       id="services"
-      className="bg-black px-6 py-24 text-white md:px-10 lg:px-16"
+      className="relative bg-black px-6 py-24 text-white md:px-10 lg:px-16"
     >
+
+      {/* =====================================================
+          SERVICE PAGE TRANSITION
+      ====================================================== */}
+
+      {isNavigating && (
+        <div className="fixed inset-0 z-[9998] flex items-center justify-center bg-black">
+
+          <div className="flex flex-col items-center">
+
+            {/* Logo */}
+            <div className="relative h-24 w-24">
+
+              {/* White Logo */}
+              <img
+                src="/logo.png"
+                alt="Sublime Studios"
+                className="
+                  absolute
+                  inset-0
+                  h-full
+                  w-full
+                  object-contain
+                  animate-logo-white
+                "
+              />
+
+              {/* Golden Logo */}
+              <img
+                src="/logo_golden.png"
+                alt=""
+                aria-hidden="true"
+                className="
+                  absolute
+                  inset-0
+                  h-full
+                  w-full
+                  object-contain
+                  animate-logo-golden
+                "
+              />
+
+            </div>
+
+            {/* Studio Name */}
+            <p className="mt-5 text-sm font-semibold tracking-[0.45em] text-white">
+              SUBLIME STUDIOS
+            </p>
+
+            {/* Loading Dots */}
+            <div className="mt-6 flex items-center gap-2">
+
+              <span className="loading-dot" />
+
+              <span className="loading-dot delay-1" />
+
+              <span className="loading-dot delay-2" />
+
+            </div>
+
+          </div>
+
+        </div>
+      )}
+
+
+      {/* =====================================================
+          MAIN CONTENT
+      ====================================================== */}
+
       <div className="mx-auto max-w-7xl">
 
         {/* Section Heading */}
+
         <div className="text-center">
 
           <p className="text-sm font-medium tracking-[0.4em] text-orange-500">
@@ -78,7 +173,10 @@ export default function Services() {
         </div>
 
 
-        {/* Services Grid */}
+        {/* =====================================================
+            SERVICES GRID
+        ====================================================== */}
+
         <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
 
           {services.map((service) => (
@@ -86,6 +184,9 @@ export default function Services() {
             <Link
               key={service.title}
               href={service.link}
+              onClick={(event) =>
+                handleNavigation(event, service.link)
+              }
               className="
                 group
                 relative
@@ -100,6 +201,7 @@ export default function Services() {
             >
 
               {/* Background Image */}
+
               <img
                 src={service.image}
                 alt={service.title}
@@ -118,6 +220,7 @@ export default function Services() {
 
 
               {/* Cinematic Gradient */}
+
               <div
                 className="
                   absolute
@@ -135,6 +238,7 @@ export default function Services() {
 
 
               {/* Content */}
+
               <div
                 className="
                   absolute
@@ -146,7 +250,8 @@ export default function Services() {
                 "
               >
 
-                {/* Unique Category Label */}
+                {/* Category */}
+
                 <p
                   className="
                     text-xs
@@ -160,6 +265,7 @@ export default function Services() {
 
 
                 {/* Title */}
+
                 <h3
                   className="
                     mt-4
@@ -176,6 +282,7 @@ export default function Services() {
 
 
                 {/* Description */}
+
                 <p
                   className="
                     mt-4
@@ -191,22 +298,24 @@ export default function Services() {
 
 
                 {/* Explore Collection */}
+
                 <div
                   className="
                     mt-6
                     inline-flex
+                    translate-y-2
                     items-center
                     text-sm
                     font-medium
                     text-orange-400
                     opacity-0
-                    translate-y-2
                     transition-all
                     duration-300
                     group-hover:translate-y-0
                     group-hover:opacity-100
                   "
                 >
+
                   <span>
                     Explore Collection
                   </span>
@@ -221,12 +330,14 @@ export default function Services() {
                   >
                     →
                   </span>
+
                 </div>
 
               </div>
 
 
-              {/* Subtle Hover Border */}
+              {/* Hover Border */}
+
               <div
                 className="
                   pointer-events-none
@@ -248,6 +359,7 @@ export default function Services() {
         </div>
 
       </div>
+
     </section>
   );
 }
