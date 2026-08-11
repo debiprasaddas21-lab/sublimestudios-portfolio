@@ -29,3 +29,72 @@ html {
   scroll-behavior: smooth;
 }
 
+/* =========================================================
+   SUBLIME STUDIOS LOADING SCREEN
+========================================================= */
+
+@keyframes logoWhite {
+  0%,
+  45% {
+    opacity: 1;
+  }
+
+  55%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes logoGolden {
+  0%,
+  45% {
+    opacity: 0;
+  }
+
+  55%,
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-logo-white {
+  animation: logoWhite 4s ease-in-out infinite;
+}
+
+.animate-logo-golden {
+  animation: logoGolden 4s ease-in-out infinite;
+}
+
+
+/* Loading dots */
+
+@keyframes loadingDot {
+  0%,
+  60%,
+  100% {
+    opacity: 0.25;
+    transform: translateY(0);
+  }
+
+  30% {
+    opacity: 1;
+    transform: translateY(-4px);
+  }
+}
+
+.loading-dot {
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: #f59e0b;
+  animation: loadingDot 1.2s ease-in-out infinite;
+}
+
+.loading-dot.delay-1 {
+  animation-delay: 0.15s;
+}
+
+.loading-dot.delay-2 {
+  animation-delay: 0.3s;
+}
