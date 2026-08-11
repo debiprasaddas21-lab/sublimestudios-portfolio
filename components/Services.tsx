@@ -52,7 +52,7 @@ const services = [
     description:
       "Museum-quality prints available for homes, offices, and collectors.",
     image: "/services/fineprints/fineprints-01.jpg",
-    link: "#",
+    link: "/services/fineprints",
   },
 ];
 
