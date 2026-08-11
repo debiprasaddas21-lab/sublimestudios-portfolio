@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   description:
     "Sublime Studios | Photography by a Geologist, Photographer and Explorer",
   icons: {
-    icon: "/logo_golden.png",
+    icon: "public/logo_golden.png",
   },
 };
 
