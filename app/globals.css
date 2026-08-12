@@ -42,7 +42,7 @@ html {
 
   overflow: hidden;
 
-  background: #000;
+  background: #000000;
 
   pointer-events: auto;
 
@@ -52,9 +52,6 @@ html {
 
 /* =========================================================
    APERTURE STAGE
-
-   The stage is always a perfect square.
-   vmax makes it large enough for both phone and desktop.
 ========================================================= */
 
 .aperture-stage {
@@ -63,14 +60,10 @@ html {
   left: 50%;
   top: 50%;
 
-  width: 145vmax;
-  height: 145vmax;
+  width: 150vmax;
+  height: 150vmax;
 
   transform: translate3d(-50%, -50%, 0);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
   pointer-events: none;
 }
@@ -78,8 +71,6 @@ html {
 
 /* =========================================================
    APERTURE CORE
-
-   Everything is positioned from the exact centre.
 ========================================================= */
 
 .aperture-core {
@@ -95,7 +86,7 @@ html {
 
 
 /* =========================================================
-   INDIVIDUAL CAMERA BLADES
+   APERTURE BLADES
 ========================================================= */
 
 .aperture-blade {
@@ -104,8 +95,8 @@ html {
   left: 50%;
   top: 50%;
 
-  width: 42%;
-  height: 58%;
+  width: 50%;
+  height: 50%;
 
   transform-origin: 50% 100%;
 
@@ -116,23 +107,23 @@ html {
 
   will-change: transform;
 
-  animation:
-    apertureStuck
-    2.4s
-    cubic-bezier(0.45, 0, 0.55, 1)
-    infinite;
-
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 
   contain: layout paint;
+
+  animation:
+    apertureIdle
+    2.6s
+    cubic-bezier(0.45, 0, 0.55, 1)
+    infinite;
 }
 
 
 /* =========================================================
    BLADE SURFACE
 
-   Graphite / premium silver finish
+   DARK PREMIUM GRAPHITE
 ========================================================= */
 
 .aperture-blade-surface {
@@ -140,42 +131,48 @@ html {
 
   inset: 0;
 
+  /*
+     This shape creates the characteristic
+     triangular iris blade.
+  */
+
   clip-path: polygon(
     50% 100%,
-    8% 65%,
-    12% 20%,
-    42% 0%,
-    68% 8%,
-    88% 25%,
-    78% 58%
+    6% 58%,
+    8% 23%,
+    37% 3%,
+    67% 12%,
+    94% 34%,
+    76% 69%
   );
+
+  /*
+     Premium dark graphite.
+
+     Visible against black,
+     but deliberately not bright.
+  */
 
   background:
     linear-gradient(
       125deg,
-      #17191c 0%,
-      #34383e 24%,
-      #6a6f76 48%,
-      #444950 64%,
-      #25282d 84%,
-      #111214 100%
+      #111316 0%,
+      #1c1f23 28%,
+      #292d32 50%,
+      #202328 68%,
+      #111316 100%
     );
 
-  border: 1px solid rgba(190, 195, 202, 0.35);
+  border: 1px solid rgba(105, 110, 118, 0.38);
 
   box-shadow:
-    inset 0 0 18px rgba(255, 255, 255, 0.08),
-    inset -10px -10px 25px rgba(0, 0, 0, 0.3);
-
-  will-change: transform;
-
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
+    inset 0 0 20px rgba(255, 255, 255, 0.035),
+    inset -14px -18px 30px rgba(0, 0, 0, 0.45);
 }
 
 
 /* =========================================================
-   SUBTLE METALLIC HIGHLIGHT
+   VERY SUBTLE METALLIC REFLECTION
 ========================================================= */
 
 .aperture-blade-surface::after {
@@ -186,32 +183,35 @@ html {
   inset: 0;
 
   clip-path: polygon(
-    45% 98%,
-    20% 62%,
-    25% 25%,
-    44% 7%,
-    54% 12%,
-    62% 25%,
-    57% 60%
+    43% 98%,
+    18% 60%,
+    22% 27%,
+    40% 8%,
+    51% 14%,
+    61% 28%,
+    56% 60%
   );
 
   background:
     linear-gradient(
-      110deg,
+      115deg,
       transparent 20%,
-      rgba(255, 255, 255, 0.22) 48%,
-      transparent 68%
+      rgba(255, 255, 255, 0.08) 48%,
+      transparent 70%
     );
 
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
 
 /* =========================================================
-   STUCK / TRYING TO OPEN
+   WAITING / STUCK APERTURE
+
+   The shutter gently attempts to move,
+   then settles back.
 ========================================================= */
 
-@keyframes apertureStuck {
+@keyframes apertureIdle {
 
   0%,
   100% {
@@ -221,45 +221,56 @@ html {
       translate3d(0, 0, 0);
   }
 
-  42% {
+  44% {
     transform:
       translate3d(-50%, -100%, 0)
       rotate(var(--blade-angle))
-      translate3d(0, -10px, 0);
+      translate3d(0, -7px, 0);
   }
 
-  51% {
+  52% {
     transform:
       translate3d(-50%, -100%, 0)
       rotate(var(--blade-angle))
-      translate3d(0, -3px, 0);
+      translate3d(0, -2px, 0);
   }
 
-  59% {
+  60% {
     transform:
       translate3d(-50%, -100%, 0)
       rotate(var(--blade-angle))
-      translate3d(0, 1px, 0);
+      translate3d(0, 0, 0);
   }
 }
 
 
 /* =========================================================
-   FINAL OPENING
+   FINAL APERTURE OPENING
 
-   Fast cinematic reveal
+   1.4 seconds
+   Smooth cinematic cubic-bezier
 ========================================================= */
 
 .aperture-loader-opening .aperture-blade {
   animation:
     apertureOpen
-    0.82s
-    cubic-bezier(0.16, 1, 0.3, 1)
+    1.4s
+    cubic-bezier(0.22, 0.61, 0.36, 1)
     forwards;
 }
 
 
+/* =========================================================
+   APERTURE OPENING SEQUENCE
+
+   The movement is intentionally continuous.
+
+   No sudden jumps between stages.
+========================================================= */
+
 @keyframes apertureOpen {
+
+  /* 0% - Completely closed */
 
   0% {
     transform:
@@ -269,21 +280,52 @@ html {
       scale(1);
   }
 
-  25% {
+
+  /* 20% - First visible opening */
+
+  20% {
     transform:
       translate3d(-50%, -100%, 0)
       rotate(var(--blade-angle))
-      translate3d(0, -90px, 0)
-      scale(0.96);
+      translate3d(0, -65px, 0)
+      scale(0.985);
   }
 
-  55% {
+
+  /* 40% - Aperture opening */
+
+  40% {
+    transform:
+      translate3d(-50%, -100%, 0)
+      rotate(var(--blade-angle))
+      translate3d(0, -155px, 0)
+      scale(0.94);
+  }
+
+
+  /* 60% - Medium opening */
+
+  60% {
     transform:
       translate3d(-50%, -100%, 0)
       rotate(var(--blade-angle))
       translate3d(0, -300px, 0)
-      scale(0.82);
+      scale(0.86);
   }
+
+
+  /* 80% - Large opening */
+
+  80% {
+    transform:
+      translate3d(-50%, -100%, 0)
+      rotate(var(--blade-angle))
+      translate3d(0, -510px, 0)
+      scale(0.73);
+  }
+
+
+  /* 100% - Fully open */
 
   100% {
     transform:
@@ -317,13 +359,13 @@ html {
   pointer-events: none;
 
   transition:
-    opacity 0.3s ease,
-    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity 0.35s ease,
+    transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 
 /* =========================================================
-   WHITE LOGO
+   WHITE → GOLD LOGO
 ========================================================= */
 
 .aperture-white-logo {
@@ -336,10 +378,6 @@ html {
     infinite;
 }
 
-
-/* =========================================================
-   GOLDEN LOGO
-========================================================= */
 
 .aperture-golden-logo {
   opacity: 0;
@@ -386,7 +424,7 @@ html {
 
 
 /* =========================================================
-   BRANDING DISAPPEARS
+   BRANDING FADES WITH APERTURE
 ========================================================= */
 
 .aperture-loader-opening .aperture-brand {
@@ -399,17 +437,17 @@ html {
 
 
 /* =========================================================
-   FINAL LOADER FADE
+   LOADER FADE
 ========================================================= */
 
 .aperture-loader-opening {
   animation:
     apertureLoaderExit
-    0.95s
+    1.5s
     ease-out
     forwards;
 
-  animation-delay: 0.05s;
+  animation-delay: 0s;
 }
 
 
@@ -419,19 +457,20 @@ html {
     opacity: 1;
   }
 
-  72% {
+  82% {
     opacity: 1;
   }
 
   100% {
     opacity: 0;
+
     pointer-events: none;
   }
 }
 
 
 /* =========================================================
-   GPU OPTIMIZATION
+   PERFORMANCE OPTIMIZATION
 ========================================================= */
 
 .aperture-loader,
@@ -441,6 +480,38 @@ html {
 .aperture-blade-surface {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+}
+
+
+/*
+   Keep the animation compositor-friendly.
+*/
+
+.aperture-blade {
+  transform-style: flat;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 640px) {
+
+  .aperture-stage {
+    width: 175vmax;
+    height: 175vmax;
+  }
+
+  .aperture-brand .h-20 {
+    width: 4.5rem;
+    height: 4.5rem;
+  }
+
+  .aperture-brand p {
+    font-size: 0.65rem;
+    letter-spacing: 0.38em;
+  }
 }
 
 
@@ -457,7 +528,7 @@ html {
   .aperture-loader-opening .aperture-blade {
     animation:
       apertureOpenReduced
-      0.45s
+      0.7s
       ease-out
       forwards;
   }

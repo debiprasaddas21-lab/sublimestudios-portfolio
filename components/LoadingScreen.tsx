@@ -12,7 +12,7 @@ export default function LoadingScreen() {
   useEffect(() => {
     const minimumTimer = setTimeout(() => {
       setMinimumTimePassed(true);
-    }, 700);
+    }, 750);
 
     const handlePageLoaded = () => {
       setPageLoaded(true);
@@ -67,16 +67,13 @@ export default function LoadingScreen() {
         </div>
       </div>
 
-
       {/* =====================================================
-          SUBLIME STUDIOS BRANDING
+          CENTRE BRANDING
       ====================================================== */}
 
       <div className="aperture-brand">
 
         <div className="relative h-20 w-20">
-
-          {/* White Logo */}
 
           <img
             src="/logo.png"
@@ -84,11 +81,10 @@ export default function LoadingScreen() {
             className="absolute inset-0 h-full w-full object-contain aperture-white-logo"
           />
 
-          {/* Golden Logo */}
-
           <img
             src="/logo_golden.png"
             alt=""
+            aria-hidden="true"
             className="absolute inset-0 h-full w-full object-contain aperture-golden-logo"
           />
 
