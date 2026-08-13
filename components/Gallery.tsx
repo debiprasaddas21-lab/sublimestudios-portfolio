@@ -96,533 +96,563 @@ export default function Gallery() {
 
         <div className="hidden md:block">
 
-          <div className="relative mx-auto aspect-[16/9] max-w-6xl perspective-[1800px]">
+          <div className="relative mx-auto w-full max-w-7xl">
 
-            {/* Book Shadow */}
+            {/* =================================================
+                PREVIOUS BUTTON
+            ================================================== */}
 
-            <div className="absolute inset-x-[8%] bottom-[-20px] h-10 rounded-full bg-black/80 blur-2xl" />
-
-
-            {/* Book */}
-
-            <div className="relative h-full w-full overflow-hidden rounded-xl bg-zinc-950 shadow-2xl">
-
-              {/* =================================================
-                  LEFT PAGE
-              ================================================== */}
-
-              <div className="absolute inset-y-0 left-0 w-1/2 overflow-hidden border-r border-white/10 bg-zinc-950">
-
-                {currentPage === 0 ? (
-
-                  /* Opening Page */
-
-                  <div className="flex h-full flex-col items-center justify-center px-8 text-center">
-
-                    <div className="relative h-20 w-20">
-
-                      <img
-                        src="/logo.png"
-                        alt="Sublime Studios"
-                        className="absolute inset-0 h-full w-full object-contain"
-                      />
-
-                      <img
-                        src="/logo_golden.png"
-                        alt=""
-                        aria-hidden="true"
-                        className="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity duration-700 hover:opacity-100"
-                      />
-
-                    </div>
-
-                    <p className="mt-6 text-xs font-semibold tracking-[0.45em] text-white">
-                      SUBLIME STUDIOS
-                    </p>
-
-                    <div className="mt-7 h-px w-16 bg-orange-500/60" />
-
-                    <p className="mt-7 text-[10px] font-medium tracking-[0.4em] text-orange-400">
-                      VISUAL COLLECTIONS
-                    </p>
-
-                    <p className="mt-4 max-w-xs text-sm leading-7 text-gray-500">
-                      A collection of moments, perspectives and stories
-                      captured through the lens.
-                    </p>
-
-                  </div>
-
-                ) : (
-
-                  /* Normal Left Page */
-
-                  <img
-                    src={photos[currentPage - 1]}
-                    alt=""
-                    className="absolute inset-0 h-full w-full object-contain"
-                  />
-
-                )}
-
-              </div>
+            <button
+              onClick={previousPage}
+              disabled={currentPage === 0 || turning}
+              className="
+                absolute
+                left-0
+                top-1/2
+                z-40
+                flex
+                h-14
+                w-14
+                -translate-y-1/2
+                items-center
+                justify-center
+                rounded-full
+                border
+                border-white/15
+                bg-black/60
+                text-2xl
+                text-white
+                backdrop-blur-sm
+                transition-all
+                duration-300
+                hover:scale-105
+                hover:border-orange-500
+                hover:bg-black/80
+                hover:text-orange-400
+                disabled:cursor-not-allowed
+                disabled:opacity-20
+              "
+              aria-label="Previous photograph"
+            >
+              ←
+            </button>
 
 
-              {/* =================================================
-                  RIGHT PAGE
-              ================================================== */}
+            {/* =================================================
+                SINGLE BOOK
+            ================================================== */}
 
-              <div className="absolute inset-y-0 right-0 w-1/2 overflow-hidden bg-zinc-950">
+            <div className="mx-auto w-[88%]">
 
-                {currentPage === photos.length - 1 ? (
+              <div className="relative aspect-[16/9]">
 
-                  /* Closing Page */
+                {/* Book shadow */}
 
-                  <div className="flex h-full flex-col items-center justify-center px-8 text-center">
-
-                    <div className="relative h-20 w-20">
-
-                      <img
-                        src="/logo.png"
-                        alt="Sublime Studios"
-                        className="absolute inset-0 h-full w-full object-contain"
-                      />
-
-                      <img
-                        src="/logo_golden.png"
-                        alt=""
-                        aria-hidden="true"
-                        className="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity duration-700 hover:opacity-100"
-                      />
-
-                    </div>
-
-                    <p className="mt-6 text-xs font-semibold tracking-[0.45em] text-white">
-                      SUBLIME STUDIOS
-                    </p>
-
-                    <div className="mt-7 h-px w-16 bg-orange-500/60" />
-
-                    <p className="mt-7 text-[10px] font-medium tracking-[0.4em] text-orange-400">
-                      END OF COLLECTION
-                    </p>
-
-                    <p className="mt-4 max-w-xs text-sm leading-7 text-gray-500">
-                      Thank you for taking a moment to explore these
-                      photographs.
-                    </p>
-
-                  </div>
-
-                ) : (
-
-                  /* Current Photograph */
-
-                  <img
-                    src={currentPhoto}
-                    alt={`Collection photograph ${currentPage + 1}`}
-                    className="h-full w-full object-contain"
-                  />
-
-                )}
-
-              </div>
-
-
-              {/* =================================================
-                  PAGE TURNING SHEET
-              ================================================== */}
-
-              {turning && (
                 <div
-                  className={`page-turn absolute inset-y-0 z-30 w-1/2 overflow-hidden ${
-                    direction === "next"
-                      ? "right-0 origin-left"
-                      : "left-0 origin-right"
-                  }`}
+                  className="
+                    absolute
+                    inset-x-[8%]
+                    bottom-[-20px]
+                    h-10
+                    rounded-full
+                    bg-black/80
+                    blur-2xl
+                  "
+                />
+
+
+                {/* =================================================
+                    BOOK CONTAINER
+                ================================================== */}
+
+                <div
+                  className="
+                    relative
+                    h-full
+                    w-full
+                    overflow-hidden
+                    rounded-xl
+                    bg-zinc-950
+                    shadow-2xl
+                  "
                 >
 
-                  {/* Loading screen during page transition */}
+                  {/* =================================================
+                      LEFT PAGE
+                  ================================================== */}
 
-                  <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-zinc-950">
+                  <div
+                    className="
+                      absolute
+                      inset-y-0
+                      left-0
+                      w-1/2
+                      overflow-hidden
+                      border-r
+                      border-white/10
+                      bg-zinc-950
+                    "
+                  >
 
-                    <div className="relative h-16 w-16">
+                    {currentPage === 0 ? (
+
+                      /* Opening page */
+
+                      <div
+                        className="
+                          flex
+                          h-full
+                          flex-col
+                          items-center
+                          justify-center
+                          px-8
+                          text-center
+                        "
+                      >
+
+                        <div className="relative h-20 w-20">
+
+                          <img
+                            src="/logo.png"
+                            alt="Sublime Studios"
+                            className="
+                              absolute
+                              inset-0
+                              h-full
+                              w-full
+                              object-contain
+                            "
+                          />
+
+                          <img
+                            src="/logo_golden.png"
+                            alt=""
+                            aria-hidden="true"
+                            className="
+                              absolute
+                              inset-0
+                              h-full
+                              w-full
+                              object-contain
+                              opacity-0
+                              transition-opacity
+                              duration-700
+                              hover:opacity-100
+                            "
+                          />
+
+                        </div>
+
+                        <p
+                          className="
+                            mt-6
+                            text-xs
+                            font-semibold
+                            tracking-[0.45em]
+                            text-white
+                          "
+                        >
+                          SUBLIME STUDIOS
+                        </p>
+
+                        <div className="mt-7 h-px w-16 bg-orange-500/60" />
+
+                        <p
+                          className="
+                            mt-7
+                            text-[10px]
+                            font-medium
+                            tracking-[0.4em]
+                            text-orange-400
+                          "
+                        >
+                          VISUAL COLLECTIONS
+                        </p>
+
+                        <p
+                          className="
+                            mt-4
+                            max-w-xs
+                            text-sm
+                            leading-7
+                            text-gray-500
+                          "
+                        >
+                          A collection of moments, perspectives and stories
+                          captured through the lens.
+                        </p>
+
+                      </div>
+
+                    ) : (
 
                       <img
-                        src="/logo.png"
-                        alt=""
-                        className="absolute inset-0 h-full w-full object-contain animate-logo-white"
+                        src={photos[currentPage - 1]}
+                        alt={`Collection photograph ${currentPage}`}
+                        className="
+                          absolute
+                          inset-0
+                          h-full
+                          w-full
+                          object-contain
+                        "
                       />
 
-                      <img
-                        src="/logo_golden.png"
-                        alt=""
-                        aria-hidden="true"
-                        className="absolute inset-0 h-full w-full object-contain animate-logo-golden"
-                      />
-
-                    </div>
-
-                    <p className="mt-4 text-[9px] font-semibold tracking-[0.4em] text-white/70">
-                      SUBLIME STUDIOS
-                    </p>
-
-                    <div className="mt-4 flex gap-1.5">
-
-                      <span className="loading-dot" />
-
-                      <span className="loading-dot delay-1" />
-
-                      <span className="loading-dot delay-2" />
-
-                    </div>
+                    )}
 
                   </div>
 
+
+                  {/* =================================================
+                      RIGHT PAGE
+                  ================================================== */}
+
+                  <div
+                    className="
+                      absolute
+                      inset-y-0
+                      right-0
+                      w-1/2
+                      overflow-hidden
+                      bg-zinc-950
+                    "
+                  >
+
+                    {currentPage === photos.length - 1 ? (
+
+                      /* Closing page */
+
+                      <div
+                        className="
+                          flex
+                          h-full
+                          flex-col
+                          items-center
+                          justify-center
+                          px-8
+                          text-center
+                        "
+                      >
+
+                        <div className="relative h-20 w-20">
+
+                          <img
+                            src="/logo.png"
+                            alt="Sublime Studios"
+                            className="
+                              absolute
+                              inset-0
+                              h-full
+                              w-full
+                              object-contain
+                            "
+                          />
+
+                          <img
+                            src="/logo_golden.png"
+                            alt=""
+                            aria-hidden="true"
+                            className="
+                              absolute
+                              inset-0
+                              h-full
+                              w-full
+                              object-contain
+                              opacity-0
+                              transition-opacity
+                              duration-700
+                              hover:opacity-100
+                            "
+                          />
+
+                        </div>
+
+                        <p
+                          className="
+                            mt-6
+                            text-xs
+                            font-semibold
+                            tracking-[0.45em]
+                            text-white
+                          "
+                        >
+                          SUBLIME STUDIOS
+                        </p>
+
+                        <div className="mt-7 h-px w-16 bg-orange-500/60" />
+
+                        <p
+                          className="
+                            mt-7
+                            text-[10px]
+                            font-medium
+                            tracking-[0.4em]
+                            text-orange-400
+                          "
+                        >
+                          END OF COLLECTION
+                        </p>
+
+                        <p
+                          className="
+                            mt-4
+                            max-w-xs
+                            text-sm
+                            leading-7
+                            text-gray-500
+                          "
+                        >
+                          Thank you for taking a moment to explore these
+                          photographs.
+                        </p>
+
+                      </div>
+
+                    ) : (
+
+                      <img
+                        src={currentPhoto}
+                        alt={`Collection photograph ${currentPage + 1}`}
+                        className="
+                          absolute
+                          inset-0
+                          h-full
+                          w-full
+                          object-contain
+                        "
+                      />
+
+                    )}
+
+                  </div>
+
+
+                  {/* =================================================
+                      CENTRE BINDING
+                  ================================================== */}
+
+                  <div
+                    className="
+                      pointer-events-none
+                      absolute
+                      inset-y-0
+                      left-1/2
+                      z-20
+                      w-px
+                      -translate-x-1/2
+                      bg-white/10
+                      shadow-[0_0_25px_rgba(0,0,0,0.9)]
+                    "
+                  />
+
+
+                  {/* =================================================
+                      PAGE NUMBER
+                  ================================================== */}
+
+                  <div
+                    className="
+                      absolute
+                      bottom-5
+                      right-6
+                      z-20
+                      text-xs
+                      tracking-[0.3em]
+                      text-white/50
+                    "
+                  >
+                    {String(currentPage + 1).padStart(2, "0")} /{" "}
+                    {String(photos.length).padStart(2, "0")}
+                  </div>
+
+
+                  {/* =================================================
+                      PAGE TRANSITION LOADER
+                  ================================================== */}
+
+                  {turning && (
+
+                    <div
+                      className={`
+                        absolute
+                        inset-y-0
+                        z-30
+                        w-1/2
+                        overflow-hidden
+                        bg-zinc-950
+                        ${
+                          direction === "next"
+                            ? "right-0 origin-left"
+                            : "left-0 origin-right"
+                        }
+                      `}
+                    >
+
+                      <div
+                        className="
+                          flex
+                          h-full
+                          w-full
+                          flex-col
+                          items-center
+                          justify-center
+                          bg-zinc-950
+                        "
+                      >
+
+                        <div className="relative h-16 w-16">
+
+                          <img
+                            src="/logo.png"
+                            alt=""
+                            className="
+                              absolute
+                              inset-0
+                              h-full
+                              w-full
+                              object-contain
+                              animate-logo-white
+                            "
+                          />
+
+                          <img
+                            src="/logo_golden.png"
+                            alt=""
+                            aria-hidden="true"
+                            className="
+                              absolute
+                              inset-0
+                              h-full
+                              w-full
+                              object-contain
+                              animate-logo-golden
+                            "
+                          />
+
+                        </div>
+
+                        <p
+                          className="
+                            mt-4
+                            text-[9px]
+                            font-semibold
+                            tracking-[0.4em]
+                            text-white/70
+                          "
+                        >
+                          SUBLIME STUDIOS
+                        </p>
+
+                        <div className="mt-4 flex gap-1.5">
+
+                          <span className="loading-dot" />
+                          <span className="loading-dot delay-1" />
+                          <span className="loading-dot delay-2" />
+
+                        </div>
+
+                      </div>
+
+                    </div>
+
+                  )}
+
                 </div>
-              )}
 
-
-              {/* Centre Binding */}
-
-              <div className="pointer-events-none absolute inset-y-0 left-1/2 z-20 w-px -translate-x-1/2 bg-white/10 shadow-[0_0_25px_rgba(0,0,0,0.9)]" />
-
-
-              {/* Page Number */}
-
-              <div className="absolute bottom-5 right-6 z-20 text-xs tracking-[0.3em] text-white/50">
-                {String(currentPage + 1).padStart(2, "0")} /{" "}
-                {String(photos.length).padStart(2, "0")}
               </div>
 
             </div>
 
-          </div>
 
+            {/* =================================================
+                NEXT BUTTON
+            ================================================== */}
 
-          {/* =====================================================
-    DESKTOP BOOK + SIDE NAVIGATION
-====================================================== */}
-
-<div className="hidden md:block">
-
-  <div className="relative mx-auto w-full max-w-7xl">
-
-    {/* =================================================
-        PREVIOUS BUTTON
-    ================================================== */}
-
-    <button
-      onClick={previousPage}
-      disabled={currentPage === 0 || turning}
-      className="
-        absolute
-        left-0
-        top-1/2
-        z-40
-        flex
-        h-14
-        w-14
-        -translate-y-1/2
-        items-center
-        justify-center
-        rounded-full
-        border
-        border-white/15
-        bg-black/60
-        text-2xl
-        text-white
-        backdrop-blur-sm
-        transition-all
-        duration-300
-        hover:border-orange-500
-        hover:bg-black/80
-        hover:text-orange-400
-        hover:scale-105
-        disabled:cursor-not-allowed
-        disabled:opacity-20
-      "
-      aria-label="Previous photograph"
-    >
-      ←
-    </button>
-
-
-    {/* =================================================
-        BOOK
-    ================================================== */}
-
-    <div className="mx-auto w-[88%]">
-
-      <div className="relative aspect-[16/9] perspective-[1800px]">
-
-        {/* Book Shadow */}
-
-        <div className="absolute inset-x-[8%] bottom-[-20px] h-10 rounded-full bg-black/80 blur-2xl" />
-
-
-        {/* Book */}
-
-        <div className="relative h-full w-full overflow-hidden rounded-xl bg-zinc-950 shadow-2xl">
-
-          {/* =================================================
-              LEFT PAGE
-          ================================================== */}
-
-          <div className="absolute inset-y-0 left-0 w-1/2 overflow-hidden border-r border-white/10 bg-zinc-950">
-
-            {currentPage === 0 ? (
-
-              <div className="flex h-full flex-col items-center justify-center px-8 text-center">
-
-                <div className="relative h-20 w-20">
-
-                  <img
-                    src="/logo.png"
-                    alt="Sublime Studios"
-                    className="absolute inset-0 h-full w-full object-contain"
-                  />
-
-                  <img
-                    src="/logo_golden.png"
-                    alt=""
-                    aria-hidden="true"
-                    className="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity duration-700 hover:opacity-100"
-                  />
-
-                </div>
-
-                <p className="mt-6 text-xs font-semibold tracking-[0.45em] text-white">
-                  SUBLIME STUDIOS
-                </p>
-
-                <div className="mt-7 h-px w-16 bg-orange-500/60" />
-
-                <p className="mt-7 text-[10px] font-medium tracking-[0.4em] text-orange-400">
-                  VISUAL COLLECTIONS
-                </p>
-
-                <p className="mt-4 max-w-xs text-sm leading-7 text-gray-500">
-                  A collection of moments, perspectives and stories
-                  captured through the lens.
-                </p>
-
-              </div>
-
-            ) : (
-
-              <img
-                src={photos[currentPage - 1]}
-                alt=""
-                className="absolute inset-0 h-full w-full object-contain"
-              />
-
-            )}
-
-          </div>
-
-
-          {/* =================================================
-              RIGHT PAGE
-          ================================================== */}
-
-          <div className="absolute inset-y-0 right-0 w-1/2 overflow-hidden bg-zinc-950">
-
-            {currentPage === photos.length - 1 ? (
-
-              <div className="flex h-full flex-col items-center justify-center px-8 text-center">
-
-                <div className="relative h-20 w-20">
-
-                  <img
-                    src="/logo.png"
-                    alt="Sublime Studios"
-                    className="absolute inset-0 h-full w-full object-contain"
-                  />
-
-                  <img
-                    src="/logo_golden.png"
-                    alt=""
-                    aria-hidden="true"
-                    className="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity duration-700 hover:opacity-100"
-                  />
-
-                </div>
-
-                <p className="mt-6 text-xs font-semibold tracking-[0.45em] text-white">
-                  SUBLIME STUDIOS
-                </p>
-
-                <div className="mt-7 h-px w-16 bg-orange-500/60" />
-
-                <p className="mt-7 text-[10px] font-medium tracking-[0.4em] text-orange-400">
-                  END OF COLLECTION
-                </p>
-
-                <p className="mt-4 max-w-xs text-sm leading-7 text-gray-500">
-                  Thank you for taking a moment to explore these
-                  photographs.
-                </p>
-
-              </div>
-
-            ) : (
-
-              <img
-                src={currentPhoto}
-                alt={`Collection photograph ${currentPage + 1}`}
-                className="h-full w-full object-contain"
-              />
-
-            )}
-
-          </div>
-
-
-          {/* =================================================
-              PAGE TURNING LOADER
-          ================================================== */}
-
-          {turning && (
-            <div
-              className={`page-turn absolute inset-y-0 z-30 w-1/2 overflow-hidden ${
-                direction === "next"
-                  ? "right-0 origin-left"
-                  : "left-0 origin-right"
-              }`}
+            <button
+              onClick={nextPage}
+              disabled={currentPage === photos.length - 1 || turning}
+              className="
+                absolute
+                right-0
+                top-1/2
+                z-40
+                flex
+                h-14
+                w-14
+                -translate-y-1/2
+                items-center
+                justify-center
+                rounded-full
+                border
+                border-white/15
+                bg-black/60
+                text-2xl
+                text-white
+                backdrop-blur-sm
+                transition-all
+                duration-300
+                hover:scale-105
+                hover:border-orange-500
+                hover:bg-black/80
+                hover:text-orange-400
+                disabled:cursor-not-allowed
+                disabled:opacity-20
+              "
+              aria-label="Next photograph"
             >
+              →
+            </button>
 
-              <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-zinc-950">
-
-                <div className="relative h-16 w-16">
-
-                  <img
-                    src="/logo.png"
-                    alt=""
-                    className="absolute inset-0 h-full w-full object-contain animate-logo-white"
-                  />
-
-                  <img
-                    src="/logo_golden.png"
-                    alt=""
-                    aria-hidden="true"
-                    className="absolute inset-0 h-full w-full object-contain animate-logo-golden"
-                  />
-
-                </div>
-
-                <p className="mt-4 text-[9px] font-semibold tracking-[0.4em] text-white/70">
-                  SUBLIME STUDIOS
-                </p>
-
-                <div className="mt-4 flex gap-1.5">
-
-                  <span className="loading-dot" />
-                  <span className="loading-dot delay-1" />
-                  <span className="loading-dot delay-2" />
-
-                </div>
-
-              </div>
-
-            </div>
-          )}
-
-
-          {/* Centre Binding */}
-
-          <div className="pointer-events-none absolute inset-y-0 left-1/2 z-20 w-px -translate-x-1/2 bg-white/10 shadow-[0_0_25px_rgba(0,0,0,0.9)]" />
-
-
-          {/* Page Number */}
-
-          <div className="absolute bottom-5 right-6 z-20 text-xs tracking-[0.3em] text-white/50">
-            {String(currentPage + 1).padStart(2, "0")} /{" "}
-            {String(photos.length).padStart(2, "0")}
           </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    {/* =================================================
-        NEXT BUTTON
-    ================================================== */}
-
-    <button
-      onClick={nextPage}
-      disabled={currentPage === photos.length - 1 || turning}
-      className="
-        absolute
-        right-0
-        top-1/2
-        z-40
-        flex
-        h-14
-        w-14
-        -translate-y-1/2
-        items-center
-        justify-center
-        rounded-full
-        border
-        border-white/15
-        bg-black/60
-        text-2xl
-        text-white
-        backdrop-blur-sm
-        transition-all
-        duration-300
-        hover:border-orange-500
-        hover:bg-black/80
-        hover:text-orange-400
-        hover:scale-105
-        disabled:cursor-not-allowed
-        disabled:opacity-20
-      "
-      aria-label="Next photograph"
-    >
-      →
-    </button>
-
-  </div>
-
-</div>
 
         </div>
 
 
         {/* =====================================================
-            MOBILE
+            MOBILE BOOK
         ====================================================== */}
 
         <div className="md:hidden">
 
-          <div className="relative mx-auto w-full max-w-md perspective-[1200px]">
+          <div className="relative mx-auto w-full max-w-md">
 
-            <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-zinc-950 shadow-2xl">
-
-              {/* Current Photograph */}
+            <div
+              className="
+                relative
+                aspect-[4/5]
+                overflow-hidden
+                rounded-xl
+                bg-zinc-950
+                shadow-2xl
+              "
+            >
 
               {currentPage === photos.length - 1 ? (
 
-                <div className="flex h-full flex-col items-center justify-center px-8 text-center">
+                <div
+                  className="
+                    flex
+                    h-full
+                    flex-col
+                    items-center
+                    justify-center
+                    px-8
+                    text-center
+                  "
+                >
 
                   <div className="relative h-16 w-16">
 
                     <img
                       src="/logo.png"
                       alt="Sublime Studios"
-                      className="absolute inset-0 h-full w-full object-contain"
-                    />
-
-                    <img
-                      src="/logo_golden.png"
-                      alt=""
-                      aria-hidden="true"
-                      className="absolute inset-0 h-full w-full object-contain opacity-0"
+                      className="
+                        absolute
+                        inset-0
+                        h-full
+                        w-full
+                        object-contain
+                      "
                     />
 
                   </div>
@@ -633,7 +663,14 @@ export default function Gallery() {
 
                   <div className="mt-6 h-px w-12 bg-orange-500/60" />
 
-                  <p className="mt-6 text-[9px] tracking-[0.35em] text-orange-400">
+                  <p
+                    className="
+                      mt-6
+                      text-[9px]
+                      tracking-[0.35em]
+                      text-orange-400
+                    "
+                  >
                     END OF COLLECTION
                   </p>
 
@@ -644,92 +681,149 @@ export default function Gallery() {
                 <img
                   src={currentPhoto}
                   alt={`Collection photograph ${currentPage + 1}`}
-                  className="absolute inset-0 h-full w-full object-contain"
+                  className="
+                    absolute
+                    inset-0
+                    h-full
+                    w-full
+                    object-contain
+                  "
                 />
 
               )}
 
 
-              {/* Mobile Page Turn */}
+              {/* Mobile transition */}
 
               {turning && (
-                <div
-                  className={`page-turn-mobile absolute inset-y-0 z-30 w-full overflow-hidden ${
-                    direction === "next"
-                      ? "origin-left"
-                      : "origin-right"
-                  }`}
-                >
 
-                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-zinc-950">
+                <div className="absolute inset-0 z-30 flex flex-col items-center justify-center bg-zinc-950">
 
-                    <div className="relative h-16 w-16">
+                  <div className="relative h-16 w-16">
 
-                      <img
-                        src="/logo.png"
-                        alt=""
-                        className="absolute inset-0 h-full w-full object-contain animate-logo-white"
-                      />
+                    <img
+                      src="/logo.png"
+                      alt=""
+                      className="
+                        absolute
+                        inset-0
+                        h-full
+                        w-full
+                        object-contain
+                        animate-logo-white
+                      "
+                    />
 
-                      <img
-                        src="/logo_golden.png"
-                        alt=""
-                        className="absolute inset-0 h-full w-full object-contain animate-logo-golden"
-                      />
+                    <img
+                      src="/logo_golden.png"
+                      alt=""
+                      aria-hidden="true"
+                      className="
+                        absolute
+                        inset-0
+                        h-full
+                        w-full
+                        object-contain
+                        animate-logo-golden
+                      "
+                    />
 
-                    </div>
+                  </div>
 
-                    <div className="mt-4 flex gap-1.5">
+                  <div className="mt-4 flex gap-1.5">
 
-                      <span className="loading-dot" />
-                      <span className="loading-dot delay-1" />
-                      <span className="loading-dot delay-2" />
-
-                    </div>
+                    <span className="loading-dot" />
+                    <span className="loading-dot delay-1" />
+                    <span className="loading-dot delay-2" />
 
                   </div>
 
                 </div>
+
               )}
 
 
-              {/* Page Number */}
+              {/* Mobile page number */}
 
-              <div className="absolute bottom-5 right-5 z-20 text-xs tracking-[0.3em] text-white/55">
+              <div
+                className="
+                  absolute
+                  bottom-5
+                  right-5
+                  z-20
+                  text-xs
+                  tracking-[0.3em]
+                  text-white/55
+                "
+              >
                 {String(currentPage + 1).padStart(2, "0")} /{" "}
                 {String(photos.length).padStart(2, "0")}
               </div>
 
             </div>
 
-          </div>
 
+            {/* Mobile controls */}
 
-          {/* Mobile Controls */}
+            <div className="mt-7 flex items-center justify-center gap-6">
 
-          <div className="mt-7 flex items-center justify-center gap-6">
+              <button
+                onClick={previousPage}
+                disabled={currentPage === 0 || turning}
+                className="
+                  flex
+                  h-11
+                  w-11
+                  items-center
+                  justify-center
+                  rounded-full
+                  border
+                  border-white/15
+                  text-white
+                  transition
+                  hover:border-orange-500
+                  hover:text-orange-400
+                  disabled:opacity-25
+                "
+                aria-label="Previous photograph"
+              >
+                ←
+              </button>
 
-            <button
-              onClick={previousPage}
-              disabled={currentPage === 0 || turning}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white transition hover:border-orange-500 hover:text-orange-400 disabled:opacity-25"
-              aria-label="Previous photograph"
-            >
-              ←
-            </button>
+              <span
+                className="
+                  text-[10px]
+                  tracking-[0.3em]
+                  text-gray-500
+                "
+              >
+                TURN THE PAGE
+              </span>
 
-            <span className="text-[10px] tracking-[0.3em] text-gray-500">
-              SWIPE / TURN
-            </span>
+              <button
+                onClick={nextPage}
+                disabled={currentPage === photos.length - 1 || turning}
+                className="
+                  flex
+                  h-11
+                  w-11
+                  items-center
+                  justify-center
+                  rounded-full
+                  border
+                  border-white/15
+                  text-white
+                  transition
+                  hover:border-orange-500
+                  hover:text-orange-400
+                  disabled:opacity-25
+                "
+                aria-label="Next photograph"
+              >
+                →
+              </button>
 
-            <button
-              onClick={nextPage}
-              disabled={currentPage === photos.length - 1 || turning}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white transition hover:border-orange-500 hover:text-orange-400 disabled:opacity-25"
-              aria-label="Next photograph"
-            >
-              →
-            </button>
+            </div>
 
           </div>
 
