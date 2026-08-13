@@ -1,29 +1,100 @@
+import {
+  SiSony,
+  SiDji,
+  SiReact,
+  SiNextdotjs,
+  SiVercel,
+  SiGithub,
+} from "react-icons/si";
+
+type BrandProps = {
+  name: string;
+  icon?: React.ReactNode;
+};
+
+function Brand({ name, icon }: BrandProps) {
+  return (
+    <div
+      className="
+        group
+        flex
+        min-w-[70px]
+        flex-col
+        items-center
+        justify-center
+        gap-2
+      "
+    >
+      {icon ? (
+        <div
+          className="
+            text-3xl
+            text-gray-500
+            transition-all
+            duration-300
+            group-hover:scale-110
+            group-hover:text-orange-500
+          "
+        >
+          {icon}
+        </div>
+      ) : (
+        <div
+          className="
+            flex
+            h-8
+            items-center
+            text-sm
+            font-semibold
+            tracking-tight
+            text-gray-500
+            transition-all
+            duration-300
+            group-hover:text-orange-500
+          "
+        >
+          {name}
+        </div>
+      )}
+
+      <span
+        className="
+          text-[9px]
+          font-medium
+          tracking-[0.15em]
+          text-gray-600
+          transition-colors
+          duration-300
+          group-hover:text-gray-400
+        "
+      >
+        {name}
+      </span>
+    </div>
+  );
+}
+
+
 export default function Footer() {
   return (
     <footer className="border-t border-white/10 bg-black text-white">
 
-      {/* =====================================================
-          BRAND / INTRO
-      ====================================================== */}
-
       <div className="mx-auto max-w-7xl px-6 py-16 md:px-10 lg:px-16">
+
+
+        {/* =====================================================
+            BRAND
+        ====================================================== */}
 
         <div className="text-center">
 
-          {/* Logo */}
-
           <div className="flex justify-center">
-
             <img
               src="/logo_golden.png"
               alt="Sublime Studios"
-              className="h-16 w-16 object-contain"
+              className="h-14 w-14 object-contain"
             />
-
           </div>
-
-
-          {/* Brand */}
 
           <h2
             className="
@@ -37,8 +108,16 @@ export default function Footer() {
             SUBLIME STUDIOS
           </h2>
 
-
-          <p className="mx-auto mt-5 max-w-xl text-sm leading-7 text-gray-500">
+          <p
+            className="
+              mx-auto
+              mt-5
+              max-w-xl
+              text-sm
+              leading-7
+              text-gray-500
+            "
+          >
             Photography shaped by curiosity, exploration and a deep
             appreciation for the world around us.
           </p>
@@ -57,7 +136,7 @@ export default function Footer() {
               text-center
               text-[10px]
               font-medium
-              tracking-[0.45em]
+              tracking-[0.5em]
               text-orange-500
             "
           >
@@ -69,19 +148,21 @@ export default function Footer() {
 
 
           {/* =================================================
-              BRAND GROUPS
+              FOUR CATEGORIES
           ================================================== */}
 
           <div
             className="
-              mt-10
+              mt-12
               grid
-              gap-10
-              sm:grid-cols-2
-              lg:grid-cols-4
+              grid-cols-2
+              gap-12
+              md:grid-cols-4
+              md:gap-8
             "
           >
 
+
             {/* =================================================
                 VISUALS
             ================================================== */}
@@ -92,7 +173,7 @@ export default function Footer() {
                 className="
                   text-[10px]
                   font-medium
-                  tracking-[0.35em]
+                  tracking-[0.4em]
                   text-gray-500
                 "
               >
@@ -101,31 +182,28 @@ export default function Footer() {
 
               <div
                 className="
-                  mt-6
+                  mt-8
                   flex
                   flex-wrap
-                  items-center
+                  items-start
                   justify-center
-                  gap-x-6
-                  gap-y-4
+                  gap-6
                 "
               >
 
-                <span className="text-sm font-semibold text-gray-300">
-                  Sony
-                </span>
+                <Brand
+                  name="Sony"
+                  icon={<SiSony />}
+                />
 
-                <span className="text-sm font-semibold text-gray-300">
-                  Redmi
-                </span>
+                <Brand name="Redmi" />
 
-                <span className="text-sm font-semibold text-gray-300">
-                  OnePlus
-                </span>
+                <Brand name="OnePlus" />
 
-                <span className="text-sm font-semibold text-gray-300">
-                  DJI
-                </span>
+                <Brand
+                  name="DJI"
+                  icon={<SiDji />}
+                />
 
               </div>
 
@@ -142,7 +220,7 @@ export default function Footer() {
                 className="
                   text-[10px]
                   font-medium
-                  tracking-[0.35em]
+                  tracking-[0.4em]
                   text-gray-500
                 "
               >
@@ -151,23 +229,18 @@ export default function Footer() {
 
               <div
                 className="
-                  mt-6
+                  mt-8
                   flex
                   flex-wrap
-                  items-center
+                  items-start
                   justify-center
-                  gap-x-6
-                  gap-y-4
+                  gap-6
                 "
               >
 
-                <span className="text-sm font-semibold text-gray-300">
-                  Hollyland
-                </span>
+                <Brand name="Hollyland" />
 
-                <span className="text-sm font-semibold text-gray-300">
-                  Digitek
-                </span>
+                <Brand name="Digitek" />
 
               </div>
 
@@ -184,7 +257,7 @@ export default function Footer() {
                 className="
                   text-[10px]
                   font-medium
-                  tracking-[0.35em]
+                  tracking-[0.4em]
                   text-gray-500
                 "
               >
@@ -193,35 +266,24 @@ export default function Footer() {
 
               <div
                 className="
-                  mt-6
+                  mt-8
                   flex
                   flex-wrap
-                  items-center
+                  items-start
                   justify-center
-                  gap-x-5
-                  gap-y-4
+                  gap-6
                 "
               >
 
-                <span className="text-sm font-semibold text-gray-300">
-                  Photoshop
-                </span>
+                <Brand name="Photoshop" />
 
-                <span className="text-sm font-semibold text-gray-300">
-                  Lightroom
-                </span>
+                <Brand name="Lightroom" />
 
-                <span className="text-sm font-semibold text-gray-300">
-                  Premiere Pro
-                </span>
+                <Brand name="Premiere Pro" />
 
-                <span className="text-sm font-semibold text-gray-300">
-                  DaVinci Resolve
-                </span>
+                <Brand name="DaVinci Resolve" />
 
-                <span className="text-sm font-semibold text-gray-300">
-                  YouCut
-                </span>
+                <Brand name="YouCut" />
 
               </div>
 
@@ -238,7 +300,7 @@ export default function Footer() {
                 className="
                   text-[10px]
                   font-medium
-                  tracking-[0.35em]
+                  tracking-[0.4em]
                   text-gray-500
                 "
               >
@@ -247,35 +309,36 @@ export default function Footer() {
 
               <div
                 className="
-                  mt-6
+                  mt-8
                   flex
                   flex-wrap
-                  items-center
+                  items-start
                   justify-center
-                  gap-x-5
-                  gap-y-4
+                  gap-6
                 "
               >
 
-                <span className="text-sm font-semibold text-gray-300">
-                  ChatGPT
-                </span>
+                <Brand name="ChatGPT" />
 
-                <span className="text-sm font-semibold text-gray-300">
-                  React
-                </span>
+                <Brand
+                  name="React"
+                  icon={<SiReact />}
+                />
 
-                <span className="text-sm font-semibold text-gray-300">
-                  Next.js
-                </span>
+                <Brand
+                  name="Next.js"
+                  icon={<SiNextdotjs />}
+                />
 
-                <span className="text-sm font-semibold text-gray-300">
-                  Vercel
-                </span>
+                <Brand
+                  name="Vercel"
+                  icon={<SiVercel />}
+                />
 
-                <span className="text-sm font-semibold text-gray-300">
-                  GitHub
-                </span>
+                <Brand
+                  name="GitHub"
+                  icon={<SiGithub />}
+                />
 
               </div>
 
@@ -296,7 +359,16 @@ export default function Footer() {
             © 2026 Sublime Studios. All Rights Reserved.
           </p>
 
-          <p className="mx-auto mt-3 max-w-3xl text-[10px] leading-6 text-gray-600">
+          <p
+            className="
+              mx-auto
+              mt-3
+              max-w-3xl
+              text-[10px]
+              leading-6
+              text-gray-600
+            "
+          >
             All photographs, visual works, written content and original
             creative materials presented on this website are the property
             of Sublime Studios unless otherwise stated. Unauthorized
