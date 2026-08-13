@@ -3,30 +3,31 @@
 import { useState } from "react";
 
 const photos = [
-  {
-    src: "/gallery/photo-01.jpg",
-    category: "LANDSCAPES",
-  },
-  {
-    src: "/gallery/photo-02.jpg",
-    category: "WILDLIFE",
-  },
-  {
-    src: "/gallery/photo-03.jpg",
-    category: "EARTH & GEOLOGY",
-  },
-  {
-    src: "/gallery/photo-04.jpg",
-    category: "CULTURE",
-  },
-  {
-    src: "/gallery/photo-05.jpg",
-    category: "DETAILS",
-  },
-  {
-    src: "/gallery/photo-06.jpg",
-    category: "MOMENTS",
-  },
+  "/gallery/photo-01.jpg",
+  "/gallery/photo-02.jpg",
+  "/gallery/photo-03.jpg",
+  "/gallery/photo-04.jpg",
+  "/gallery/photo-05.jpg",
+  "/gallery/photo-06.jpg",
+  "/gallery/photo-07.jpg",
+  "/gallery/photo-08.jpg",
+  "/gallery/photo-09.jpg",
+  "/gallery/photo-10.jpg",
+  "/gallery/photo-11.jpg",
+  "/gallery/photo-12.jpg",
+  "/gallery/photo-13.jpg",
+  "/gallery/photo-14.jpg",
+  "/gallery/photo-15.jpg",
+  "/gallery/photo-16.jpg",
+  "/gallery/photo-17.jpg",
+  "/gallery/photo-18.jpg",
+  "/gallery/photo-19.jpg",
+  "/gallery/photo-20.jpg",
+  "/gallery/photo-21.jpg",
+  "/gallery/photo-22.jpg",
+  "/gallery/photo-23.jpg",
+  "/gallery/photo-24.jpg",
+  "/gallery/photo-25.jpg",
 ];
 
 export default function Gallery() {
@@ -59,7 +60,6 @@ export default function Gallery() {
   };
 
   const currentPhoto = photos[currentPage];
-  const nextPhoto = photos[currentPage + 1];
   const previousPhoto = photos[currentPage - 1];
 
   return (
@@ -70,7 +70,7 @@ export default function Gallery() {
       <div className="mx-auto max-w-7xl">
 
         {/* =====================================================
-            SECTION INTRO
+            SECTION HEADING
         ====================================================== */}
 
         <div className="mb-14 text-center">
@@ -84,15 +84,15 @@ export default function Gallery() {
           </h2>
 
           <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-gray-400 md:text-base">
-            A curated journey through landscapes, wildlife, geology,
-            culture and the quiet moments that shape how we see the world.
+            A curated collection of photographs from different moments,
+            places and perspectives.
           </p>
 
         </div>
 
 
         {/* =====================================================
-            DESKTOP BOOK
+            DESKTOP
         ====================================================== */}
 
         <div className="hidden md:block">
@@ -110,38 +110,34 @@ export default function Gallery() {
 
               {/* Left Page */}
 
-              <div className="absolute inset-y-0 left-0 w-1/2 overflow-hidden border-r border-white/10 bg-zinc-900">
+              <div className="absolute inset-y-0 left-0 w-1/2 overflow-hidden bg-zinc-950">
 
                 {previousPhoto && (
                   <img
-                    src={previousPhoto.src}
+                    src={previousPhoto}
                     alt=""
-                    className="absolute inset-0 h-full w-full object-cover opacity-30"
+                    className="absolute inset-0 h-full w-full object-contain"
                   />
                 )}
-
-                <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/20" />
 
               </div>
 
 
               {/* Right Page */}
 
-              <div className="absolute inset-y-0 right-0 w-1/2 overflow-hidden bg-zinc-900">
+              <div className="absolute inset-y-0 right-0 w-1/2 overflow-hidden bg-zinc-950">
 
                 <img
-                  src={currentPhoto.src}
-                  alt={currentPhoto.category}
-                  className="h-full w-full object-cover"
+                  src={currentPhoto}
+                  alt={`Collection photograph ${currentPage + 1}`}
+                  className="h-full w-full object-contain"
                 />
-
-                <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-black/10" />
 
               </div>
 
 
               {/* =================================================
-                  PAGE TURNING SHEET
+                  PAGE TURN
               ================================================== */}
 
               {turning && (
@@ -156,14 +152,12 @@ export default function Gallery() {
                   <img
                     src={
                       direction === "next"
-                        ? currentPhoto.src
-                        : previousPhoto?.src || currentPhoto.src
+                        ? currentPhoto
+                        : previousPhoto || currentPhoto
                     }
                     alt=""
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-contain"
                   />
-
-                  <div className="absolute inset-0 bg-black/10" />
 
                 </div>
               )}
@@ -171,25 +165,12 @@ export default function Gallery() {
 
               {/* Centre Binding */}
 
-              <div className="pointer-events-none absolute inset-y-0 left-1/2 z-20 w-px -translate-x-1/2 bg-white/15 shadow-[0_0_20px_rgba(0,0,0,0.8)]" />
+              <div className="pointer-events-none absolute inset-y-0 left-1/2 z-20 w-px -translate-x-1/2 bg-white/10 shadow-[0_0_25px_rgba(0,0,0,0.9)]" />
 
 
-              {/* =================================================
-                  CURRENT PHOTO INFORMATION
-              ================================================== */}
+              {/* Page Number */}
 
-              <div className="absolute bottom-6 left-6 z-20">
-
-                <p className="text-[10px] font-medium tracking-[0.35em] text-orange-400">
-                  {currentPhoto.category}
-                </p>
-
-              </div>
-
-
-              {/* Page Counter */}
-
-              <div className="absolute bottom-6 right-6 z-20 text-xs tracking-[0.25em] text-white/70">
+              <div className="absolute bottom-5 right-6 z-20 text-xs tracking-[0.3em] text-white/50">
                 {String(currentPage + 1).padStart(2, "0")} /{" "}
                 {String(photos.length).padStart(2, "0")}
               </div>
@@ -199,9 +180,7 @@ export default function Gallery() {
           </div>
 
 
-          {/* =====================================================
-              DESKTOP CONTROLS
-          ====================================================== */}
+          {/* Desktop Controls */}
 
           <div className="mt-8 flex items-center justify-center gap-5">
 
@@ -214,7 +193,7 @@ export default function Gallery() {
               ←
             </button>
 
-            <span className="text-xs tracking-[0.35em] text-gray-500">
+            <span className="text-[10px] tracking-[0.35em] text-gray-500">
               TURN THE PAGE
             </span>
 
@@ -233,30 +212,25 @@ export default function Gallery() {
 
 
         {/* =====================================================
-            MOBILE BOOK
+            MOBILE
         ====================================================== */}
 
         <div className="md:hidden">
 
           <div className="relative mx-auto w-full max-w-md perspective-[1200px]">
 
-            <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-zinc-900 shadow-2xl">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-zinc-950 shadow-2xl">
 
               {/* Current Photograph */}
 
               <img
-                src={currentPhoto.src}
-                alt={currentPhoto.category}
-                className="absolute inset-0 h-full w-full object-cover"
+                src={currentPhoto}
+                alt={`Collection photograph ${currentPage + 1}`}
+                className="absolute inset-0 h-full w-full object-contain"
               />
 
 
-              {/* Cinematic Overlay */}
-
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/10" />
-
-
-              {/* Mobile Page Turn */}
+              {/* Page Turn */}
 
               {turning && (
                 <div
@@ -270,31 +244,20 @@ export default function Gallery() {
                   <img
                     src={
                       direction === "next"
-                        ? currentPhoto.src
-                        : previousPhoto?.src || currentPhoto.src
+                        ? currentPhoto
+                        : previousPhoto || currentPhoto
                     }
                     alt=""
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-contain"
                   />
 
                 </div>
               )}
 
 
-              {/* Category */}
+              {/* Page Number */}
 
-              <div className="absolute bottom-6 left-6 z-20">
-
-                <p className="text-[10px] font-medium tracking-[0.35em] text-orange-400">
-                  {currentPhoto.category}
-                </p>
-
-              </div>
-
-
-              {/* Counter */}
-
-              <div className="absolute bottom-6 right-6 z-20 text-xs tracking-[0.25em] text-white/70">
+              <div className="absolute bottom-5 right-5 z-20 text-xs tracking-[0.3em] text-white/55">
                 {String(currentPage + 1).padStart(2, "0")} /{" "}
                 {String(photos.length).padStart(2, "0")}
               </div>
