@@ -104,7 +104,7 @@ export default function Navbar() {
               onClick={(event) => handleNavigation(event, "#gallery")}
               className="text-gray-300 hover:text-orange-500 transition duration-300"
             >
-              Portfolio
+              Collections
             </a>
 
             <a
