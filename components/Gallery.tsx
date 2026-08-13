@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const photos = [
   "/gallery/photo-01.jpg",
@@ -31,42 +31,156 @@ const photos = [
 ];
 
 export default function Gallery() {
-  const [currentPage, setCurrentPage] = useState(0);
-  const [turning, setTurning] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState<"next" | "previous">("next");
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
-  const nextPage = () => {
-    if (turning || currentPage >= photos.length - 1) return;
+  const totalPhotos = photos.length;
+
+  const goNext = () => {
+    if (isTransitioning || currentIndex >= totalPhotos - 1) return;
 
     setDirection("next");
-    setTurning(true);
+    setIsTransitioning(true);
+    setImageLoaded(false);
 
     setTimeout(() => {
-      setCurrentPage((prev) => prev + 1);
-      setTurning(false);
+      setCurrentIndex((prev) => prev + 1);
+      setIsTransitioning(false);
     }, 650);
   };
 
-  const previousPage = () => {
-    if (turning || currentPage <= 0) return;
+  const goPrevious = () => {
+    if (isTransitioning || currentIndex <= 0) return;
 
     setDirection("previous");
-    setTurning(true);
+    setIsTransitioning(true);
+    setImageLoaded(false);
 
     setTimeout(() => {
-      setCurrentPage((prev) => prev - 1);
-      setTurning(false);
+      setCurrentIndex((prev) => prev - 1);
+      setIsTransitioning(false);
     }, 650);
   };
 
-  const currentPhoto = photos[currentPage];
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "ArrowRight") {
+        goNext();
+      }
+
+      if (event.key === "ArrowLeft") {
+        goPrevious();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  });
+
+
+  /*
+  ============================================================
+  GET PHOTO INDEX
+  ============================================================
+  */
+
+  const getPhotoIndex = (offset: number) => {
+    const index = currentIndex + offset;
+
+    if (index < 0 || index >= totalPhotos) {
+      return null;
+    }
+
+    return index;
+  };
+
+
+  /*
+  ============================================================
+  CARD POSITION
+  ============================================================
+  */
+
+  const getCardStyle = (offset: number) => {
+    const baseTransition =
+      "transform 650ms cubic-bezier(0.22, 0.61, 0.36, 1), opacity 500ms ease, filter 500ms ease";
+
+    if (offset === 0) {
+      return {
+        transform: "translateX(0%) scale(1)",
+        opacity: 1,
+        filter: "blur(0px)",
+        zIndex: 30,
+        transition: baseTransition,
+      };
+    }
+
+    if (offset === -1) {
+      return {
+        transform: "translateX(-72%) scale(0.88)",
+        opacity: 0.65,
+        filter: "blur(3px)",
+        zIndex: 20,
+        transition: baseTransition,
+      };
+    }
+
+    if (offset === -2) {
+      return {
+        transform: "translateX(-118%) scale(0.76)",
+        opacity: 0.32,
+        filter: "blur(7px)",
+        zIndex: 10,
+        transition: baseTransition,
+      };
+    }
+
+    if (offset === 1) {
+      return {
+        transform: "translateX(72%) scale(0.88)",
+        opacity: 0.65,
+        filter: "blur(3px)",
+        zIndex: 20,
+        transition: baseTransition,
+      };
+    }
+
+    if (offset === 2) {
+      return {
+        transform: "translateX(118%) scale(0.76)",
+        opacity: 0.32,
+        filter: "blur(7px)",
+        zIndex: 10,
+        transition: baseTransition,
+      };
+    }
+
+    return {
+      transform: "translateX(0%) scale(0.6)",
+      opacity: 0,
+      filter: "blur(10px)",
+      zIndex: 0,
+      transition: baseTransition,
+    };
+  };
+
+
+  const visibleOffsets = [-2, -1, 0, 1, 2];
+
 
   return (
     <section
       id="gallery"
       className="relative overflow-hidden bg-black px-6 py-24 text-white md:px-10 lg:px-16"
     >
+
       <div className="mx-auto max-w-7xl">
+
 
         {/* =====================================================
             SECTION HEADING
@@ -91,25 +205,27 @@ export default function Gallery() {
 
 
         {/* =====================================================
-            DESKTOP BOOK
+            DESKTOP VIEWER
         ====================================================== */}
 
         <div className="hidden md:block">
 
-          <div className="relative mx-auto w-full max-w-7xl">
+          <div className="relative mx-auto h-[620px] w-full max-w-7xl">
+
 
             {/* =================================================
                 PREVIOUS BUTTON
             ================================================== */}
 
             <button
-              onClick={previousPage}
-              disabled={currentPage === 0 || turning}
+              onClick={goPrevious}
+              disabled={currentIndex === 0 || isTransitioning}
+              aria-label="Previous photograph"
               className="
                 absolute
-                left-0
+                left-2
                 top-1/2
-                z-40
+                z-50
                 flex
                 h-14
                 w-14
@@ -119,380 +235,373 @@ export default function Gallery() {
                 rounded-full
                 border
                 border-white/15
-                bg-black/60
+                bg-black/50
                 text-2xl
                 text-white
-                backdrop-blur-sm
+                backdrop-blur-md
                 transition-all
                 duration-300
-                hover:scale-105
+                hover:scale-110
                 hover:border-orange-500
-                hover:bg-black/80
                 hover:text-orange-400
                 disabled:cursor-not-allowed
                 disabled:opacity-20
               "
-              aria-label="Previous photograph"
             >
               ←
             </button>
 
 
             {/* =================================================
-                SINGLE BOOK
+                PHOTO STAGE
             ================================================== */}
 
-            <div className="mx-auto w-[88%]">
+            <div
+              className="
+                absolute
+                inset-0
+                flex
+                items-center
+                justify-center
+                overflow-hidden
+              "
+            >
 
-              <div className="relative aspect-[16/9]">
+              {/* Ambient glow */}
 
-                {/* Book shadow */}
-
-                <div
-                  className="
-                    absolute
-                    inset-x-[8%]
-                    bottom-[-20px]
-                    h-10
-                    rounded-full
-                    bg-black/80
-                    blur-2xl
-                  "
-                />
-
-
-                {/* =================================================
-                    BOOK CONTAINER
-                ================================================== */}
-
-                <div
-                  className="
-                    relative
-                    h-full
-                    w-full
-                    overflow-hidden
-                    rounded-xl
-                    bg-zinc-950
-                    shadow-2xl
-                  "
-                >
-
-                  {/* =================================================
-                      LEFT PAGE
-                  ================================================== */}
-
-                  <div
-                    className="
-                      absolute
-                      inset-y-0
-                      left-0
-                      w-1/2
-                      overflow-hidden
-                      border-r
-                      border-white/10
-                      bg-zinc-950
-                    "
-                  >
-
-                    {currentPage === 0 ? (
-
-                      /* Opening page */
-
-                      <div
-                        className="
-                          flex
-                          h-full
-                          flex-col
-                          items-center
-                          justify-center
-                          px-8
-                          text-center
-                        "
-                      >
-
-                        <div className="relative h-20 w-20">
-
-                          <img
-                            src="/logo.png"
-                            alt="Sublime Studios"
-                            className="
-                              absolute
-                              inset-0
-                              h-full
-                              w-full
-                              object-contain
-                            "
-                          />
-
-                          <img
-                            src="/logo_golden.png"
-                            alt=""
-                            aria-hidden="true"
-                            className="
-                              absolute
-                              inset-0
-                              h-full
-                              w-full
-                              object-contain
-                              opacity-0
-                              transition-opacity
-                              duration-700
-                              hover:opacity-100
-                            "
-                          />
-
-                        </div>
-
-                        <p
-                          className="
-                            mt-6
-                            text-xs
-                            font-semibold
-                            tracking-[0.45em]
-                            text-white
-                          "
-                        >
-                          SUBLIME STUDIOS
-                        </p>
-
-                        <div className="mt-7 h-px w-16 bg-orange-500/60" />
-
-                        <p
-                          className="
-                            mt-7
-                            text-[10px]
-                            font-medium
-                            tracking-[0.4em]
-                            text-orange-400
-                          "
-                        >
-                          VISUAL COLLECTIONS
-                        </p>
-
-                        <p
-                          className="
-                            mt-4
-                            max-w-xs
-                            text-sm
-                            leading-7
-                            text-gray-500
-                          "
-                        >
-                          A collection of moments, perspectives and stories
-                          captured through the lens.
-                        </p>
-
-                      </div>
-
-                    ) : (
-
-                      <img
-                        src={photos[currentPage - 1]}
-                        alt={`Collection photograph ${currentPage}`}
-                        className="
-                          absolute
-                          inset-0
-                          h-full
-                          w-full
-                          object-contain
-                        "
-                      />
-
-                    )}
-
-                  </div>
+              <div
+                className="
+                  pointer-events-none
+                  absolute
+                  left-1/2
+                  top-1/2
+                  h-[65%]
+                  w-[45%]
+                  -translate-x-1/2
+                  -translate-y-1/2
+                  rounded-full
+                  bg-orange-500/5
+                  blur-[100px]
+                "
+              />
 
 
-                  {/* =================================================
-                      RIGHT PAGE
-                  ================================================== */}
+              {/* =================================================
+                  PHOTO STACK
+              ================================================== */}
 
-                  <div
-                    className="
-                      absolute
-                      inset-y-0
-                      right-0
-                      w-1/2
-                      overflow-hidden
-                      bg-zinc-950
-                    "
-                  >
+              <div
+                className="
+                  relative
+                  flex
+                  h-[580px]
+                  w-[72%]
+                  items-center
+                  justify-center
+                "
+              >
 
-                    {currentPage === photos.length - 1 ? (
+                {visibleOffsets.map((offset) => {
 
-                      /* Closing page */
+                  const photoIndex = getPhotoIndex(offset);
 
-                      <div
-                        className="
-                          flex
-                          h-full
-                          flex-col
-                          items-center
-                          justify-center
-                          px-8
-                          text-center
-                        "
-                      >
+                  if (photoIndex === null) return null;
 
-                        <div className="relative h-20 w-20">
+                  const isMain = offset === 0;
 
-                          <img
-                            src="/logo.png"
-                            alt="Sublime Studios"
-                            className="
-                              absolute
-                              inset-0
-                              h-full
-                              w-full
-                              object-contain
-                            "
-                          />
-
-                          <img
-                            src="/logo_golden.png"
-                            alt=""
-                            aria-hidden="true"
-                            className="
-                              absolute
-                              inset-0
-                              h-full
-                              w-full
-                              object-contain
-                              opacity-0
-                              transition-opacity
-                              duration-700
-                              hover:opacity-100
-                            "
-                          />
-
-                        </div>
-
-                        <p
-                          className="
-                            mt-6
-                            text-xs
-                            font-semibold
-                            tracking-[0.45em]
-                            text-white
-                          "
-                        >
-                          SUBLIME STUDIOS
-                        </p>
-
-                        <div className="mt-7 h-px w-16 bg-orange-500/60" />
-
-                        <p
-                          className="
-                            mt-7
-                            text-[10px]
-                            font-medium
-                            tracking-[0.4em]
-                            text-orange-400
-                          "
-                        >
-                          END OF COLLECTION
-                        </p>
-
-                        <p
-                          className="
-                            mt-4
-                            max-w-xs
-                            text-sm
-                            leading-7
-                            text-gray-500
-                          "
-                        >
-                          Thank you for taking a moment to explore these
-                          photographs.
-                        </p>
-
-                      </div>
-
-                    ) : (
-
-                      <img
-                        src={currentPhoto}
-                        alt={`Collection photograph ${currentPage + 1}`}
-                        className="
-                          absolute
-                          inset-0
-                          h-full
-                          w-full
-                          object-contain
-                        "
-                      />
-
-                    )}
-
-                  </div>
-
-
-                  {/* =================================================
-                      CENTRE BINDING
-                  ================================================== */}
-
-                  <div
-                    className="
-                      pointer-events-none
-                      absolute
-                      inset-y-0
-                      left-1/2
-                      z-20
-                      w-px
-                      -translate-x-1/2
-                      bg-white/10
-                      shadow-[0_0_25px_rgba(0,0,0,0.9)]
-                    "
-                  />
-
-
-                  {/* =================================================
-                      PAGE NUMBER
-                  ================================================== */}
-
-                  <div
-                    className="
-                      absolute
-                      bottom-5
-                      right-6
-                      z-20
-                      text-xs
-                      tracking-[0.3em]
-                      text-white/50
-                    "
-                  >
-                    {String(currentPage + 1).padStart(2, "0")} /{" "}
-                    {String(photos.length).padStart(2, "0")}
-                  </div>
-
-
-                  {/* =================================================
-                      PAGE TRANSITION LOADER
-                  ================================================== */}
-
-                  {turning && (
-
+                  return (
                     <div
-                      className={`
+                      key={`${photoIndex}-${offset}`}
+                      className="
                         absolute
-                        inset-y-0
-                        z-30
-                        w-1/2
+                        left-1/2
+                        top-1/2
+                        h-[92%]
+                        w-[72%]
+                        -translate-x-1/2
+                        -translate-y-1/2
                         overflow-hidden
+                        rounded-xl
                         bg-zinc-950
-                        ${
-                          direction === "next"
-                            ? "right-0 origin-left"
-                            : "left-0 origin-right"
-                        }
-                      `}
+                        shadow-2xl
+                      "
+                      style={getCardStyle(offset)}
                     >
 
-                      <div
+                      <img
+                        src={photos[photoIndex]}
+                        alt={`Collection photograph ${photoIndex + 1}`}
+                        draggable={false}
+                        onLoad={() => {
+                          if (isMain) {
+                            setImageLoaded(true);
+                          }
+                        }}
                         className="
-                          flex
                           h-full
                           w-full
+                          select-none
+                          object-contain
+                        "
+                      />
+
+
+                      {/* Dark layer on side photographs */}
+
+                      {!isMain && (
+                        <div
+                          className="
+                            pointer-events-none
+                            absolute
+                            inset-0
+                            bg-black/30
+                          "
+                        />
+                      )}
+
+
+                      {/* Main image loading screen */}
+
+                      {isMain && !imageLoaded && (
+                        <div
+                          className="
+                            absolute
+                            inset-0
+                            z-20
+                            flex
+                            flex-col
+                            items-center
+                            justify-center
+                            bg-zinc-950
+                          "
+                        >
+
+                          <div className="relative h-16 w-16">
+
+                            <img
+                              src="/logo.png"
+                              alt=""
+                              className="
+                                absolute
+                                inset-0
+                                h-full
+                                w-full
+                                object-contain
+                                animate-logo-white
+                              "
+                            />
+
+                            <img
+                              src="/logo_golden.png"
+                              alt=""
+                              aria-hidden="true"
+                              className="
+                                absolute
+                                inset-0
+                                h-full
+                                w-full
+                                object-contain
+                                animate-logo-golden
+                              "
+                            />
+
+                          </div>
+
+                          <p
+                            className="
+                              mt-4
+                              text-[9px]
+                              font-semibold
+                              tracking-[0.4em]
+                              text-white/70
+                            "
+                          >
+                            SUBLIME STUDIOS
+                          </p>
+
+                          <div className="mt-4 flex gap-1.5">
+
+                            <span className="loading-dot" />
+                            <span className="loading-dot delay-1" />
+                            <span className="loading-dot delay-2" />
+
+                          </div>
+
+                        </div>
+                      )}
+
+                    </div>
+                  );
+                })}
+
+              </div>
+
+            </div>
+
+
+            {/* =================================================
+                NEXT BUTTON
+            ================================================== */}
+
+            <button
+              onClick={goNext}
+              disabled={
+                currentIndex === totalPhotos - 1 ||
+                isTransitioning
+              }
+              aria-label="Next photograph"
+              className="
+                absolute
+                right-2
+                top-1/2
+                z-50
+                flex
+                h-14
+                w-14
+                -translate-y-1/2
+                items-center
+                justify-center
+                rounded-full
+                border
+                border-white/15
+                bg-black/50
+                text-2xl
+                text-white
+                backdrop-blur-md
+                transition-all
+                duration-300
+                hover:scale-110
+                hover:border-orange-500
+                hover:text-orange-400
+                disabled:cursor-not-allowed
+                disabled:opacity-20
+              "
+            >
+              →
+            </button>
+
+
+            {/* =================================================
+                COUNTER
+            ================================================== */}
+
+            <div
+              className="
+                absolute
+                bottom-4
+                left-1/2
+                z-50
+                -translate-x-1/2
+                text-xs
+                tracking-[0.35em]
+                text-white/50
+              "
+            >
+              {String(currentIndex + 1).padStart(2, "0")}
+              {" / "}
+              {String(totalPhotos).padStart(2, "0")}
+            </div>
+
+          </div>
+
+        </div>
+
+
+        {/* =====================================================
+            MOBILE VIEWER
+        ====================================================== */}
+
+        <div className="md:hidden">
+
+          <div className="relative h-[500px] w-full overflow-hidden">
+
+
+            {/* Mobile stack */}
+
+            <div
+              className="
+                absolute
+                inset-0
+                flex
+                items-center
+                justify-center
+              "
+            >
+
+              {visibleOffsets.map((offset) => {
+
+                const photoIndex = getPhotoIndex(offset);
+
+                if (photoIndex === null) return null;
+
+                const isMain = offset === 0;
+
+                return (
+                  <div
+                    key={`${photoIndex}-${offset}`}
+                    className="
+                      absolute
+                      left-1/2
+                      top-1/2
+                      h-[82%]
+                      w-[78%]
+                      -translate-x-1/2
+                      -translate-y-1/2
+                      overflow-hidden
+                      rounded-xl
+                      bg-zinc-950
+                      shadow-2xl
+                    "
+                    style={{
+                      ...getCardStyle(offset),
+                      ...(offset !== 0
+                        ? {
+                            transform:
+                              offset < 0
+                                ? "translateX(-92%) scale(0.82)"
+                                : "translateX(92%) scale(0.82)",
+                          }
+                        : {}),
+                    }}
+                  >
+
+                    <img
+                      src={photos[photoIndex]}
+                      alt={`Collection photograph ${photoIndex + 1}`}
+                      draggable={false}
+                      onLoad={() => {
+                        if (isMain) {
+                          setImageLoaded(true);
+                        }
+                      }}
+                      className="
+                        h-full
+                        w-full
+                        select-none
+                        object-contain
+                      "
+                    />
+
+
+                    {!isMain && (
+                      <div
+                        className="
+                          pointer-events-none
+                          absolute
+                          inset-0
+                          bg-black/35
+                        "
+                      />
+                    )}
+
+
+                    {isMain && !imageLoaded && (
+                      <div
+                        className="
+                          absolute
+                          inset-0
+                          z-20
+                          flex
                           flex-col
                           items-center
                           justify-center
@@ -500,7 +609,7 @@ export default function Gallery() {
                         "
                       >
 
-                        <div className="relative h-16 w-16">
+                        <div className="relative h-14 w-14">
 
                           <img
                             src="/logo.png"
@@ -531,18 +640,6 @@ export default function Gallery() {
 
                         </div>
 
-                        <p
-                          className="
-                            mt-4
-                            text-[9px]
-                            font-semibold
-                            tracking-[0.4em]
-                            text-white/70
-                          "
-                        >
-                          SUBLIME STUDIOS
-                        </p>
-
                         <div className="mt-4 flex gap-1.5">
 
                           <span className="loading-dot" />
@@ -552,277 +649,102 @@ export default function Gallery() {
                         </div>
 
                       </div>
+                    )}
 
-                    </div>
+                  </div>
+                );
 
-                  )}
-
-                </div>
-
-              </div>
+              })}
 
             </div>
 
 
             {/* =================================================
-                NEXT BUTTON
+                MOBILE PREVIOUS
             ================================================== */}
 
             <button
-              onClick={nextPage}
-              disabled={currentPage === photos.length - 1 || turning}
+              onClick={goPrevious}
+              disabled={currentIndex === 0 || isTransitioning}
+              aria-label="Previous photograph"
               className="
                 absolute
-                right-0
+                left-2
                 top-1/2
-                z-40
+                z-50
                 flex
-                h-14
-                w-14
+                h-11
+                w-11
                 -translate-y-1/2
                 items-center
                 justify-center
                 rounded-full
                 border
-                border-white/15
-                bg-black/60
-                text-2xl
+                border-white/20
+                bg-black/50
+                text-xl
                 text-white
-                backdrop-blur-sm
-                transition-all
-                duration-300
-                hover:scale-105
-                hover:border-orange-500
-                hover:bg-black/80
-                hover:text-orange-400
-                disabled:cursor-not-allowed
+                backdrop-blur-md
                 disabled:opacity-20
               "
+            >
+              ←
+            </button>
+
+
+            {/* =================================================
+                MOBILE NEXT
+            ================================================== */}
+
+            <button
+              onClick={goNext}
+              disabled={
+                currentIndex === totalPhotos - 1 ||
+                isTransitioning
+              }
               aria-label="Next photograph"
+              className="
+                absolute
+                right-2
+                top-1/2
+                z-50
+                flex
+                h-11
+                w-11
+                -translate-y-1/2
+                items-center
+                justify-center
+                rounded-full
+                border
+                border-white/20
+                bg-black/50
+                text-xl
+                text-white
+                backdrop-blur-md
+                disabled:opacity-20
+              "
             >
               →
             </button>
 
-          </div>
 
-        </div>
-
-
-        {/* =====================================================
-            MOBILE BOOK
-        ====================================================== */}
-
-        <div className="md:hidden">
-
-          <div className="relative mx-auto w-full max-w-md">
+            {/* Mobile counter */}
 
             <div
               className="
-                relative
-                aspect-[4/5]
-                overflow-hidden
-                rounded-xl
-                bg-zinc-950
-                shadow-2xl
+                absolute
+                bottom-3
+                left-1/2
+                z-50
+                -translate-x-1/2
+                text-[10px]
+                tracking-[0.35em]
+                text-white/50
               "
             >
-
-              {currentPage === photos.length - 1 ? (
-
-                <div
-                  className="
-                    flex
-                    h-full
-                    flex-col
-                    items-center
-                    justify-center
-                    px-8
-                    text-center
-                  "
-                >
-
-                  <div className="relative h-16 w-16">
-
-                    <img
-                      src="/logo.png"
-                      alt="Sublime Studios"
-                      className="
-                        absolute
-                        inset-0
-                        h-full
-                        w-full
-                        object-contain
-                      "
-                    />
-
-                  </div>
-
-                  <p className="mt-5 text-xs font-semibold tracking-[0.4em]">
-                    SUBLIME STUDIOS
-                  </p>
-
-                  <div className="mt-6 h-px w-12 bg-orange-500/60" />
-
-                  <p
-                    className="
-                      mt-6
-                      text-[9px]
-                      tracking-[0.35em]
-                      text-orange-400
-                    "
-                  >
-                    END OF COLLECTION
-                  </p>
-
-                </div>
-
-              ) : (
-
-                <img
-                  src={currentPhoto}
-                  alt={`Collection photograph ${currentPage + 1}`}
-                  className="
-                    absolute
-                    inset-0
-                    h-full
-                    w-full
-                    object-contain
-                  "
-                />
-
-              )}
-
-
-              {/* Mobile transition */}
-
-              {turning && (
-
-                <div className="absolute inset-0 z-30 flex flex-col items-center justify-center bg-zinc-950">
-
-                  <div className="relative h-16 w-16">
-
-                    <img
-                      src="/logo.png"
-                      alt=""
-                      className="
-                        absolute
-                        inset-0
-                        h-full
-                        w-full
-                        object-contain
-                        animate-logo-white
-                      "
-                    />
-
-                    <img
-                      src="/logo_golden.png"
-                      alt=""
-                      aria-hidden="true"
-                      className="
-                        absolute
-                        inset-0
-                        h-full
-                        w-full
-                        object-contain
-                        animate-logo-golden
-                      "
-                    />
-
-                  </div>
-
-                  <div className="mt-4 flex gap-1.5">
-
-                    <span className="loading-dot" />
-                    <span className="loading-dot delay-1" />
-                    <span className="loading-dot delay-2" />
-
-                  </div>
-
-                </div>
-
-              )}
-
-
-              {/* Mobile page number */}
-
-              <div
-                className="
-                  absolute
-                  bottom-5
-                  right-5
-                  z-20
-                  text-xs
-                  tracking-[0.3em]
-                  text-white/55
-                "
-              >
-                {String(currentPage + 1).padStart(2, "0")} /{" "}
-                {String(photos.length).padStart(2, "0")}
-              </div>
-
-            </div>
-
-
-            {/* Mobile controls */}
-
-            <div className="mt-7 flex items-center justify-center gap-6">
-
-              <button
-                onClick={previousPage}
-                disabled={currentPage === 0 || turning}
-                className="
-                  flex
-                  h-11
-                  w-11
-                  items-center
-                  justify-center
-                  rounded-full
-                  border
-                  border-white/15
-                  text-white
-                  transition
-                  hover:border-orange-500
-                  hover:text-orange-400
-                  disabled:opacity-25
-                "
-                aria-label="Previous photograph"
-              >
-                ←
-              </button>
-
-              <span
-                className="
-                  text-[10px]
-                  tracking-[0.3em]
-                  text-gray-500
-                "
-              >
-                TURN THE PAGE
-              </span>
-
-              <button
-                onClick={nextPage}
-                disabled={currentPage === photos.length - 1 || turning}
-                className="
-                  flex
-                  h-11
-                  w-11
-                  items-center
-                  justify-center
-                  rounded-full
-                  border
-                  border-white/15
-                  text-white
-                  transition
-                  hover:border-orange-500
-                  hover:text-orange-400
-                  disabled:opacity-25
-                "
-                aria-label="Next photograph"
-              >
-                →
-              </button>
-
+              {String(currentIndex + 1).padStart(2, "0")}
+              {" / "}
+              {String(totalPhotos).padStart(2, "0")}
             </div>
 
           </div>
@@ -830,6 +752,7 @@ export default function Gallery() {
         </div>
 
       </div>
+
     </section>
   );
 }
