@@ -60,7 +60,6 @@ export default function Gallery() {
   };
 
   const currentPhoto = photos[currentPage];
-  const previousPhoto = photos[currentPage - 1];
 
   return (
     <section
@@ -92,7 +91,7 @@ export default function Gallery() {
 
 
         {/* =====================================================
-            DESKTOP
+            DESKTOP BOOK
         ====================================================== */}
 
         <div className="hidden md:block">
@@ -108,36 +107,130 @@ export default function Gallery() {
 
             <div className="relative h-full w-full overflow-hidden rounded-xl bg-zinc-950 shadow-2xl">
 
-              {/* Left Page */}
+              {/* =================================================
+                  LEFT PAGE
+              ================================================== */}
 
-              <div className="absolute inset-y-0 left-0 w-1/2 overflow-hidden bg-zinc-950">
+              <div className="absolute inset-y-0 left-0 w-1/2 overflow-hidden border-r border-white/10 bg-zinc-950">
 
-                {previousPhoto && (
+                {currentPage === 0 ? (
+
+                  /* Opening Page */
+
+                  <div className="flex h-full flex-col items-center justify-center px-8 text-center">
+
+                    <div className="relative h-20 w-20">
+
+                      <img
+                        src="/logo.png"
+                        alt="Sublime Studios"
+                        className="absolute inset-0 h-full w-full object-contain"
+                      />
+
+                      <img
+                        src="/logo_golden.png"
+                        alt=""
+                        aria-hidden="true"
+                        className="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity duration-700 hover:opacity-100"
+                      />
+
+                    </div>
+
+                    <p className="mt-6 text-xs font-semibold tracking-[0.45em] text-white">
+                      SUBLIME STUDIOS
+                    </p>
+
+                    <div className="mt-7 h-px w-16 bg-orange-500/60" />
+
+                    <p className="mt-7 text-[10px] font-medium tracking-[0.4em] text-orange-400">
+                      VISUAL COLLECTIONS
+                    </p>
+
+                    <p className="mt-4 max-w-xs text-sm leading-7 text-gray-500">
+                      A collection of moments, perspectives and stories
+                      captured through the lens.
+                    </p>
+
+                  </div>
+
+                ) : (
+
+                  /* Normal Left Page */
+
                   <img
-                    src={previousPhoto}
+                    src={photos[currentPage - 1]}
                     alt=""
                     className="absolute inset-0 h-full w-full object-contain"
                   />
+
                 )}
 
               </div>
 
 
-              {/* Right Page */}
+              {/* =================================================
+                  RIGHT PAGE
+              ================================================== */}
 
               <div className="absolute inset-y-0 right-0 w-1/2 overflow-hidden bg-zinc-950">
 
-                <img
-                  src={currentPhoto}
-                  alt={`Collection photograph ${currentPage + 1}`}
-                  className="h-full w-full object-contain"
-                />
+                {currentPage === photos.length - 1 ? (
+
+                  /* Closing Page */
+
+                  <div className="flex h-full flex-col items-center justify-center px-8 text-center">
+
+                    <div className="relative h-20 w-20">
+
+                      <img
+                        src="/logo.png"
+                        alt="Sublime Studios"
+                        className="absolute inset-0 h-full w-full object-contain"
+                      />
+
+                      <img
+                        src="/logo_golden.png"
+                        alt=""
+                        aria-hidden="true"
+                        className="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity duration-700 hover:opacity-100"
+                      />
+
+                    </div>
+
+                    <p className="mt-6 text-xs font-semibold tracking-[0.45em] text-white">
+                      SUBLIME STUDIOS
+                    </p>
+
+                    <div className="mt-7 h-px w-16 bg-orange-500/60" />
+
+                    <p className="mt-7 text-[10px] font-medium tracking-[0.4em] text-orange-400">
+                      END OF COLLECTION
+                    </p>
+
+                    <p className="mt-4 max-w-xs text-sm leading-7 text-gray-500">
+                      Thank you for taking a moment to explore these
+                      photographs.
+                    </p>
+
+                  </div>
+
+                ) : (
+
+                  /* Current Photograph */
+
+                  <img
+                    src={currentPhoto}
+                    alt={`Collection photograph ${currentPage + 1}`}
+                    className="h-full w-full object-contain"
+                  />
+
+                )}
 
               </div>
 
 
               {/* =================================================
-                  PAGE TURN
+                  PAGE TURNING SHEET
               ================================================== */}
 
               {turning && (
@@ -149,15 +242,42 @@ export default function Gallery() {
                   }`}
                 >
 
-                  <img
-                    src={
-                      direction === "next"
-                        ? currentPhoto
-                        : previousPhoto || currentPhoto
-                    }
-                    alt=""
-                    className="h-full w-full object-contain"
-                  />
+                  {/* Loading screen during page transition */}
+
+                  <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-zinc-950">
+
+                    <div className="relative h-16 w-16">
+
+                      <img
+                        src="/logo.png"
+                        alt=""
+                        className="absolute inset-0 h-full w-full object-contain animate-logo-white"
+                      />
+
+                      <img
+                        src="/logo_golden.png"
+                        alt=""
+                        aria-hidden="true"
+                        className="absolute inset-0 h-full w-full object-contain animate-logo-golden"
+                      />
+
+                    </div>
+
+                    <p className="mt-4 text-[9px] font-semibold tracking-[0.4em] text-white/70">
+                      SUBLIME STUDIOS
+                    </p>
+
+                    <div className="mt-4 flex gap-1.5">
+
+                      <span className="loading-dot" />
+
+                      <span className="loading-dot delay-1" />
+
+                      <span className="loading-dot delay-2" />
+
+                    </div>
+
+                  </div>
 
                 </div>
               )}
@@ -180,7 +300,9 @@ export default function Gallery() {
           </div>
 
 
-          {/* Desktop Controls */}
+          {/* =====================================================
+              DESKTOP CONTROLS
+          ====================================================== */}
 
           <div className="mt-8 flex items-center justify-center gap-5">
 
@@ -223,14 +345,51 @@ export default function Gallery() {
 
               {/* Current Photograph */}
 
-              <img
-                src={currentPhoto}
-                alt={`Collection photograph ${currentPage + 1}`}
-                className="absolute inset-0 h-full w-full object-contain"
-              />
+              {currentPage === photos.length - 1 ? (
+
+                <div className="flex h-full flex-col items-center justify-center px-8 text-center">
+
+                  <div className="relative h-16 w-16">
+
+                    <img
+                      src="/logo.png"
+                      alt="Sublime Studios"
+                      className="absolute inset-0 h-full w-full object-contain"
+                    />
+
+                    <img
+                      src="/logo_golden.png"
+                      alt=""
+                      aria-hidden="true"
+                      className="absolute inset-0 h-full w-full object-contain opacity-0"
+                    />
+
+                  </div>
+
+                  <p className="mt-5 text-xs font-semibold tracking-[0.4em]">
+                    SUBLIME STUDIOS
+                  </p>
+
+                  <div className="mt-6 h-px w-12 bg-orange-500/60" />
+
+                  <p className="mt-6 text-[9px] tracking-[0.35em] text-orange-400">
+                    END OF COLLECTION
+                  </p>
+
+                </div>
+
+              ) : (
+
+                <img
+                  src={currentPhoto}
+                  alt={`Collection photograph ${currentPage + 1}`}
+                  className="absolute inset-0 h-full w-full object-contain"
+                />
+
+              )}
 
 
-              {/* Page Turn */}
+              {/* Mobile Page Turn */}
 
               {turning && (
                 <div
@@ -241,15 +400,33 @@ export default function Gallery() {
                   }`}
                 >
 
-                  <img
-                    src={
-                      direction === "next"
-                        ? currentPhoto
-                        : previousPhoto || currentPhoto
-                    }
-                    alt=""
-                    className="h-full w-full object-contain"
-                  />
+                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-zinc-950">
+
+                    <div className="relative h-16 w-16">
+
+                      <img
+                        src="/logo.png"
+                        alt=""
+                        className="absolute inset-0 h-full w-full object-contain animate-logo-white"
+                      />
+
+                      <img
+                        src="/logo_golden.png"
+                        alt=""
+                        className="absolute inset-0 h-full w-full object-contain animate-logo-golden"
+                      />
+
+                    </div>
+
+                    <div className="mt-4 flex gap-1.5">
+
+                      <span className="loading-dot" />
+                      <span className="loading-dot delay-1" />
+                      <span className="loading-dot delay-2" />
+
+                    </div>
+
+                  </div>
 
                 </div>
               )}
