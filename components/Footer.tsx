@@ -1,6 +1,4 @@
 import {
-  SiSony,
-  SiDji,
   SiReact,
   SiNextdotjs,
   SiVercel,
@@ -9,53 +7,69 @@ import {
 
 type BrandProps = {
   name: string;
+  image?: string;
   icon?: React.ReactNode;
 };
 
-function Brand({ name, icon }: BrandProps) {
+function Brand({ name, image, icon }: BrandProps) {
   return (
     <div
       className="
         group
         flex
-        min-w-[70px]
+        min-w-[76px]
         flex-col
         items-center
         justify-center
         gap-2
       "
     >
-      {icon ? (
-        <div
-          className="
-            text-3xl
-            text-gray-500
-            transition-all
-            duration-300
-            group-hover:scale-110
-            group-hover:text-orange-500
-          "
-        >
-          {icon}
-        </div>
-      ) : (
-        <div
-          className="
-            flex
-            h-8
-            items-center
-            text-sm
-            font-semibold
-            tracking-tight
-            text-gray-500
-            transition-all
-            duration-300
-            group-hover:text-orange-500
-          "
-        >
-          {name}
-        </div>
-      )}
+      {/* Logo */}
+
+      <div
+        className="
+          flex
+          h-10
+          w-20
+          items-center
+          justify-center
+        "
+      >
+        {image ? (
+          <img
+            src={image}
+            alt={name}
+            className="
+              max-h-9
+              max-w-[72px]
+              w-auto
+              object-contain
+              opacity-55
+              grayscale
+              transition-all
+              duration-300
+              group-hover:scale-110
+              group-hover:opacity-100
+              group-hover:grayscale-0
+            "
+          />
+        ) : (
+          <div
+            className="
+              text-3xl
+              text-gray-500
+              transition-all
+              duration-300
+              group-hover:scale-110
+              group-hover:text-orange-500
+            "
+          >
+            {icon}
+          </div>
+        )}
+      </div>
+
+      {/* Brand name */}
 
       <span
         className="
@@ -83,7 +97,7 @@ export default function Footer() {
 
 
         {/* =====================================================
-            BRAND
+            SUBLIME STUDIOS
         ====================================================== */}
 
         <div className="text-center">
@@ -148,7 +162,7 @@ export default function Footer() {
 
 
           {/* =================================================
-              FOUR CATEGORIES
+              BRAND CATEGORIES
           ================================================== */}
 
           <div
@@ -156,7 +170,8 @@ export default function Footer() {
               mt-12
               grid
               grid-cols-2
-              gap-12
+              gap-x-6
+              gap-y-14
               md:grid-cols-4
               md:gap-8
             "
@@ -187,22 +202,28 @@ export default function Footer() {
                   flex-wrap
                   items-start
                   justify-center
-                  gap-6
+                  gap-5
                 "
               >
 
                 <Brand
                   name="Sony"
-                  icon={<SiSony />}
+                  image="/brands/sony.png"
                 />
 
-                <Brand name="Redmi" />
+                <Brand
+                  name="Redmi"
+                  image="/brands/redmi.png"
+                />
 
-                <Brand name="OnePlus" />
+                <Brand
+                  name="OnePlus"
+                  image="/brands/oneplus.png"
+                />
 
                 <Brand
                   name="DJI"
-                  icon={<SiDji />}
+                  image="/brands/dji.png"
                 />
 
               </div>
@@ -234,13 +255,19 @@ export default function Footer() {
                   flex-wrap
                   items-start
                   justify-center
-                  gap-6
+                  gap-5
                 "
               >
 
-                <Brand name="Hollyland" />
+                <Brand
+                  name="Hollyland"
+                  image="/brands/hollyland.png"
+                />
 
-                <Brand name="Digitek" />
+                <Brand
+                  name="Digitek"
+                  image="/brands/digitek.png"
+                />
 
               </div>
 
@@ -271,19 +298,34 @@ export default function Footer() {
                   flex-wrap
                   items-start
                   justify-center
-                  gap-6
+                  gap-5
                 "
               >
 
-                <Brand name="Photoshop" />
+                <Brand
+                  name="Photoshop"
+                  image="/brands/photoshop.png"
+                />
 
-                <Brand name="Lightroom" />
+                <Brand
+                  name="Lightroom"
+                  image="/brands/lightroom.png"
+                />
 
-                <Brand name="Premiere Pro" />
+                <Brand
+                  name="Premiere Pro"
+                  image="/brands/premiere-pro.png"
+                />
 
-                <Brand name="DaVinci Resolve" />
+                <Brand
+                  name="DaVinci Resolve"
+                  image="/brands/davinci.png"
+                />
 
-                <Brand name="YouCut" />
+                <Brand
+                  name="YouCut"
+                  image="/brands/youcut.png"
+                />
 
               </div>
 
@@ -314,11 +356,14 @@ export default function Footer() {
                   flex-wrap
                   items-start
                   justify-center
-                  gap-6
+                  gap-5
                 "
               >
 
-                <Brand name="ChatGPT" />
+                <Brand
+                  name="ChatGPT"
+                  image="/brands/chatgpt.png"
+                />
 
                 <Brand
                   name="React"
