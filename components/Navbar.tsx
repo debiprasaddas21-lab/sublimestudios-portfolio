@@ -1,29 +1,64 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const pathname = usePathname();
 
   const isHomePage = pathname === "/";
 
+  const [goldenLogo, setGoldenLogo] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [showNavbar, setShowNavbar] = useState(isHomePage);
+
+  /*
+  ============================================================
+  LOGO WHITE / GOLDEN ANIMATION
+  ============================================================
+  */
+
+  useEffect(() => {
+    const logoInterval = setInterval(() => {
+      setGoldenLogo((prev) => !prev);
+    }, 4000);
+
+    return () => clearInterval(logoInterval);
+  }, []);
+
+
+  /*
+  ============================================================
+  PAGE CHANGE
+  ============================================================
+  */
 
   useEffect(() => {
     if (isHomePage) {
       setShowNavbar(true);
-      return;
+      setMenuOpen(false);
+    } else {
+      setShowNavbar(false);
+      setMenuOpen(false);
     }
-
-    setShowNavbar(false);
   }, [isHomePage]);
 
 
   /*
   ============================================================
-  DESKTOP TOP EDGE DETECTION
+  HIDDEN NAVBAR DETECTION
+  ============================================================
+  
+  On internal pages:
+  
+  Move cursor near the top
+        ↓
+  Navbar appears
+  
+  Move cursor away
+        ↓
+  Navbar hides
   ============================================================
   */
 
@@ -31,11 +66,23 @@ export default function Navbar() {
     if (isHomePage) return;
 
     const handleMouseMove = (event: MouseEvent) => {
-      const topTrigger = 55;
+      const mouseY = event.clientY;
 
-      if (event.clientY <= topTrigger) {
+      /*
+      Top trigger zone
+      */
+
+      if (mouseY <= 45) {
         setShowNavbar(true);
-      } else if (event.clientY > 110) {
+        return;
+      }
+
+      /*
+      Give the user enough room to move
+      from the trigger area into the navbar.
+      */
+
+      if (mouseY > 95 && !menuOpen) {
         setShowNavbar(false);
       }
     };
@@ -45,7 +92,7 @@ export default function Navbar() {
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
     };
-  }, [isHomePage]);
+  }, [isHomePage, menuOpen]);
 
 
   /*
@@ -62,7 +109,7 @@ export default function Navbar() {
 
       if (!touch) return;
 
-      if (touch.clientY <= 80) {
+      if (touch.clientY <= 70) {
         setShowNavbar(true);
       }
     };
@@ -81,47 +128,109 @@ export default function Navbar() {
   ============================================================
   */
 
-  const navigation = [
-    {
-      name: "Home",
-      href: "/",
-    },
-    {
-      name: "About",
-      href: "/#about",
-    },
-    {
-      name: "Collections",
-      href: "/#gallery",
-    },
-    {
-      name: "Services",
-      href: "/#services",
-    },
-    {
-      name: "Contact",
-      href: "/#contact",
-    },
-  ];
+  const handleNavigation = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    targetId: string
+  ) => {
+    /*
+    ------------------------------------------------------------
+    HOMEPAGE
+    ------------------------------------------------------------
+    */
+
+    if (isHomePage) {
+      event.preventDefault();
+
+      const target = document.querySelector(targetId);
+
+      if (!target) return;
+
+      setMenuOpen(false);
+      setIsTransitioning(true);
+
+      setTimeout(() => {
+        target.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+
+        setTimeout(() => {
+          setIsTransitioning(false);
+        }, 350);
+      }, 100);
+
+      return;
+    }
+
+    /*
+    ------------------------------------------------------------
+    INTERNAL PAGES
+    ------------------------------------------------------------
+    
+    Let the browser navigate normally to the homepage section.
+    ------------------------------------------------------------
+    */
+
+    setMenuOpen(false);
+    setIsTransitioning(true);
+  };
+
+
+  /*
+  ============================================================
+  LINKS
+  ============================================================
+  */
+
+  const homeLink = isHomePage ? "#home" : "/#home";
+  const galleryLink = isHomePage ? "#gallery" : "/#gallery";
+  const aboutLink = isHomePage ? "#about" : "/#about";
+  const servicesLink = isHomePage ? "#services" : "/#services";
+  const contactLink = isHomePage ? "#contact" : "/#contact";
 
 
   return (
     <>
       {/* ======================================================
-          TOP EDGE TRIGGER
+          CINEMATIC TRANSITION OVERLAY
       ======================================================= */}
 
-      {!isHomePage && (
+      <div
+        className={`
+          fixed
+          inset-0
+          z-[100]
+          pointer-events-none
+          backdrop-blur-[2px]
+          bg-black/10
+          transition-all
+          duration-300
+          ${
+            isTransitioning
+              ? "opacity-100"
+              : "opacity-0"
+          }
+        `}
+      />
+
+
+      {/* ======================================================
+          TOP EDGE TRIGGER
+          
+          Only exists on internal pages.
+      ======================================================= */}
+
+      {!isHomePage && !showNavbar && (
         <div
           className="
             fixed
             left-0
             top-0
-            z-[9998]
-            h-12
+            z-[49]
+            h-10
             w-full
           "
-          onMouseEnter={() => setShowNavbar(true)}
+          aria-hidden="true"
         />
       )}
 
@@ -133,205 +242,355 @@ export default function Navbar() {
       <header
         className={`
           fixed
-          left-0
           top-0
-          z-[9999]
+          left-0
+          z-50
           w-full
+          border-b
+          border-white/10
+          bg-black/80
+          backdrop-blur-sm
           transition-transform
           duration-500
           ease-[cubic-bezier(0.22,0.8,0.2,1)]
           ${
-            isHomePage || showNavbar
+            showNavbar || isHomePage
               ? "translate-y-0"
               : "-translate-y-full"
           }
         `}
-        onMouseLeave={() => {
-          if (!isHomePage) {
-            setShowNavbar(false);
-          }
-        }}
       >
 
-        <nav
-          className="
-            mx-auto
-            flex
-            h-20
-            items-center
-            justify-between
-            border-b
-            border-white/10
-            bg-black/70
-            px-6
-            backdrop-blur-xl
-            md:px-10
-            lg:px-16
-          "
-        >
+        <div className="flex h-[72px] items-center justify-between px-4 sm:px-6 lg:px-8">
+
 
           {/* ==================================================
               LOGO
           =================================================== */}
 
-          <Link
-            href="/"
+          <a
+            href={homeLink}
+            onClick={(event) =>
+              handleNavigation(event, "#home")
+            }
             className="
-              group
+              relative
               flex
               items-center
-              gap-3
+              gap-2
+              sm:gap-3
             "
           >
 
-            <div className="relative h-10 w-10">
+            {/* White Logo */}
 
-              <img
-                src="/logo.png"
-                alt="Sublime Studios"
-                className="
-                  absolute
-                  inset-0
-                  h-full
-                  w-full
-                  object-contain
-                  transition-opacity
-                  duration-300
-                  group-hover:opacity-0
-                "
-              />
-
-              <img
-                src="/logo_golden.png"
-                alt=""
-                aria-hidden="true"
-                className="
-                  absolute
-                  inset-0
-                  h-full
-                  w-full
-                  object-contain
-                  opacity-0
-                  transition-opacity
-                  duration-300
-                  group-hover:opacity-100
-                "
-              />
-
-            </div>
+            <img
+              src="/logo.png"
+              alt="Sublime Studios Logo"
+              className={`
+                h-9
+                w-9
+                object-contain
+                transition-opacity
+                duration-700
+                sm:h-10
+                sm:w-10
+                ${
+                  goldenLogo
+                    ? "opacity-0"
+                    : "opacity-100"
+                }
+              `}
+            />
 
 
-            <div className="hidden sm:block">
+            {/* Golden Logo */}
 
-              <p
-                className="
-                  text-sm
-                  font-semibold
-                  tracking-[0.35em]
-                  text-white
-                "
-              >
-                SUBLIME
-              </p>
+            <img
+              src="/logo_golden.png"
+              alt=""
+              aria-hidden="true"
+              className={`
+                absolute
+                left-0
+                h-9
+                w-9
+                object-contain
+                transition-opacity
+                duration-700
+                sm:h-10
+                sm:w-10
+                ${
+                  goldenLogo
+                    ? "opacity-100"
+                    : "opacity-0"
+                }
+              `}
+            />
 
-              <p
-                className="
-                  text-[9px]
-                  tracking-[0.45em]
-                  text-gray-500
-                "
-              >
-                STUDIOS
-              </p>
 
-            </div>
+            {/* Studio Name */}
 
-          </Link>
+            <span
+              className="
+                whitespace-nowrap
+                text-sm
+                font-semibold
+                tracking-[0.18em]
+                text-white
+                sm:text-lg
+                sm:tracking-[0.3em]
+              "
+            >
+              SUBLIME STUDIOS
+            </span>
+
+          </a>
 
 
           {/* ==================================================
               DESKTOP NAVIGATION
           =================================================== */}
 
-          <div className="hidden items-center gap-8 md:flex">
+          <nav className="hidden items-center gap-7 md:flex lg:gap-10">
 
-            {navigation.map((item) => {
+            <a
+              href={homeLink}
+              onClick={(event) =>
+                handleNavigation(event, "#home")
+              }
+              className="
+                text-gray-300
+                transition
+                duration-300
+                hover:text-orange-500
+              "
+            >
+              Home
+            </a>
 
-              const isActive =
-                item.href === "/"
-                  ? pathname === "/"
-                  : item.href.startsWith("/#")
-                    ? pathname === "/"
-                    : pathname === item.href;
 
-              return (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={`
-                    relative
-                    text-[11px]
-                    font-medium
-                    tracking-[0.22em]
-                    transition-colors
-                    duration-300
-                    ${
-                      isActive
-                        ? "text-orange-400"
-                        : "text-gray-300 hover:text-orange-400"
-                    }
-                  `}
-                >
+            <a
+              href={galleryLink}
+              onClick={(event) =>
+                handleNavigation(event, "#gallery")
+              }
+              className="
+                text-gray-300
+                transition
+                duration-300
+                hover:text-orange-500
+              "
+            >
+              Collections
+            </a>
 
-                  {item.name}
 
-                  <span
-                    className={`
-                      absolute
-                      -bottom-2
-                      left-0
-                      h-px
-                      bg-orange-500
-                      transition-all
-                      duration-300
-                      ${
-                        isActive
-                          ? "w-full"
-                          : "w-0"
-                      }
-                    `}
-                  />
+            <a
+              href={aboutLink}
+              onClick={(event) =>
+                handleNavigation(event, "#about")
+              }
+              className="
+                text-gray-300
+                transition
+                duration-300
+                hover:text-orange-500
+              "
+            >
+              About
+            </a>
 
-                </Link>
-              );
-            })}
 
-          </div>
+            <a
+              href={servicesLink}
+              onClick={(event) =>
+                handleNavigation(event, "#services")
+              }
+              className="
+                text-gray-300
+                transition
+                duration-300
+                hover:text-orange-500
+              "
+            >
+              Services
+            </a>
+
+
+            <a
+              href={contactLink}
+              onClick={(event) =>
+                handleNavigation(event, "#contact")
+              }
+              className="
+                text-gray-300
+                transition
+                duration-300
+                hover:text-orange-500
+              "
+            >
+              Contact
+            </a>
+
+          </nav>
 
 
           {/* ==================================================
-              MOBILE MENU
+              MOBILE MENU BUTTON
           =================================================== */}
 
-          <div className="flex items-center md:hidden">
+          <button
+            type="button"
+            onClick={() => {
+              setMenuOpen((prev) => !prev);
+              setShowNavbar(true);
+            }}
+            aria-label={
+              menuOpen
+                ? "Close menu"
+                : "Open menu"
+            }
+            aria-expanded={menuOpen}
+            className="
+              flex
+              h-10
+              w-10
+              items-center
+              justify-center
+              rounded-full
+              border
+              border-white/10
+              text-white
+              transition
+              hover:border-orange-500
+              hover:text-orange-500
+              md:hidden
+            "
+          >
+            <span className="text-xl">
+              {menuOpen ? "×" : "☰"}
+            </span>
+          </button>
 
-            <Link
-              href="/"
+        </div>
+
+
+        {/* ==================================================
+            MOBILE NAVIGATION
+        =================================================== */}
+
+        <div
+          className={`
+            overflow-hidden
+            border-t
+            border-white/10
+            bg-black/95
+            backdrop-blur-md
+            transition-all
+            duration-300
+            md:hidden
+            ${
+              menuOpen
+                ? "max-h-[400px] opacity-100"
+                : "max-h-0 border-t-transparent opacity-0"
+            }
+          `}
+        >
+
+          <nav className="flex flex-col px-6 py-4">
+
+
+            <a
+              href={homeLink}
+              onClick={(event) =>
+                handleNavigation(event, "#home")
+              }
               className="
-                text-[10px]
-                font-medium
-                tracking-[0.3em]
+                border-b
+                border-white/5
+                py-4
                 text-gray-300
-                transition-colors
-                hover:text-orange-400
+                transition
+                hover:text-orange-500
               "
             >
-              HOME
-            </Link>
+              Home
+            </a>
 
-          </div>
 
-        </nav>
+            <a
+              href={galleryLink}
+              onClick={(event) =>
+                handleNavigation(event, "#gallery")
+              }
+              className="
+                border-b
+                border-white/5
+                py-4
+                text-gray-300
+                transition
+                hover:text-orange-500
+              "
+            >
+              Collections
+            </a>
+
+
+            <a
+              href={aboutLink}
+              onClick={(event) =>
+                handleNavigation(event, "#about")
+              }
+              className="
+                border-b
+                border-white/5
+                py-4
+                text-gray-300
+                transition
+                hover:text-orange-500
+              "
+            >
+              About
+            </a>
+
+
+            <a
+              href={servicesLink}
+              onClick={(event) =>
+                handleNavigation(event, "#services")
+              }
+              className="
+                border-b
+                border-white/5
+                py-4
+                text-gray-300
+                transition
+                hover:text-orange-500
+              "
+            >
+              Services
+            </a>
+
+
+            <a
+              href={contactLink}
+              onClick={(event) =>
+                handleNavigation(event, "#contact")
+              }
+              className="
+                py-4
+                text-gray-300
+                transition
+                hover:text-orange-500
+              "
+            >
+              Contact
+            </a>
+
+          </nav>
+
+        </div>
 
       </header>
     </>
