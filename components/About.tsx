@@ -12,25 +12,20 @@ export default function About() {
             LEFT — ABOUT CONTENT
         ====================================================== */}
 
-        <div className="w-full max-w-2xl">
+        <div className="order-2 lg:order-1">
 
-          {/* Eyebrow */}
-          <p className="mb-5 text-[10px] font-medium tracking-[0.3em] text-amber-400 sm:mb-6 sm:text-xs sm:tracking-[0.4em]">
+          <p className="mb-5 text-[10px] font-medium tracking-[0.35em] text-amber-400 sm:text-xs sm:tracking-[0.4em]">
             ABOUT ME
           </p>
 
-
-          {/* Heading */}
-          <h2 className="text-3xl font-bold leading-[1.15] tracking-tight text-white sm:text-4xl md:text-5xl">
+          <h2 className="text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
             Capturing Nature Through
             <br className="hidden sm:block" />
             <span className="sm:hidden"> </span>
-            Science &amp; Art
+            Science & Art
           </h2>
 
-
-          {/* Description */}
-          <p className="mt-6 text-base leading-7 text-gray-300 sm:mt-8 sm:text-lg sm:leading-9">
+          <p className="mt-6 text-base leading-8 text-gray-300 sm:text-lg sm:leading-9">
             I'm a photographer and geologist with a passion for documenting
             landscapes, wildlife, culture, and the intricate beauty of the
             natural world. Through Sublime Studios, I combine scientific
@@ -38,64 +33,36 @@ export default function About() {
             invite curiosity and connection.
           </p>
 
-
           {/* Photography Categories */}
-          <div className="mt-7 grid grid-cols-1 gap-4 sm:mt-8 sm:grid-cols-2 sm:gap-5">
 
-            {/* Wildlife */}
+          <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
+
             <div className="flex items-center gap-3">
-              <span className="text-lg text-orange-500 sm:text-xl">
-                ✓
-              </span>
-
-              <span className="text-sm text-white sm:text-base">
-                Wildlife Photography
-              </span>
+              <span className="text-orange-500">✓</span>
+              <span>Wildlife Photography</span>
             </div>
 
-
-            {/* Macro */}
             <div className="flex items-center gap-3">
-              <span className="text-lg text-orange-500 sm:text-xl">
-                ✓
-              </span>
-
-              <span className="text-sm text-white sm:text-base">
-                Macro Photography
-              </span>
+              <span className="text-orange-500">✓</span>
+              <span>Macro Photography</span>
             </div>
 
-
-            {/* Landscape */}
             <div className="flex items-center gap-3">
-              <span className="text-lg text-orange-500 sm:text-xl">
-                ✓
-              </span>
-
-              <span className="text-sm text-white sm:text-base">
-                Landscape Photography
-              </span>
+              <span className="text-orange-500">✓</span>
+              <span>Landscape Photography</span>
             </div>
 
-
-            {/* Geological */}
             <div className="flex items-center gap-3">
-              <span className="text-lg text-orange-500 sm:text-xl">
-                ✓
-              </span>
-
-              <span className="text-sm text-white sm:text-base">
-                Geological Photography
-              </span>
+              <span className="text-orange-500">✓</span>
+              <span>Geological Photography</span>
             </div>
 
           </div>
 
-
           {/* Portfolio Buttons */}
-          <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center">
 
-            {/* View Portfolio */}
+          <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+
             <a
               href="/about/portfolio.pdf"
               target="_blank"
@@ -121,8 +88,6 @@ export default function About() {
               View Portfolio
             </a>
 
-
-            {/* Download Portfolio */}
             <a
               href="/about/portfolio.pdf"
               download
@@ -149,37 +114,32 @@ export default function About() {
 
         </div>
 
-
         {/* =====================================================
             RIGHT — FEATURE PHOTOGRAPH
         ====================================================== */}
 
-        <div className="flex w-full items-center justify-center lg:justify-end">
+        <div className="order-1 flex justify-center lg:order-2 lg:justify-end">
 
           <div
             className="
               group
               relative
-              w-full
-              max-w-[620px]
               overflow-hidden
               rounded-3xl
               border
               border-white/10
-              bg-zinc-950
             "
           >
 
-            {/* Photograph */}
             <img
-              src="/about/photo-05.png"
+              src="/about/photo-05.jpeg"
               alt="Sublime Studios photographer"
               className="
-                block
                 h-auto
-                max-h-[720px]
-                w-full
-                object-cover
+                w-auto
+                max-h-[560px]
+                max-w-full
+                object-contain
                 transition-transform
                 duration-700
                 ease-out
@@ -187,22 +147,22 @@ export default function About() {
               "
             />
 
-
             {/* Cinematic Overlay */}
+
             <div
               className="
                 pointer-events-none
                 absolute
                 inset-0
                 bg-gradient-to-t
-                from-black/30
+                from-black/15
                 via-transparent
                 to-transparent
               "
             />
 
+            {/* Golden Hover Border */}
 
-            {/* Subtle Golden Edge */}
             <div
               className="
                 pointer-events-none
