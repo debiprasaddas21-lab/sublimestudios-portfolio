@@ -1,88 +1,27 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
-const aboutImages = [
-  "/about/photo-01.jpg",
-  "/about/photo-02.jpg",
-  "/about/photo-03.jpg",
-  "/about/photo-04.jpg",
-];
-
 export default function About() {
-  const [currentImage, setCurrentImage] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImage((prev) => (prev + 1) % aboutImages.length);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <section
       id="about"
-      className="bg-black px-5 py-16 sm:px-6 sm:py-20 md:px-10 lg:px-16 lg:py-24"
+      className="bg-black px-5 py-16 text-white sm:px-6 sm:py-20 md:px-10 lg:px-16 lg:py-24"
     >
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 md:gap-16 lg:grid-cols-2 lg:gap-20">
 
         {/* =====================================================
-            LEFT — DYNAMIC PHOTOGRAPH
-        ====================================================== */}
-
-        <div className="flex w-full items-center justify-center">
-
-          {/* Slideshow */}
-          <div className="relative w-full max-w-[620px] overflow-hidden rounded-3xl">
-
-            {aboutImages.map((image, index) => (
-              <img
-                key={image}
-                src={image}
-                alt="Sublime Studios photography"
-                className={`block w-full max-h-[620px] sm:max-h-[680px] rounded-3xl object-contain transition-opacity duration-[1800ms] ease-in-out ${
-                  index === currentImage
-                    ? "opacity-100"
-                    : "pointer-events-none absolute inset-0 opacity-0"
-                }`}
-              />
-            ))}
-
-            {/* Slideshow Indicators */}
-            <div className="absolute bottom-4 sm:bottom-5 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2">
-
-              {aboutImages.map((_, index) => (
-                <span
-                  key={index}
-                  className={`h-1 rounded-full transition-all duration-500 ${
-                    index === currentImage
-                      ? "w-7 sm:w-8 bg-amber-400"
-                      : "w-2.5 sm:w-3 bg-white/50"
-                  }`}
-                />
-              ))}
-
-            </div>
-
-          </div>
-        </div>
-
-
-        {/* =====================================================
-            RIGHT — ABOUT CONTENT
+            LEFT — ABOUT CONTENT
         ====================================================== */}
 
         <div className="w-full max-w-2xl">
 
           {/* Eyebrow */}
-          <p className="mb-5 sm:mb-6 text-[10px] sm:text-xs font-medium tracking-[0.3em] sm:tracking-[0.4em] text-amber-400">
+          <p className="mb-5 text-[10px] font-medium tracking-[0.3em] text-amber-400 sm:mb-6 sm:text-xs sm:tracking-[0.4em]">
             ABOUT ME
           </p>
 
 
           {/* Heading */}
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-[1.15] tracking-tight text-white">
+          <h2 className="text-3xl font-bold leading-[1.15] tracking-tight text-white sm:text-4xl md:text-5xl">
             Capturing Nature Through
             <br className="hidden sm:block" />
             <span className="sm:hidden"> </span>
@@ -91,56 +30,61 @@ export default function About() {
 
 
           {/* Description */}
-          <p className="mt-6 sm:mt-8 text-base sm:text-lg leading-7 sm:leading-9 text-gray-300">
-            I'm a photographer and geologist passionate about documenting
-            landscapes, wildlife, and the intricate beauty of minerals.
-            Through Sublime Studios, I combine scientific observation with
-            creative storytelling to create images that inspire curiosity.
+          <p className="mt-6 text-base leading-7 text-gray-300 sm:mt-8 sm:text-lg sm:leading-9">
+            I'm a photographer and geologist with a passion for documenting
+            landscapes, wildlife, culture, and the intricate beauty of the
+            natural world. Through Sublime Studios, I combine scientific
+            observation with creative storytelling to create images that
+            invite curiosity and connection.
           </p>
 
 
           {/* Photography Categories */}
-          <div className="mt-7 sm:mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
+          <div className="mt-7 grid grid-cols-1 gap-4 sm:mt-8 sm:grid-cols-2 sm:gap-5">
 
+            {/* Wildlife */}
             <div className="flex items-center gap-3">
-              <span className="text-lg sm:text-xl text-orange-500">
+              <span className="text-lg text-orange-500 sm:text-xl">
                 ✓
               </span>
 
-              <span className="text-sm sm:text-base text-white">
+              <span className="text-sm text-white sm:text-base">
                 Wildlife Photography
               </span>
             </div>
 
 
+            {/* Macro */}
             <div className="flex items-center gap-3">
-              <span className="text-lg sm:text-xl text-orange-500">
+              <span className="text-lg text-orange-500 sm:text-xl">
                 ✓
               </span>
 
-              <span className="text-sm sm:text-base text-white">
+              <span className="text-sm text-white sm:text-base">
                 Macro Photography
               </span>
             </div>
 
 
+            {/* Landscape */}
             <div className="flex items-center gap-3">
-              <span className="text-lg sm:text-xl text-orange-500">
+              <span className="text-lg text-orange-500 sm:text-xl">
                 ✓
               </span>
 
-              <span className="text-sm sm:text-base text-white">
+              <span className="text-sm text-white sm:text-base">
                 Landscape Photography
               </span>
             </div>
 
 
+            {/* Geological */}
             <div className="flex items-center gap-3">
-              <span className="text-lg sm:text-xl text-orange-500">
+              <span className="text-lg text-orange-500 sm:text-xl">
                 ✓
               </span>
 
-              <span className="text-sm sm:text-base text-white">
+              <span className="text-sm text-white sm:text-base">
                 Geological Photography
               </span>
             </div>
@@ -148,15 +92,130 @@ export default function About() {
           </div>
 
 
-          {/* Download Portfolio */}
-          <div className="mt-8 sm:mt-10">
+          {/* Portfolio Buttons */}
+          <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center">
 
+            {/* View Portfolio */}
             <a
-              href="#"
-              className="inline-flex items-center rounded-full bg-orange-600 px-6 sm:px-7 py-3 sm:py-3.5 text-sm font-semibold text-white transition duration-300 hover:bg-orange-700"
+              href="/about/portfolio.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="
+                inline-flex
+                items-center
+                justify-center
+                rounded-full
+                border
+                border-white/20
+                px-6
+                py-3
+                text-sm
+                font-semibold
+                text-white
+                transition
+                duration-300
+                hover:border-orange-500
+                hover:text-orange-400
+              "
+            >
+              View Portfolio
+            </a>
+
+
+            {/* Download Portfolio */}
+            <a
+              href="/about/portfolio.pdf"
+              download
+              className="
+                inline-flex
+                items-center
+                justify-center
+                rounded-full
+                bg-orange-600
+                px-6
+                py-3
+                text-sm
+                font-semibold
+                text-white
+                transition
+                duration-300
+                hover:bg-orange-700
+              "
             >
               Download Portfolio
             </a>
+
+          </div>
+
+        </div>
+
+
+        {/* =====================================================
+            RIGHT — FEATURE PHOTOGRAPH
+        ====================================================== */}
+
+        <div className="flex w-full items-center justify-center lg:justify-end">
+
+          <div
+            className="
+              group
+              relative
+              w-full
+              max-w-[620px]
+              overflow-hidden
+              rounded-3xl
+              border
+              border-white/10
+              bg-zinc-950
+            "
+          >
+
+            {/* Photograph */}
+            <img
+              src="/about/photo-05.png"
+              alt="Sublime Studios photographer"
+              className="
+                block
+                h-auto
+                max-h-[720px]
+                w-full
+                object-cover
+                transition-transform
+                duration-700
+                ease-out
+                group-hover:scale-[1.02]
+              "
+            />
+
+
+            {/* Cinematic Overlay */}
+            <div
+              className="
+                pointer-events-none
+                absolute
+                inset-0
+                bg-gradient-to-t
+                from-black/30
+                via-transparent
+                to-transparent
+              "
+            />
+
+
+            {/* Subtle Golden Edge */}
+            <div
+              className="
+                pointer-events-none
+                absolute
+                inset-0
+                rounded-3xl
+                border
+                border-transparent
+                transition
+                duration-500
+                group-hover:border-orange-500/40
+              "
+            />
 
           </div>
 
